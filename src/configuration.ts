@@ -1,30 +1,14 @@
 import * as vscode from 'vscode';
-import * as moment from 'moment';
-
-const DAY_THEME_PARAMETER_NAME = 'sundial.dayTheme';
-const NIGHT_THEME_PARAMETER_NAME = 'sundial.nightTheme';
-const UPDATE_INTERVAL = 'sundial.interval';
 
 const WORKBENCH_COLOR_THEME = 'workbench.colorTheme';
 
-export function getTime(): number {
-  return moment().hour();
-}
-
-export function hasSundialConfiguration(): any {
-  return {
-    day_theme: vscode.workspace.getConfiguration().has(DAY_THEME_PARAMETER_NAME),
-    night_theme: vscode.workspace.getConfiguration().has(NIGHT_THEME_PARAMETER_NAME),
-    interval: vscode.workspace.getConfiguration().has(UPDATE_INTERVAL)
-  };
-}
-
 export function getSundialConfiguration(): any {
-  return {
-    day_theme: vscode.workspace.getConfiguration().get(DAY_THEME_PARAMETER_NAME),
-    night_theme: vscode.workspace.getConfiguration().get(NIGHT_THEME_PARAMETER_NAME),
-    interval: vscode.workspace.getConfiguration().get(UPDATE_INTERVAL) || 3600000 // 3600000 = 1h
-  };
+  return vscode.workspace.getConfiguration('sundial');
+}
+
+export function hasNoThemesSelected(): boolean {
+  const config = getSundialConfiguration();
+  return config.day_theme && config.night_theme ? false : true;
 }
 
 export function getWorkbenchTheme(): any {

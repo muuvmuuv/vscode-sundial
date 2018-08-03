@@ -2,11 +2,13 @@
   "name": "vscode-sundial",
   "displayName": "Sundial",
   "description": "Changes your theme on a specific time of the day.",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "publisher": "muuvmuuv",
   "qna": false,
   "icon": "images/icon.jpg",
-  "galleryBanner": "images/banner.jpg",
+  "galleryBanner": {
+    "Preview": "images/banner.jpg"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/muuvmuuv/vscode-sundial"
@@ -27,15 +29,28 @@
       "properties": {
         "sundial.day_theme": {
           "type": "string",
+          "default": null,
           "description": "Choose a theme to display on the day"
+        },
+        "sundial.day_range": {
+          "type": "string",
+          "default": "07:00 - 21:00",
+          "description": "Set a range of time where you want to have day_theme enabled"
         },
         "sundial.night_theme": {
           "type": "string",
+          "default": null,
           "description": "Choose a theme to display on the night"
+        },
+        "sundial.night_range": {
+          "type": "string",
+          "default": "21:00 - 07:00",
+          "description": "Set a range of time where you want to have night_theme enabled"
         },
         "sundial.interval": {
           "type": "number",
-          "description": "Interval Sundial is checking the time"
+          "default": 3600000,
+          "description": "Interval Sundial is checking the time. Default is every hour. Time in miliseconds."
         }
       }
     }
