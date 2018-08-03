@@ -41,8 +41,6 @@ export function applyTheme(theme: string) {
         .getConfiguration()
         .update(WORKBENCH_COLOR_THEME, theme, true);
 
-      console.log(status);
-
       if (status) {
         resolve(status);
       } else {

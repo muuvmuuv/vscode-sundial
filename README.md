@@ -1,5 +1,7 @@
 # vscode-sundial
 
+![VSCode Sundial](images/banner.jpg)
+
 ## Features
 
 Sundial changes your theme based on day and night times. Currently it just supports changes before 6pm and after that.
