@@ -20,9 +20,3 @@ None yet
 ## Todo
 
 * [ ] Let users change there preferred time periods when Sundial should change the theme.
-
-## Release Notes
-
-### 1.0.0
-
-The initial release of Sundial.

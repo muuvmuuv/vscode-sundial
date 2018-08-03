@@ -2,7 +2,7 @@
   "name": "vscode-sundial",
   "displayName": "Sundial",
   "description": "Changes your theme on a specific time of the day.",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "publisher": "muuvmuuv",
   "qna": false,
   "icon": "images/icon.jpg",
