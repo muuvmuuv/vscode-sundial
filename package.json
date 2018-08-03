@@ -1,0 +1,59 @@
+{
+  "name": "vscode-sundial",
+  "displayName": "Sundial",
+  "description": "Changes your theme on a specific time of the day.",
+  "version": "0.0.1",
+  "publisher": "muuvmuuv",
+  "qna": false,
+  "icon": "images/icon.jpg",
+  "galleryBanner": "images/banner.jpg",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muuvmuuv/vscode-sundial"
+  },
+  "engines": {
+    "vscode": "^1.25.0"
+  },
+  "categories": ["Other"],
+  "keywords": [
+    "sundial", "moment", "theme", "vscode"
+  ],
+  "activationEvents": ["*"],
+  "main": "./out/extension",
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Sundial Configurations",
+      "properties": {
+        "sundial.day_theme": {
+          "type": "string",
+          "description": "Choose a theme to display on the day"
+        },
+        "sundial.night_theme": {
+          "type": "string",
+          "description": "Choose a theme to display on the night"
+        },
+        "sundial.interval": {
+          "type": "number",
+          "description": "Interval Sundial is checking the time"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^7.0.43",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6"
+  },
+  "dependencies": {
+    "moment": "^2.22.2"
+  }
+}

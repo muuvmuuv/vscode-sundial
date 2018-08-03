@@ -1,0 +1,29 @@
+{
+  "TypeScript": {
+    "beautifiers": ["Prettier"],
+    "indent_size": 2,
+    "indent_style": "space",
+    "quotes": "single",
+    "wrap_line_length": "85",
+    "align_assignments": true,
+    "break_chained_methods": true,
+    "indent_comments": true,
+    "space_after_anon_function": false,
+    "pragma_insert": false,
+    "arrow_parens": "as-needed",
+    "jsx_brackets": true,
+    "object_curly_spacing": true
+  },
+  "JSON": {
+    "beautifiers": ["Pretty Diff"],
+    "indent_size": "2",
+    "indent_style": "space",
+    "pragma_insert": false,
+    "end_with_newline": true,
+    "space_before_conditional": true,
+    "space_in_empty_paren": true,
+    "space_in_paren": false,
+    "newline_between_rules": true,
+    "no_leading_zero": true
+  }
+}
