@@ -2,6 +2,12 @@
 
 All notable changes to the "vscode-sundial" extension will be documented in this file.
 
+## [0.2.1]
+- Fixed a problem with `vscode:prepublish`
+- Added `moment` to *peerDependencies*
+- Updated node modules
+- Started with tests
+
 ## [0.2.0]
 - Changed option `day_range` to `day_start`
 - Changed option `night_range` to `night_start`
