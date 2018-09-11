@@ -2,6 +2,11 @@
 
 All notable changes to the "vscode-sundial" extension will be documented in this file.
 
+## [0.2.0]
+- Changed option `day_range` to `day_start`
+- Changed option `night_range` to `night_start`
+- Optimization
+
 ## [0.1.0]
 - Added option `day_range`
 - Added option `night_range`

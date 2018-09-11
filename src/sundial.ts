@@ -40,37 +40,37 @@ export class Sundial {
   private updateTheme() {
     let theme = this.defaultTheme;
     let now = moment();
+    // now = moment('06:00', 'H:m'); // TEST
 
-    // now = moment('06:01', 'H:m');
+    // console.log(now);
 
-    let timesDay: string[] = this.config.day_range
-      .split('-')
-      .map((time: string[number]) => time.trim());
-    let timesNight: string[] = this.config.night_range
-      .split('-')
-      .map((time: string[number]) => time.trim());
+    let dayStart = moment(this.config.day_start, 'H:m');
+    let nightStart = moment(this.config.night_start, 'H:m');
 
-    let beginDayTheme = moment(timesDay[0], 'H:m');
-    let endDayTheme = moment(timesDay[1], 'H:m');
-    let beginDayThemeIsBefore = beginDayTheme.isBefore(now);
-    let endDayThemeIsAfter = endDayTheme.isAfter(now);
+    // console.log('beginDayTheme', dayStart);
+    // console.log('beginNightTheme', nightStart);
 
-    let beginNightTheme = moment(timesNight[0], 'H:m');
-    let endNightTheme = moment(timesNight[1], 'H:m');
-    let beginNightThemeIsBefore = beginNightTheme.isAfter(now);
-    let endNightThemeIsAfter = endNightTheme.isBefore(now);
+    let nowIsBeforeDayStart = now.isBefore(dayStart);
+    let nowIsAfterDayStart = now.isAfter(dayStart);
+    let nowIsBeforeNightStart = now.isBefore(nightStart);
+    let nowIsAfterNightStart = now.isAfter(nightStart);
 
-    if (beginDayThemeIsBefore && endDayThemeIsAfter) {
+    // console.log('nowIsBeforeDayStart', nowIsBeforeDayStart);
+    // console.log('nowIsAfterDayStart', nowIsAfterDayStart);
+    // console.log('nowIsBeforeNightStart', nowIsBeforeNightStart);
+    // console.log('nowIsAfterNightStart', nowIsAfterNightStart);
+
+    if (nowIsAfterDayStart && nowIsBeforeNightStart) {
       console.log(`Applying day theme: ${this.config.day_theme}`);
       theme = this.config.day_theme;
-    } else if (beginNightThemeIsBefore || endNightThemeIsAfter) {
+    } else if (nowIsBeforeDayStart || nowIsAfterNightStart) {
       console.log(`Applying night theme: ${this.config.night_theme}`);
       theme = this.config.night_theme;
     }
 
     applyTheme(theme).then(status => {
       if (!status) {
-        console.log(status);
+        throw new Error('Something went wrong');
       }
     });
   }

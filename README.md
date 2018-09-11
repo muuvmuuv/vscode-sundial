@@ -1,6 +1,8 @@
 # Sundial (vscode-sundial)
 
-Sundial changes your theme based on day and night ranges. It is inspired by the OSX Mojave dynamic backgrounds and should reduce eye pain when working in the night or on the day. Humans should not strain their eyes too much, it's not recommended to have a light theme in the night and vice versa.
+Sundial changes your theme based on your day and night cycle. It is inspired by the OSX Mojave dynamic backgrounds and should reduce eye pain when working in the night or on the day. Humans should not strain their eyes too much, it's not recommended to have a light theme in the night and vice versa.
+
+Whenever you have ideas for this project, things you would like to add or you found a bug, feel free to create an issue or start contributing.
 
 ![VSCode Sundial](images/banner.jpg)
 
@@ -8,8 +10,8 @@ Sundial changes your theme based on day and night ranges. It is inspired by the 
 
 Sundial contributes the following settings:
 
-* `sundial.day_theme`: name of the theme changed on daytime
-* `sundial.day_range`: set a range of time where `day_theme` should be set
-* `sundial.night_theme`: name of the theme changed on night time
-* `sundial.night_range`: set a range of time where `night_theme` should be set
+* `sundial.day_theme`: name of your theme of choice for the day
+* `sundial.day_start`: set where your day starts
+* `sundial.night_theme`: name of your theme of choice for the night
+* `sundial.night_start`: set where your night starts
 * `sundial.interval`: set a interval on which Sundial should check the time

@@ -2,7 +2,7 @@
   "name": "vscode-sundial",
   "displayName": "Sundial",
   "description": "Changes your theme on a specific time of the day.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "muuvmuuv",
   "qna": false,
   "icon": "images/icon.jpg",
@@ -18,7 +18,13 @@
   },
   "categories": ["Other"],
   "keywords": [
-    "sundial", "moment", "theme", "vscode"
+    "sundial",
+    "moment",
+    "theme",
+    "vscode",
+    "dynamic",
+    "day",
+    "night"
   ],
   "activationEvents": ["*"],
   "main": "./out/extension",
@@ -32,20 +38,20 @@
           "default": null,
           "description": "Choose a theme to display on the day"
         },
-        "sundial.day_range": {
+        "sundial.day_start": {
           "type": "string",
-          "default": "07:00 - 21:00",
-          "description": "Set a range of time where you want to have day_theme enabled"
+          "default": "07:00",
+          "description": "Set when your day starts (24 hour format)"
         },
         "sundial.night_theme": {
           "type": "string",
           "default": null,
           "description": "Choose a theme to display on the night"
         },
-        "sundial.night_range": {
+        "sundial.night_start": {
           "type": "string",
-          "default": "21:00 - 07:00",
-          "description": "Set a range of time where you want to have night_theme enabled"
+          "default": "19:00",
+          "description": "Set when your night starts (24 hour format)"
         },
         "sundial.interval": {
           "type": "number",
@@ -63,10 +69,10 @@
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
-    "@types/node": "^7.0.43",
+    "@types/node": "^7.0.70",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1",
-    "vscode": "^1.1.6"
+    "vscode": "^1.1.21"
   },
   "dependencies": {
     "moment": "^2.22.2"
