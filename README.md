@@ -10,8 +10,25 @@ Whenever you have ideas for this project, things you would like to add or you fo
 
 Sundial contributes the following settings:
 
-* `sundial.day_theme`: name of your theme of choice for the day
-* `sundial.day_start`: set where your day starts
-* `sundial.night_theme`: name of your theme of choice for the night
-* `sundial.night_start`: set where your night starts
-* `sundial.interval`: set a interval on which Sundial should check the time
+* `sundial.dayTheme`: name of the theme of choice for your day work. (default: `Default Light+`)
+* `sundial.nightTheme`: name of the theme of choice for your night work. (default: `Default Dark+`)
+* `sundial.sunrise`: set a time when your day starts in 24 hourse format. (default: `07:00`)
+* `sundial.sunset`: set a time when your night starts in 24 hourse format. (default: `19:00`)
+* `sundial.interval`: set a interval in which sundial should check the time. (default: `5`)
+
+> If you set the interval to zero (0) sundial will not periodically check the time but still
+> when you `ChangeWindowState`, `ChangeActiveTextEditor` and `ChangeTextEditorViewColumn`.
+
+To get your sunrise and sunset automatically you can set these parameters:
+
+* `sundial.latitude`: your latitude
+* `sundial.longitude`: your longitude
+* `sundial.autoLocale`: automatically set your sunset and sunrise based on your public ip location. (this may slow your VSCode a little, but I have not tested the performace yet)
+
+> Get your latitude and longitude from [IPLocation Finder](https://www.iplocation.net/).
+
+## Development
+
+1. Install packages via `npm i`
+2. Set `sundial.debug` to `true`
+3. Run debugger

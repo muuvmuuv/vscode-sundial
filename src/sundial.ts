@@ -1,77 +1,134 @@
+import { workspace, window, WorkspaceConfiguration } from 'vscode';
 import * as moment from 'moment';
-import * as vscode from 'vscode';
-import {
-  getSundialConfiguration,
-  getWorkbenchTheme,
-  applyTheme,
-  hasNoThemesSelected
-} from './configuration';
 
-export class Sundial {
-  private timer: NodeJS.Timer;
-  public config: any;
-  public defaultTheme: string;
+const request = require('request-promise');
+const SunCalc = require('suncalc');
+const publicIp = require('public-ip');
+
+export default class Sundial {
+  public WorkbenchConfig: WorkspaceConfiguration = workspace.getConfiguration(
+    'workbench'
+  );
+  public SundialConfig: WorkspaceConfiguration = workspace.getConfiguration(
+    'sundial'
+  );
+
+  public debug: boolean = false;
+  public geoAPI: string = 'http://geoip.nekudo.com/api/';
 
   constructor() {
-    if (hasNoThemesSelected()) {
-      throw vscode.window.showErrorMessage(
-        'Please add a theme for day and night.\nOtherwise the plugin will not work.'
-      );
+    this.checkConfig();
+
+    this.debug = this.SundialConfig.debug;
+
+    if (this.debug) {
+      console.log('(Sundial) => WorkbenchConfig:', this.WorkbenchConfig);
+      console.log('(Sundial) => SundialConfig:', this.SundialConfig);
     }
-
-    this.config = getSundialConfiguration();
-    this.defaultTheme = getWorkbenchTheme();
-
-    this.timer = this.activate();
   }
 
-  public dispose() {
-    clearInterval(this.timer);
+  checkConfig() {
+    if (!this.SundialConfig.dayTheme || !this.SundialConfig.nightTheme) {
+      throw window.showErrorMessage('Please set a theme for the day and the night.');
+    }
   }
 
-  public activate(): NodeJS.Timer {
-    this.updateTheme(); // update theme on start up
-
-    return setInterval(() => {
-      this.updateTheme();
-    }, this.config.interval);
+  reloadConfig() {
+    this.WorkbenchConfig = workspace.getConfiguration('workbench');
+    this.SundialConfig = workspace.getConfiguration('sundial');
   }
 
-  private updateTheme() {
-    let theme = this.defaultTheme;
+  automater(): NodeJS.Timer {
+    console.info(
+      `Sundial will automatically run every ${this.SundialConfig.interval} minutes.`
+    );
+
+    return setInterval(this.check, 1000 * 60 * this.SundialConfig.interval);
+  }
+
+  async check() {
+    // BUG: ERR this.reloadConfig is not a function: TypeError: this.reloadConfig is not a function
+    // this.reloadConfig();
+
     let now = moment();
-    // now = moment('06:00', 'H:m'); // TEST
+    let sunrise;
+    let sunset;
 
-    // console.log(now);
+    if (this.SundialConfig.autoLocale) {
+      const IP = await publicIp.v4();
+      if (this.debug) console.log('(Sundial) => Public IP:', IP);
 
-    let dayStart = moment(this.config.day_start, 'H:m');
-    let nightStart = moment(this.config.night_start, 'H:m');
+      let url = this.geoAPI + IP;
+      let ipLocation = await request(url);
+      ipLocation = JSON.parse(ipLocation).location;
 
-    // console.log('beginDayTheme', dayStart);
-    // console.log('beginNightTheme', nightStart);
+      const times = await SunCalc.getTimes(
+        now,
+        ipLocation.latitude,
+        ipLocation.longitude
+      );
 
-    let nowIsBeforeDayStart = now.isBefore(dayStart);
-    let nowIsAfterDayStart = now.isAfter(dayStart);
-    let nowIsBeforeNightStart = now.isBefore(nightStart);
-    let nowIsAfterNightStart = now.isAfter(nightStart);
+      sunrise = times.sunrise;
+      sunset = times.sunset;
+    } else if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
+      if (!this.SundialConfig.latitude && !this.SundialConfig.longitude) {
+        throw window.showErrorMessage('Please set both, latitude and longitude!');
+      }
+      if (this.debug) {
+        console.log('(Sundial) => Latitude:', this.SundialConfig.latitude);
+        console.log('(Sundial) => Longitude:', this.SundialConfig.longitude);
+      }
 
-    // console.log('nowIsBeforeDayStart', nowIsBeforeDayStart);
-    // console.log('nowIsAfterDayStart', nowIsAfterDayStart);
-    // console.log('nowIsBeforeNightStart', nowIsBeforeNightStart);
-    // console.log('nowIsAfterNightStart', nowIsAfterNightStart);
+      const times = await SunCalc.getTimes(
+        now,
+        this.SundialConfig.latitude,
+        this.SundialConfig.longitude
+      );
 
-    if (nowIsAfterDayStart && nowIsBeforeNightStart) {
-      console.log(`Applying day theme: ${this.config.day_theme}`);
-      theme = this.config.day_theme;
-    } else if (nowIsBeforeDayStart || nowIsAfterNightStart) {
-      console.log(`Applying night theme: ${this.config.night_theme}`);
-      theme = this.config.night_theme;
+      sunrise = times.sunrise;
+      sunset = times.sunset;
+    } else {
+      sunrise = await moment(<string>this.SundialConfig.sunrise, 'H:m');
+      sunset = await moment(<string>this.SundialConfig.sunset, 'H:m');
     }
 
-    applyTheme(theme).then(status => {
-      if (!status) {
-        throw new Error('Something went wrong');
+    const nowIsBeforeSunrise = now.isBefore(sunrise);
+    const nowIsAfterSunrise = now.isAfter(sunrise);
+    const nowIsBeforeSunset = now.isBefore(sunset);
+    const nowIsAfterSunset = now.isAfter(sunset);
+
+    if (this.debug) {
+      console.log('(Sundial) => Sunrise:', sunrise);
+      console.log('(Sundial) => Sunset:', sunset);
+      console.log('(Sundial) => nowIsBeforeSunrise:', nowIsBeforeSunrise);
+      console.log('(Sundial) => nowIsAfterSunrise:', nowIsAfterSunrise);
+      console.log('(Sundial) => nowIsBeforeSunset:', nowIsBeforeSunset);
+      console.log('(Sundial) => nowIsAfterSunset:', nowIsAfterSunset);
+    }
+
+    if (nowIsAfterSunrise && nowIsBeforeSunset) {
+      console.log(`Applying day theme! 🌕`);
+      this.changeThemeTo(this.SundialConfig.dayTheme);
+    } else if (nowIsBeforeSunrise || nowIsAfterSunset) {
+      console.log(`Applying night theme! 🌑`);
+      this.changeThemeTo(this.SundialConfig.nightTheme);
+    }
+  }
+
+  changeThemeTo(newTheme: string) {
+    if (newTheme !== this.WorkbenchConfig.theme) {
+      const status: any = this.WorkbenchConfig.update(
+        'colorTheme',
+        <string>newTheme,
+        true
+      );
+
+      if (status._hasError) {
+        console.error('(Sundial) => Status:', status);
+        throw window.showErrorMessage(
+          'Oops, something went wrong while changeing your theme.'
+        );
       }
-    });
+    }
   }
 }

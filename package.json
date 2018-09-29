@@ -1,8 +1,8 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "description": "Changes your theme on a specific time of the day.",
-  "version": "0.2.1",
+  "description": "Changes your theme on a specific time of the day or sunset and sunrise.",
+  "version": "1.0.0",
   "publisher": "muuvmuuv",
   "qna": false,
   "icon": "images/icon.jpg",
@@ -22,9 +22,10 @@
     "moment",
     "theme",
     "vscode",
-    "dynamic",
     "day",
-    "night"
+    "night",
+    "sunset",
+    "sunrise"
   ],
   "activationEvents": ["*"],
   "main": "./out/extension",
@@ -33,30 +34,54 @@
       "type": "object",
       "title": "Sundial Configurations",
       "properties": {
-        "sundial.day_theme": {
+        "sundial.dayTheme": {
           "type": "string",
-          "default": null,
-          "description": "Choose a theme to display on the day"
+          "default": "Default Light+",
+          "description": "Choose a theme to display on the day."
         },
-        "sundial.day_start": {
+        "sundial.nightTheme": {
           "type": "string",
+          "default": "Default Dark+",
+          "description": "Choose a theme to display on the night."
+        },
+        "sundial.sunrise": {
+          "type": [
+            "string", "null"
+          ],
           "default": "07:00",
-          "description": "Set when your day starts (24 hour format)"
+          "description": "Set the sunrise time. (24 hour format)"
         },
-        "sundial.night_theme": {
+        "sundial.sunset": {
+          "type": [
+            "string", "null"
+          ],
+          "default": "19:00",
+          "description": "Set the sunset time. (24 hour format)"
+        },
+        "sundial.latitude": {
           "type": "string",
           "default": null,
-          "description": "Choose a theme to display on the night"
+          "description": "Latitude of your location to get sunset and sunrise."
         },
-        "sundial.night_start": {
+        "sundial.longitude": {
           "type": "string",
-          "default": "19:00",
-          "description": "Set when your night starts (24 hour format)"
+          "default": null,
+          "description": "Latitude of your location to get sunset and sunrise."
+        },
+        "sundial.autoLocale": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically set your sunset and sunrise based on your public ip location."
         },
         "sundial.interval": {
           "type": "number",
-          "default": 3600000,
-          "description": "Interval Sundial is checking the time. Default is every hour. Time in miliseconds."
+          "default": 5,
+          "description": "Set in which interval Sundial should check the time. (in minutes)"
+        },
+        "sundial.debug": {
+          "type": "boolean",
+          "default": false,
+          "description": "Prints some outputs while developing."
         }
       }
     }
@@ -68,9 +93,6 @@
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
-  "peerDependencies": {
-    "moment": "^2.22.2"
-  },
   "devDependencies": {
     "typescript": "^2.6.1",
     "vscode": "^1.1.21",
@@ -79,6 +101,10 @@
     "@types/mocha": "^2.2.42"
   },
   "dependencies": {
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "public-ip": "^2.4.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "suncalc": "^1.8.0"
   }
 }

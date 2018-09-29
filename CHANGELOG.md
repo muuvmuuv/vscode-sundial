@@ -2,6 +2,12 @@
 
 All notable changes to the "vscode-sundial" extension will be documented in this file.
 
+## [1.0.0]
+- Rebuild the program
+- Added new options
+- Added auto get locale through ip to get sunset and sunrise
+- Added better debugging
+
 ## [0.2.1]
 - Fixed a problem with `vscode:prepublish`
 - Added `moment` to *peerDependencies*

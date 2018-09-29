@@ -1,12 +1,20 @@
 'use strict';
 
-import * as vscode from 'vscode';
-import { Sundial } from './sundial';
+import { window, ExtensionContext } from 'vscode';
+import Sundial from './sundial';
 
-export function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(new Sundial());
-}
+const sundial = new Sundial();
 
-export function deactivate() {
-  // deactivate extension here
+export function activate(context: ExtensionContext) {
+  sundial.check(); // first check
+
+  context.subscriptions.push(window.onDidChangeWindowState(sundial.check));
+  context.subscriptions.push(window.onDidChangeActiveTextEditor(sundial.check));
+  context.subscriptions.push(window.onDidChangeTextEditorViewColumn(sundial.check));
+
+  if (sundial.SundialConfig.interval !== 0) {
+    sundial.automater();
+  }
+
+  console.info('Sundial is now active! ☀️');
 }
