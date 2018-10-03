@@ -2,7 +2,7 @@
   "name": "vscode-sundial",
   "displayName": "Sundial",
   "description": "Changes your theme on a specific time of the day or sunset and sunrise.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "muuvmuuv",
   "qna": false,
   "icon": "images/icon.jpg",
@@ -35,6 +35,7 @@
   "main": "./out/extension",
   "scripts": {
     "vscode:prepublish": "npm run compile",
+    "preinstall": "git config core.hooksPath .githooks",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
