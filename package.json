@@ -5,10 +5,7 @@
   "version": "1.0.3",
   "publisher": "muuvmuuv",
   "qna": false,
-  "icon": "images/icon.jpg",
-  "galleryBanner": {
-    "Preview": "images/banner.jpg"
-  },
+  "icon": "assets/icon.jpg",
   "repository": {
     "type": "git",
     "url": "https://github.com/muuvmuuv/vscode-sundial"
