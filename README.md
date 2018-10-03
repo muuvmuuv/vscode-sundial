@@ -10,10 +10,10 @@
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/muuvmuuv.vscode-sundial.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Repository](https://david-dm.org/muuvmuuv/vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 
-[Installation](#🏝-installation) •
+[Installation](#:desert_island:-installation) •
 [Download](https://github.com/muuvmuuv/vscode-sundial/releases) •
-[Extension Settings](#⚙️-extension-settings) •
-[Development](#🛠-development) •
+[Extension Settings](#:gear:-extension-settings) •
+[Development](#:hammer_and_wrench:-development) •
 [License](LICENSE)
 
 Sundial changes your theme based on your day and night cycle. It is inspired by the [OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and [Nigth Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_ when working in the night or on the day. Humans should not strain their eyes too much, it's **not recommended** to have a light theme in the night and vice versa.
@@ -23,16 +23,19 @@ Whenever you have ideas for this project, things you would like to add or you fo
 <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
   <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee">
 </a>
+<br>
 
 ![VSCode Sundial](assets/banner.jpg)
 
-## 🏝 Installation
+## :desert_island: Installation
 
 You can simply install any VS Code extension via the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial) or install now
 
 [![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](vscode:extension/muuvmuuv.vscode-sundial)
+[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/muuvmuuv.vscode-sundial.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 
-## ⚙️ Extension Settings
+
+## :gear: Extension Settings
 
 **Sundial** contributes the following settings:
 
@@ -53,7 +56,7 @@ To get your sunrise and sunset automatically you can set these parameters:
 
 > Get your latitude and longitude from [IPLocation Finder](https://www.iplocation.net/).
 
-## 🛠 Development
+## :hammer_and_wrench: Development
 
 1. Install packages via `npm i`
 2. Set `sundial.debug` to `true`
