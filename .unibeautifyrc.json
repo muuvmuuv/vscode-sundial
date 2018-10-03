@@ -20,5 +20,9 @@
     "indent_style": "space",
     "quotes": "double",
     "max_preserve_newlines": 0
+  },
+  "Python": {
+    "beautifiers": ["Black"],
+    "wrap_line_length": 80
   }
 }
