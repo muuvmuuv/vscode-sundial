@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# git diff --stat --name-only --cached origin/master
+
+diff=`git diff --stat --name-only --cached origin/master`
+
+if [[ ${diff} == *"CHANGELOG.md"* ]];then
+  read -p $'\e[31mYou have \e[1mnot added\e[0;31m anything to the CHANGELOG, do you want to continue? (y/N) \e[0m' -n 1 -r < /dev/tty
+  echo # clear
+  if [[ $REPLY =~ ^[Nn]$ ]]; then
+    exit 1 # push will not execute
+  fi
+  printf "It is \e[1mrecommend\e[0m to add a new version and descibe what you have changed to other users.\n"
+fi
+
+if [[ ${diff} == *"package.json"* ]];then
+  read -p $'\e[31mYou have \e[1mchanged\e[0;31m the package.json file, did you make sure to update the version? (y/N) \e[0m' -n 1 -r < /dev/tty
+  echo # clear
+  if [[ $REPLY =~ ^[Nn]$ ]]; then
+    exit 1 # push will not execute
+  fi
+  printf "That is perfect! It is important the add a new version, otherwise VS Code will fail to pass a new version to the users.\n"
+fi
+
+exit 0 # push will execute
