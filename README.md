@@ -1,5 +1,5 @@
 <h1 align="left">
-  <img align="right" src="assets/icon.jpg" width="150">
+  <img align="right" src="https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/icon.jpg" width="150">
   <b>☀️ Sundial ☀️</b>
 </h1>
 
@@ -25,7 +25,7 @@ Whenever you have ideas for this project, things you would like to add or you fo
 </a>
 <br>
 
-![VSCode Sundial](assets/banner.jpg)
+![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
 
 ## :desert_island: Installation
 
