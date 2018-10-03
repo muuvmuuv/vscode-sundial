@@ -10,10 +10,10 @@
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/muuvmuuv.vscode-sundial.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Repository](https://david-dm.org/muuvmuuv/vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 
-[Installation](#:desert_island:-installation) •
+[Installation](#desert_island-installation) •
 [Download](https://github.com/muuvmuuv/vscode-sundial/releases) •
-[Extension Settings](#:gear:-extension-settings) •
-[Development](#:hammer_and_wrench:-development) •
+[Extension Settings](#gear-extension-settings) •
+[Development](#hammer_and_wrench-development) •
 [License](LICENSE)
 
 Sundial changes your theme based on your day and night cycle. It is inspired by the [OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and [Nigth Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_ when working in the night or on the day. Humans should not strain their eyes too much, it's **not recommended** to have a light theme in the night and vice versa.
@@ -29,10 +29,9 @@ Whenever you have ideas for this project, things you would like to add or you fo
 
 ## :desert_island: Installation
 
-You can simply install any VS Code extension via the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial) or install now
+You can simply install any VS Code extension via the VS Code Marketplace:
 
-[![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](vscode:extension/muuvmuuv.vscode-sundial)
-[![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/muuvmuuv.vscode-sundial.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+[![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 
 
 ## :gear: Extension Settings
