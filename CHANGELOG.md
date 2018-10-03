@@ -2,15 +2,19 @@
 
 All notable changes to the "vscode-sundial" extension will be documented in this file.
 
+## [1.0.3]
+- Updated README
+- Moved pre-push to .git
+
 ## [1.0.2]
--  Added pre-push event to
-    - detect when version has not been updated
-    - detect when no changes has been made to CHANGELOG
+- Added pre-push event to
+  - detect when version has not been updated
+  - detect when no changes has been made to CHANGELOG
 
 ## [1.0.1]
--  Updated packages
--  Updated README
--  Fixed a issue with the subscription events
+- Updated packages
+- Updated README
+- Fixed a issue with the subscription events
 
 ## [1.0.0]
 - Rebuild the program

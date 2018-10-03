@@ -1,8 +1,8 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "description": "Changes your theme on a specific time of the day or sunset and sunrise.",
-  "version": "1.0.2",
+  "description": "Change your VS Code theme based on your sunset and sunrise!",
+  "version": "1.0.3",
   "publisher": "muuvmuuv",
   "qna": false,
   "icon": "images/icon.jpg",
@@ -13,12 +13,16 @@
     "type": "git",
     "url": "https://github.com/muuvmuuv/vscode-sundial"
   },
+  "license": "MIT",
+  "homepage": "https://github.com/muuvmuuv/vscode-sundial/blob/master/README.md",
+  "bugs": {
+    "url": "https://github.com/muuvmuuv/vscode-sundial/issues",
+    "email": "marvin.heilemann+github@googlemail.com"
+  },
   "engines": {
     "vscode": "^1.25.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "categories": ["Other"],
   "keywords": [
     "sundial",
     "theme",
@@ -29,17 +33,15 @@
     "moment",
     "vscode"
   ],
-  "activationEvents": [
-    "*"
-  ],
+  "activationEvents": ["*"],
   "main": "./out/extension",
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "preinstall": "git config core.hooksPath .githooks",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    "test": "npm run compile && node ./node_modules/vscode/bin/test",
+    "clean": "rm -rf out/ && rm -rf .vscode-test/"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
@@ -72,16 +74,14 @@
         },
         "sundial.sunrise": {
           "type": [
-            "string",
-            "null"
+            "string", "null"
           ],
           "default": "07:00",
           "description": "Set the sunrise time. (24 hour format)"
         },
         "sundial.sunset": {
           "type": [
-            "string",
-            "null"
+            "string", "null"
           ],
           "default": "19:00",
           "description": "Set the sunset time. (24 hour format)"
