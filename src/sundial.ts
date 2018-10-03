@@ -6,15 +6,11 @@ const SunCalc = require('suncalc');
 const publicIp = require('public-ip');
 
 export default class Sundial {
-  public WorkbenchConfig: WorkspaceConfiguration = workspace.getConfiguration(
-    'workbench'
-  );
-  public SundialConfig: WorkspaceConfiguration = workspace.getConfiguration(
-    'sundial'
-  );
+  WorkbenchConfig: WorkspaceConfiguration = workspace.getConfiguration('workbench');
+  SundialConfig: WorkspaceConfiguration = workspace.getConfiguration('sundial');
 
-  public debug: boolean = false;
-  public geoAPI: string = 'http://geoip.nekudo.com/api/';
+  debug: boolean = false;
+  geoAPI: string = 'http://geoip.nekudo.com/api/';
 
   constructor() {
     this.checkConfig();
@@ -47,8 +43,8 @@ export default class Sundial {
   }
 
   async check() {
-    // BUG: ERR this.reloadConfig is not a function: TypeError: this.reloadConfig is not a function
-    // this.reloadConfig();
+    console.log(`Sundial check initialized...`);
+    this.reloadConfig();
 
     let now = moment();
     let sunrise;
@@ -56,7 +52,9 @@ export default class Sundial {
 
     if (this.SundialConfig.autoLocale) {
       const IP = await publicIp.v4();
-      if (this.debug) console.log('(Sundial) => Public IP:', IP);
+      if (this.debug) {
+        console.log('(Sundial) => Public IP:', IP);
+      }
 
       let url = this.geoAPI + IP;
       let ipLocation = await request(url);

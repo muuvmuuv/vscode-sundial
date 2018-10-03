@@ -18,12 +18,7 @@
     "beautifiers": ["Pretty Diff"],
     "indent_size": "2",
     "indent_style": "space",
-    "pragma_insert": false,
-    "end_with_newline": true,
-    "space_before_conditional": true,
-    "space_in_empty_paren": true,
-    "space_in_paren": false,
-    "newline_between_rules": true,
-    "no_leading_zero": true
+    "quotes": "double",
+    "max_preserve_newlines": 0
   }
 }
