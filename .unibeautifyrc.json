@@ -24,5 +24,10 @@
   "Python": {
     "beautifiers": ["Black"],
     "wrap_line_length": 80
+  },
+  "Markdown": {
+    "beautifiers": ["Prettier"],
+    "wrap_line_length": 80,
+    "wrap_prose": "always"
   }
 }
