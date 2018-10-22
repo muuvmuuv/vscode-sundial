@@ -57,19 +57,23 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 > time but still when you `ChangeWindowState`, `ChangeActiveTextEditor` and
 > `ChangeTextEditorViewColumn`.
 
-To get your sunrise and sunset automatically you can set these parameters:
+### Automatically get sunrise and sunset
 
-* `sundial.latitude`: your latitude
-* `sundial.longitude`: your longitude
-* `sundial.autoLocale`: automatically set your sunset and sunrise based on your
-  public ip location. (this may slow your VSCode a little, but I have not tested
-  the performace yet)
+To get your sunrise and sunset automatically you can either set latitude and
+longitude or set `autoLocale` to `true`.
 
-> Get your latitude and longitude from
-> [IPLocation Finder](https://www.iplocation.net/).
+It is recommended to set your latitude and longitude manually for better
+performance because `autoLocale` uses an external provider with limited API
+calls (free plan includes 10.000 requests per month). You can get your latitude
+and logitude from [ipapi](https://ipapi.com/) (the box on the right).
+
+* `sundial.autoLocale`: default `false` (only updates location when your public
+  IP changes)
+* `sundial.latitude`: latitude (e.g.: `50.110924`)
+* `sundial.longitude`: longitude (e.g.: `8.682127`)
 
 ## :hammer_and_wrench: Development
 
-1.  Install packages via `npm i`
-2.  Set `sundial.debug` to `true`
-3.  Run debugger
+1.  Install packages via `npm install`
+2.  Set `sundial.debug` to `true` (prints more info to the debug console)
+3.  Run debugger => `Extension`

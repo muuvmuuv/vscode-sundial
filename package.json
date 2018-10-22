@@ -1,51 +1,35 @@
 {
   "name": "vscode-sundial",
-  "displayName": "Sundial",
+  "version": "1.1.0",
   "description": "Change your VS Code theme based on your sunset and sunrise!",
-  "version": "1.0.3",
-  "publisher": "muuvmuuv",
-  "qna": false,
-  "icon": "assets/icon.jpg",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/muuvmuuv/vscode-sundial"
-  },
-  "license": "MIT",
+  "keywords": [
+    "day",
+    "moment",
+    "night",
+    "sundial",
+    "sunrise",
+    "sunset",
+    "theme",
+    "vscode"
+  ],
   "homepage": "https://github.com/muuvmuuv/vscode-sundial/blob/master/README.md",
   "bugs": {
     "url": "https://github.com/muuvmuuv/vscode-sundial/issues",
     "email": "marvin.heilemann+github@googlemail.com"
   },
-  "engines": {
-    "vscode": "^1.25.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muuvmuuv/vscode-sundial"
   },
-  "categories": ["Other"],
-  "keywords": [
-    "sundial",
-    "theme",
-    "sunset",
-    "sunrise",
-    "day",
-    "night",
-    "moment",
-    "vscode"
-  ],
-  "activationEvents": ["*"],
+  "license": "MIT",
   "main": "./out/extension",
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "clean": "rm -rf out/ && rm -rf .vscode-test/",
     "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "npm run compile && node ./node_modules/vscode/bin/test",
-    "clean": "rm -rf out/ && rm -rf .vscode-test/"
-  },
-  "devDependencies": {
-    "@types/mocha": "^2.2.42",
-    "@types/node": "^8.10.32",
-    "tslint": "^5.8.0",
-    "typescript": "^2.6.1",
-    "vscode": "^1.1.21"
+    "vscode:prepublish": "npm run compile",
+    "watch": "tsc -watch -p ./"
   },
   "dependencies": {
     "moment": "^2.22.2",
@@ -54,6 +38,18 @@
     "request-promise": "^4.2.2",
     "suncalc": "^1.8.0"
   },
+  "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.10.32",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.21"
+  },
+  "engines": {
+    "vscode": "^1.25.0"
+  },
+  "activationEvents": ["*"],
+  "categories": ["Other"],
   "contributes": {
     "configuration": {
       "type": "object",
@@ -110,5 +106,9 @@
         }
       }
     }
-  }
+  },
+  "displayName": "Sundial",
+  "icon": "assets/icon.jpg",
+  "publisher": "muuvmuuv",
+  "qna": false
 }

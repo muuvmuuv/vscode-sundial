@@ -1,4 +1,4 @@
-import { workspace, window, WorkspaceConfiguration } from 'vscode';
+import { workspace, window, WorkspaceConfiguration, ExtensionContext } from 'vscode';
 import * as moment from 'moment';
 
 const request = require('request-promise');
@@ -9,23 +9,25 @@ export default class Sundial {
   WorkbenchConfig: WorkspaceConfiguration = workspace.getConfiguration('workbench');
   SundialConfig: WorkspaceConfiguration = workspace.getConfiguration('sundial');
 
+  context: ExtensionContext;
   debug: boolean = false;
-  geoAPI: string = 'http://geoip.nekudo.com/api/';
 
-  constructor() {
-    this.checkConfig();
+  // NOTE: check usage here: https://ipapi.com/usage
+  geoAPI: string = 'http://api.ipapi.com/{IP}?access_key=aae7ba6db75c991f311debe20ec58d7e&fields=latitude,longitude';
 
+  sunrise: string | moment.Moment;
+  sunset: string | moment.Moment;
+
+  constructor(context: ExtensionContext) {
+    this.context = context;
     this.debug = this.SundialConfig.debug;
+
+    this.sunrise = moment(<string>this.SundialConfig.sunrise, 'H:m');
+    this.sunset = moment(<string>this.SundialConfig.sunset, 'H:m');
 
     if (this.debug) {
       console.log('(Sundial) => WorkbenchConfig:', this.WorkbenchConfig);
       console.log('(Sundial) => SundialConfig:', this.SundialConfig);
-    }
-  }
-
-  checkConfig() {
-    if (!this.SundialConfig.dayTheme || !this.SundialConfig.nightTheme) {
-      throw window.showErrorMessage('Please set a theme for the day and the night.');
     }
   }
 
@@ -43,34 +45,16 @@ export default class Sundial {
   }
 
   async check() {
-    console.log(`Sundial check initialized...`);
-    this.reloadConfig();
+    console.info(`Sundial async check initialized...`);
+    await this.reloadConfig();
 
     let now = moment();
-    let sunrise;
-    let sunset;
 
-    if (this.SundialConfig.autoLocale) {
-      const IP = await publicIp.v4();
-      if (this.debug) {
-        console.log('(Sundial) => Public IP:', IP);
-      }
-
-      let url = this.geoAPI + IP;
-      let ipLocation = await request(url);
-      ipLocation = JSON.parse(ipLocation).location;
-
-      const times = await SunCalc.getTimes(
-        now,
-        ipLocation.latitude,
-        ipLocation.longitude
-      );
-
-      sunrise = times.sunrise;
-      sunset = times.sunset;
-    } else if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
-      if (!this.SundialConfig.latitude && !this.SundialConfig.longitude) {
-        throw window.showErrorMessage('Please set both, latitude and longitude!');
+    if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
+      if (!this.SundialConfig.latitude || !this.SundialConfig.longitude) {
+        throw window.showErrorMessage(
+          'Sundial needs both, latitude and longitude, to work!'
+        );
       }
       if (this.debug) {
         console.log('(Sundial) => Latitude:', this.SundialConfig.latitude);
@@ -83,21 +67,52 @@ export default class Sundial {
         this.SundialConfig.longitude
       );
 
-      sunrise = times.sunrise;
-      sunset = times.sunset;
-    } else {
-      sunrise = await moment(<string>this.SundialConfig.sunrise, 'H:m');
-      sunset = await moment(<string>this.SundialConfig.sunset, 'H:m');
+      this.sunrise = times.sunrise;
+      this.sunset = times.sunset;
+    } else if (this.SundialConfig.autoLocale) {
+      const IP = await publicIp.v4();
+      let storedPublicIP = this.context.globalState.get('userPublicIP');
+      let storedLatitude = this.context.globalState.get('userLatitude');
+      let storedLongitude = this.context.globalState.get('userLongitude');
+      if (this.debug) {
+        console.log('(Sundial) => Public IP:', IP);
+        console.log('(Sundial) => Stored public IP:', storedPublicIP);
+        console.log('(Sundial) => Stored latitude:', storedLatitude);
+        console.log('(Sundial) => Stored longitude:', storedLongitude);
+      }
+
+      if (storedPublicIP !== IP || (!storedLatitude || !storedLongitude)) {
+        let url = this.geoAPI.replace('{IP}', IP);
+        let ipLocationRequest = await request(url);
+        console.info('(Sundial) => IPAPI Request called');
+        let ipLocation = JSON.parse(ipLocationRequest);
+        if (this.debug) {
+          console.log('(Sundial) => IP Location:', ipLocation);
+        }
+
+        this.context.globalState.update('userPublicIP', IP);
+        this.context.globalState.update('userLatitude', ipLocation.latitude);
+        this.context.globalState.update('userLongitude', ipLocation.longitude);
+
+        const times = await SunCalc.getTimes(
+          now,
+          ipLocation.latitude,
+          ipLocation.longitude
+        );
+
+        this.sunrise = times.sunrise;
+        this.sunset = times.sunset;
+      }
     }
 
-    const nowIsBeforeSunrise = now.isBefore(sunrise);
-    const nowIsAfterSunrise = now.isAfter(sunrise);
-    const nowIsBeforeSunset = now.isBefore(sunset);
-    const nowIsAfterSunset = now.isAfter(sunset);
+    const nowIsBeforeSunrise = now.isBefore(this.sunrise);
+    const nowIsAfterSunrise = now.isAfter(this.sunrise);
+    const nowIsBeforeSunset = now.isBefore(this.sunset);
+    const nowIsAfterSunset = now.isAfter(this.sunset);
 
     if (this.debug) {
-      console.log('(Sundial) => Sunrise:', sunrise);
-      console.log('(Sundial) => Sunset:', sunset);
+      console.log('(Sundial) => Sunrise:', this.sunrise);
+      console.log('(Sundial) => Sunset:', this.sunset);
       console.log('(Sundial) => nowIsBeforeSunrise:', nowIsBeforeSunrise);
       console.log('(Sundial) => nowIsAfterSunrise:', nowIsAfterSunrise);
       console.log('(Sundial) => nowIsBeforeSunset:', nowIsBeforeSunset);
@@ -105,10 +120,10 @@ export default class Sundial {
     }
 
     if (nowIsAfterSunrise && nowIsBeforeSunset) {
-      console.log(`Applying day theme! 🌕`);
+      console.info(`Applying day theme! 🌕`);
       this.changeThemeTo(this.SundialConfig.dayTheme);
     } else if (nowIsBeforeSunrise || nowIsAfterSunset) {
-      console.log(`Applying night theme! 🌑`);
+      console.info(`Applying night theme! 🌑`);
       this.changeThemeTo(this.SundialConfig.nightTheme);
     }
   }
@@ -122,9 +137,9 @@ export default class Sundial {
       );
 
       if (status._hasError) {
-        console.error('(Sundial) => Status:', status);
+        console.error('(Sundial) => ERROR:', status);
         throw window.showErrorMessage(
-          'Oops, something went wrong while changeing your theme.'
+          'Oops, something went wrong while changing your theme. Please set debugging to true and post an issue with the console output!'
         );
       }
     }
