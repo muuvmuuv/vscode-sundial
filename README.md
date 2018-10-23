@@ -11,9 +11,9 @@
 [![Repository](https://david-dm.org/muuvmuuv/vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 
 [Installation](#desert_island-installation) •
-[Download](https://github.com/muuvmuuv/vscode-sundial/releases) •
 [Extension Settings](#gear-extension-settings) •
-[Development](#hammer_and_wrench-development) • [License](LICENSE)
+[Automation](#automatically-get-sunrise-and-sunset) •
+[Development](#hammer_and_wrench-development)
 
 Sundial changes your theme based on your day and night cycle. It is inspired by
 the [OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and
@@ -28,7 +28,6 @@ found a bug, feel free to create an issue or start contributing! 😇
 <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
   <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee">
 </a>
-<br>
 
 ![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
 
