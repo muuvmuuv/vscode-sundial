@@ -48,8 +48,12 @@
   "engines": {
     "vscode": "^1.25.0"
   },
-  "activationEvents": ["*"],
-  "categories": ["Other"],
+  "activationEvents": [
+    "*"
+  ],
+  "categories": [
+    "Other"
+  ],
   "contributes": {
     "configuration": {
       "type": "object",
@@ -67,14 +71,16 @@
         },
         "sundial.sunrise": {
           "type": [
-            "string", "null"
+            "string",
+            "null"
           ],
           "default": "07:00",
           "description": "Set the sunrise time. (24 hour format)"
         },
         "sundial.sunset": {
           "type": [
-            "string", "null"
+            "string",
+            "null"
           ],
           "default": "19:00",
           "description": "Set the sunset time. (24 hour format)"
