@@ -16,20 +16,17 @@ interface ITides {
 }
 
 export default class Sundial {
-  SundialConfig: WorkspaceConfiguration;
-  WorkbenchConfig: WorkspaceConfiguration;
-  context: ExtensionContext;
+  SundialConfig!: WorkspaceConfiguration;
+  WorkbenchConfig!: WorkspaceConfiguration;
+  extensionContext!: ExtensionContext;
   debug: boolean = false;
   // NOTE: check usage here: https://ipapi.com/usage
   geoAPI: string =
     "http://api.ipapi.com/{IP}?access_key=aae7ba6db75c991f311debe20ec58d7e&fields=latitude,longitude";
   tides: ITides;
 
-  constructor(context: ExtensionContext) {
-    this.SundialConfig = workspace.getConfiguration("sundial");
-    this.WorkbenchConfig = workspace.getConfiguration("workspace");
-    this.context = context;
-
+  constructor() {
+    this.updateConfig();
     this.checkConfig();
 
     this.tides = {
@@ -41,6 +38,10 @@ export default class Sundial {
       console.log("(Sundial) => WorkbenchConfig:", this.WorkbenchConfig);
       console.log("(Sundial) => SundialConfig:", this.SundialConfig);
     }
+  }
+
+  set context(context: ExtensionContext) {
+    this.extensionContext = context;
   }
 
   automater(): NodeJS.Timer {

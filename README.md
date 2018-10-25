@@ -8,7 +8,7 @@
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/d/muuvmuuv.vscode-sundial.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/r/muuvmuuv.vscode-sundial.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/muuvmuuv.vscode-sundial.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
-[![Repository](https://david-dm.org/muuvmuuv/vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+[![Repository](https://david-dm.org/muuvmuuv/vscode-sundial.svg)](https://david-dm.org/muuvmuuv/vscode-sundial)
 [![Maintainability](https://api.codeclimate.com/v1/badges/52f93dc5f852410ef448/maintainability)](https://codeclimate.com/github/muuvmuuv/vscode-sundial/maintainability)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript)
