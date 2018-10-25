@@ -10,38 +10,37 @@ const request = require("request-promise");
 const SunCalc = require("suncalc");
 const publicIp = require("public-ip");
 
-export default class Sundial {
-  WorkbenchConfig: WorkspaceConfiguration = workspace.getConfiguration(
-    "workbench"
-  );
-  SundialConfig: WorkspaceConfiguration = workspace.getConfiguration("sundial");
+interface ITides {
+  sunrise: string | moment.Moment;
+  sunset: string | moment.Moment;
+}
 
+export default class Sundial {
+  SundialConfig: WorkspaceConfiguration;
+  WorkbenchConfig: WorkspaceConfiguration;
   context: ExtensionContext;
   debug: boolean = false;
-
   // NOTE: check usage here: https://ipapi.com/usage
   geoAPI: string =
     "http://api.ipapi.com/{IP}?access_key=aae7ba6db75c991f311debe20ec58d7e&fields=latitude,longitude";
-
-  sunrise: string | moment.Moment;
-  sunset: string | moment.Moment;
+  tides: ITides;
 
   constructor(context: ExtensionContext) {
+    this.SundialConfig = workspace.getConfiguration("sundial");
+    this.WorkbenchConfig = workspace.getConfiguration("workspace");
     this.context = context;
-    this.debug = this.SundialConfig.debug;
 
-    this.sunrise = moment(<string>this.SundialConfig.sunrise, "H:m");
-    this.sunset = moment(<string>this.SundialConfig.sunset, "H:m");
+    this.checkConfig();
 
-    if (this.debug) {
+    this.tides = {
+      sunrise: moment(this.SundialConfig.sunrise, "H:m", true),
+      sunset: moment(this.SundialConfig.sunset, "H:m", true)
+    };
+
+    if (this.SundialConfig.debug) {
       console.log("(Sundial) => WorkbenchConfig:", this.WorkbenchConfig);
       console.log("(Sundial) => SundialConfig:", this.SundialConfig);
     }
-  }
-
-  reloadConfig() {
-    this.WorkbenchConfig = workspace.getConfiguration("workbench");
-    this.SundialConfig = workspace.getConfiguration("sundial");
   }
 
   automater(): NodeJS.Timer {
@@ -56,73 +55,27 @@ export default class Sundial {
 
   async check() {
     console.info(`Sundial async check initialized...`);
-    await this.reloadConfig();
+    await this.updateConfig();
+    await this.checkConfig();
 
     let now = moment();
 
     if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
-      if (!this.SundialConfig.latitude || !this.SundialConfig.longitude) {
-        throw window.showErrorMessage(
-          "Sundial needs both, latitude and longitude, to work!"
-        );
-      }
-      if (this.debug) {
-        console.log("(Sundial) => Latitude:", this.SundialConfig.latitude);
-        console.log("(Sundial) => Longitude:", this.SundialConfig.longitude);
-      }
-
-      const times = await SunCalc.getTimes(
-        now,
-        this.SundialConfig.latitude,
-        this.SundialConfig.longitude
-      );
-
-      this.sunrise = times.sunrise;
-      this.sunset = times.sunset;
+      console.info("Sundial will now use your configurated location");
+      this.tides = await this.useLatitudeLongitude(now);
     } else if (this.SundialConfig.autoLocale) {
-      const IP = await publicIp.v4();
-      let storedPublicIP = this.context.globalState.get("userPublicIP");
-      let storedLatitude = this.context.globalState.get("userLatitude");
-      let storedLongitude = this.context.globalState.get("userLongitude");
-      if (this.debug) {
-        console.log("(Sundial) => Public IP:", IP);
-        console.log("(Sundial) => Stored public IP:", storedPublicIP);
-        console.log("(Sundial) => Stored latitude:", storedLatitude);
-        console.log("(Sundial) => Stored longitude:", storedLongitude);
-      }
-
-      if (storedPublicIP !== IP || (!storedLatitude || !storedLongitude)) {
-        let url = this.geoAPI.replace("{IP}", IP);
-        let ipLocationRequest = await request(url);
-        console.info("(Sundial) => IPAPI Request called");
-        let ipLocation = JSON.parse(ipLocationRequest);
-        if (this.debug) {
-          console.log("(Sundial) => IP Location:", ipLocation);
-        }
-
-        this.context.globalState.update("userPublicIP", IP);
-        this.context.globalState.update("userLatitude", ipLocation.latitude);
-        this.context.globalState.update("userLongitude", ipLocation.longitude);
-
-        const times = await SunCalc.getTimes(
-          now,
-          ipLocation.latitude,
-          ipLocation.longitude
-        );
-
-        this.sunrise = times.sunrise;
-        this.sunset = times.sunset;
-      }
+      console.info("Sundial will now detecting your location automatically");
+      this.tides = await this.useAutoLocale(now);
     }
 
-    const nowIsBeforeSunrise = now.isBefore(this.sunrise);
-    const nowIsAfterSunrise = now.isAfter(this.sunrise);
-    const nowIsBeforeSunset = now.isBefore(this.sunset);
-    const nowIsAfterSunset = now.isAfter(this.sunset);
+    const nowIsBeforeSunrise = now.isBefore(this.tides.sunrise);
+    const nowIsAfterSunrise = now.isAfter(this.tides.sunrise);
+    const nowIsBeforeSunset = now.isBefore(this.tides.sunset);
+    const nowIsAfterSunset = now.isAfter(this.tides.sunset);
 
-    if (this.debug) {
-      console.log("(Sundial) => Sunrise:", this.sunrise);
-      console.log("(Sundial) => Sunset:", this.sunset);
+    if (this.SundialConfig.debug) {
+      console.log("(Sundial) => Sunrise:", this.tides.sunrise);
+      console.log("(Sundial) => Sunset:", this.tides.sunset);
       console.log("(Sundial) => nowIsBeforeSunrise:", nowIsBeforeSunrise);
       console.log("(Sundial) => nowIsAfterSunrise:", nowIsAfterSunrise);
       console.log("(Sundial) => nowIsBeforeSunset:", nowIsBeforeSunset);
@@ -130,12 +83,92 @@ export default class Sundial {
     }
 
     if (nowIsAfterSunrise && nowIsBeforeSunset) {
-      console.info(`Applying day theme! 🌕`);
+      console.info(`Sundial applied your day theme! 🌕`);
       this.changeThemeTo(this.SundialConfig.dayTheme);
     } else if (nowIsBeforeSunrise || nowIsAfterSunset) {
-      console.info(`Applying night theme! 🌑`);
+      console.info(`Sundial applied your night theme! 🌑`);
       this.changeThemeTo(this.SundialConfig.nightTheme);
     }
+  }
+
+  private async useLatitudeLongitude(now: moment.Moment) {
+    if (!this.SundialConfig.latitude || !this.SundialConfig.longitude) {
+      throw window.showErrorMessage(
+        "Sundial needs both, latitude and longitude, to work with this configuration!"
+      );
+    }
+    if (this.SundialConfig.debug) {
+      console.log("(Sundial) => Latitude:", this.SundialConfig.latitude);
+      console.log("(Sundial) => Longitude:", this.SundialConfig.longitude);
+    }
+    const tides = await SunCalc.getTimes(
+      now,
+      this.SundialConfig.latitude,
+      this.SundialConfig.longitude
+    );
+    return <ITides>{
+      sunrise: tides.sunrise,
+      sunset: tides.sunset
+    };
+  }
+
+  private async useAutoLocale(now: moment.Moment) {
+    const IP = await publicIp.v4();
+    let storedPublicIP = this.context.globalState.get("userPublicIP");
+    let latitude = this.context.globalState.get("userLatitude");
+    let longitude = this.context.globalState.get("userLongitude");
+    if (this.SundialConfig.debug) {
+      console.log("(Sundial) => Public IP:", IP);
+      console.log("(Sundial) => Stored public IP:", storedPublicIP);
+      console.log("(Sundial) => Stored latitude:", latitude);
+      console.log("(Sundial) => Stored longitude:", longitude);
+    }
+
+    // only pull new location data if the location has really changed
+    if (storedPublicIP !== IP || (!latitude || !longitude)) {
+      console.info(
+        "Sundial detected a location change and will search for your location again"
+      );
+      let url = this.geoAPI.replace("{IP}", IP);
+      let ipLocationRequest = await request(url);
+      console.info("(Sundial) => IPAPI Request called");
+      let ipLocation = JSON.parse(ipLocationRequest);
+      if (this.SundialConfig.debug) {
+        console.log("(Sundial) => IP Location:", ipLocation);
+      }
+      latitude = ipLocation.latitude;
+      longitude = ipLocation.longitude;
+      this.context.globalState.update("userPublicIP", IP);
+      this.context.globalState.update("userLatitude", ipLocation.latitude);
+      this.context.globalState.update("userLongitude", ipLocation.longitude);
+    }
+
+    console.info("Sundial will use your cached location");
+    const tides = await SunCalc.getTimes(now, latitude, longitude);
+    return <ITides>{
+      sunrise: tides.sunrise,
+      sunset: tides.sunset
+    };
+  }
+
+  checkConfig() {
+    const configSunrise = moment(this.SundialConfig.sunrise, "H:m", true);
+    const configSunset = moment(this.SundialConfig.sunset, "H:m", true);
+
+    if (
+      (!configSunrise.isValid() || !configSunset.isValid()) &&
+      (!this.SundialConfig.latitude ||
+        !this.SundialConfig.longitude ||
+        !this.SundialConfig.autoLocale)
+    ) {
+      window.showErrorMessage(
+        "It looks like sundial.sunrise or sundial.sunset are no real dates and you have not set any other specifications to determine your sunset and sunrise. Please correct this by following the documentation."
+      );
+    }
+  }
+
+  updateConfig() {
+    this.SundialConfig = workspace.getConfiguration("sundial");
   }
 
   changeThemeTo(newTheme: string) {

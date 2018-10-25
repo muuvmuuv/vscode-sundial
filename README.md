@@ -9,6 +9,9 @@
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/r/muuvmuuv.vscode-sundial.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Visual Studio Marketplace](https://img.shields.io/vscode-marketplace/v/muuvmuuv.vscode-sundial.svg?style=flat)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Repository](https://david-dm.org/muuvmuuv/vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+[![Maintainability](https://api.codeclimate.com/v1/badges/52f93dc5f852410ef448/maintainability)](https://codeclimate.com/github/muuvmuuv/vscode-sundial/maintainability)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript)
 
 [Installation](#desert_island-installation) •
 [Extension Settings](#gear-extension-settings) •
@@ -41,15 +44,15 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 
 **Sundial** contributes the following settings:
 
-* `sundial.dayTheme`: name of the theme of choice for your day work. (default:
+- `sundial.dayTheme`: name of the theme of choice for your day work. (default:
   `Default Light+`)
-* `sundial.nightTheme`: name of the theme of choice for your night work.
+- `sundial.nightTheme`: name of the theme of choice for your night work.
   (default: `Default Dark+`)
-* `sundial.sunrise`: set a time when your day starts in _24 hours format_.
+- `sundial.sunrise`: set a time when your day starts in _24 hours format_.
   (default: `07:00`)
-* `sundial.sunset`: set a time when your night starts in _24 hours format_.
+- `sundial.sunset`: set a time when your night starts in _24 hours format_.
   (default: `19:00`)
-* `sundial.interval`: set a interval in which sundial should check the time.
+- `sundial.interval`: set a interval in which sundial should check the time.
   (default: `5`)
 
 > If you set the interval to zero (0) sundial will not periodically check the
@@ -66,10 +69,10 @@ performance because `autoLocale` uses an external provider with limited API
 calls (free plan includes 10.000 requests per month). You can get your latitude
 and logitude from [ipapi](https://ipapi.com/) (the box on the right).
 
-* `sundial.autoLocale`: default `false` (only updates location when your public
+- `sundial.autoLocale`: default `false` (only updates location when your public
   IP changes)
-* `sundial.latitude`: latitude (e.g.: `50.110924`)
-* `sundial.longitude`: longitude (e.g.: `8.682127`)
+- `sundial.latitude`: latitude (e.g.: `50.110924`)
+- `sundial.longitude`: longitude (e.g.: `8.682127`)
 
 ## :hammer_and_wrench: Development
 
