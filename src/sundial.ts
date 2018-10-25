@@ -170,9 +170,12 @@ export default class Sundial {
 
   updateConfig() {
     this.SundialConfig = workspace.getConfiguration("sundial");
+    this.WorkbenchConfig = workspace.getConfiguration("workbench");
   }
 
   changeThemeTo(newTheme: string) {
+    console.log("TEST", this.WorkbenchConfig);
+
     if (newTheme !== this.WorkbenchConfig.theme) {
       const status: any = this.WorkbenchConfig.update(
         "colorTheme",

@@ -3,6 +3,10 @@
 All notable changes to the "vscode-sundial" extension will be documented in this
 file.
 
+## [1.1.2]
+
+- #2: Workbench config fix
+
 ## [1.1.1]
 
 - Refactored functions
