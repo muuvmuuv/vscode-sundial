@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
 import {
   window,
   ExtensionContext,
   WindowState,
   TextEditorViewColumnChangeEvent
-} from 'vscode';
-import Sundial from './sundial';
+} from "vscode";
+import Sundial from "./sundial";
 
 export function activate(context: ExtensionContext) {
   const sundial = new Sundial(context);
@@ -17,7 +17,7 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(
     window.onDidChangeWindowState((state: WindowState) => {
       if (sundial.debug) {
-        console.log('(Sundial) => onDidChangeWindowState:', state);
+        console.log("(Sundial) => onDidChangeWindowState:", state);
       }
 
       sundial.check();
@@ -28,7 +28,7 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(
     window.onDidChangeActiveTextEditor((state: any) => {
       if (sundial.debug) {
-        console.log('(Sundial) => onDidChangeActiveTextEditor:', state);
+        console.log("(Sundial) => onDidChangeActiveTextEditor:", state);
       }
 
       sundial.check();
@@ -40,7 +40,7 @@ export function activate(context: ExtensionContext) {
     window.onDidChangeTextEditorViewColumn(
       (state: TextEditorViewColumnChangeEvent) => {
         if (sundial.debug) {
-          console.log('(Sundial) => onDidChangeTextEditorViewColumn:', state);
+          console.log("(Sundial) => onDidChangeTextEditorViewColumn:", state);
         }
 
         sundial.check();
@@ -52,5 +52,5 @@ export function activate(context: ExtensionContext) {
     sundial.automater();
   }
 
-  console.info('Sundial is now active! ☀️');
+  console.info("Sundial is now active! ☀️");
 }

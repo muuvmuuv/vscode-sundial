@@ -1,18 +1,9 @@
 {
   "TypeScript": {
     "beautifiers": ["Prettier"],
-    "indent_size": 2,
-    "indent_style": "space",
-    "quotes": "single",
-    "wrap_line_length": "85",
-    "align_assignments": true,
-    "break_chained_methods": true,
-    "indent_comments": true,
-    "space_after_anon_function": false,
-    "pragma_insert": false,
-    "arrow_parens": "as-needed",
-    "jsx_brackets": true,
-    "object_curly_spacing": true
+    "TSLint": {
+      "prefer_beautifier_config": true
+    }
   },
   "JSON": {
     "beautifiers": ["Pretty Diff"],

@@ -1,6 +1,9 @@
 {
   "name": "vscode-sundial",
+  "displayName": "Sundial",
   "version": "1.1.0",
+  "icon": "assets/icon.jpg",
+  "publisher": "muuvmuuv",
   "description": "Change your VS Code theme based on your sunset and sunrise!",
   "keywords": [
     "day",
@@ -12,11 +15,15 @@
     "theme",
     "vscode"
   ],
+  "categories": [
+    "Other"
+  ],
   "homepage": "https://github.com/muuvmuuv/vscode-sundial/blob/master/README.md",
   "bugs": {
     "url": "https://github.com/muuvmuuv/vscode-sundial/issues",
     "email": "marvin.heilemann+github@googlemail.com"
   },
+  "qna": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/muuvmuuv/vscode-sundial"
@@ -31,6 +38,14 @@
     "vscode:prepublish": "npm run compile",
     "watch": "tsc -watch -p ./"
   },
+  "engines": {
+    "vscode": "^1.25.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "dependencies": {
     "moment": "^2.22.2",
     "public-ip": "^2.4.0",
@@ -41,18 +56,15 @@
   "devDependencies": {
     "@types/mocha": "^2.2.42",
     "@types/node": "^8.10.32",
+    "husky": "^1.1.2",
+    "prettier": "1.14.3",
+    "pretty-quick": "^1.8.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1",
     "vscode": "^1.1.21"
   },
-  "engines": {
-    "vscode": "^1.25.0"
-  },
   "activationEvents": [
     "*"
-  ],
-  "categories": [
-    "Other"
   ],
   "contributes": {
     "configuration": {
@@ -112,9 +124,5 @@
         }
       }
     }
-  },
-  "displayName": "Sundial",
-  "icon": "assets/icon.jpg",
-  "publisher": "muuvmuuv",
-  "qna": false
+  }
 }
