@@ -174,8 +174,6 @@ export default class Sundial {
   }
 
   changeThemeTo(newTheme: string) {
-    console.log("TEST", this.WorkbenchConfig);
-
     if (newTheme !== this.WorkbenchConfig.theme) {
       const status: any = this.WorkbenchConfig.update(
         "colorTheme",

@@ -3,7 +3,8 @@
     "beautifiers": ["Prettier"],
     "TSLint": {
       "prefer_beautifier_config": true
-    }
+    },
+    "wrap_line_length": 80
   },
   "JSON": {
     "beautifiers": ["Pretty Diff"],
