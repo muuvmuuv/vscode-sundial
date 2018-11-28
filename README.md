@@ -14,6 +14,8 @@
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript)
 
 [Installation](#desert_island-installation) •
+[Extension Keybindings](#keyboard-extension-keybindings) •
+[Extension Commands](#bellhop_bell-extension-commands) •
 [Extension Settings](#gear-extension-settings) •
 [Automation](#automatically-get-sunrise-and-sunset) •
 [Development](#hammer_and_wrench-development)
