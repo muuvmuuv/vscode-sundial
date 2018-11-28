@@ -1,6 +1,6 @@
 "use strict";
 
-import { window, ExtensionContext, commands, workspace } from "vscode";
+import { window, ExtensionContext, commands } from "vscode";
 import Sundial from "./sundial";
 
 const sundial = new Sundial();
