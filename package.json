@@ -1,18 +1,19 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "version": "1.1.21",
+  "version": "1.2.0",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
   "description": "Change your VS Code theme based on your sunset and sunrise!",
   "keywords": [
+    "theme",
+    "switch",
     "day",
-    "moment",
     "night",
-    "sundial",
     "sunrise",
     "sunset",
-    "theme",
+    "sundial",
+    "moment",
     "vscode"
   ],
   "categories": [
@@ -28,7 +29,7 @@
     "type": "git",
     "url": "https://github.com/muuvmuuv/vscode-sundial"
   },
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "main": "./out/extension",
   "scripts": {
     "clean": "rm -rf out/ && rm -rf .vscode-test/",
@@ -55,18 +56,43 @@
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
-    "@types/node": "^8.10.32",
-    "husky": "^1.1.2",
+    "@types/node": "^8.10.38",
+    "husky": "^1.2.0",
     "prettier": "1.14.3",
     "pretty-quick": "^1.8.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.1",
-    "vscode": "^1.1.21"
+    "vscode": "^1.1.22"
   },
   "activationEvents": [
     "*"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "sundial.switchToNightTheme",
+        "title": "Sundial: Night Theme"
+      },
+      {
+        "command": "sundial.switchToDayTheme",
+        "title": "Sundial: Day Theme"
+      },
+      {
+        "command": "sundial.toggleDayNightTheme",
+        "title": "Sundial: Toggle Day/Night Theme"
+      },
+      {
+        "command": "sundial.continueAutomation",
+        "title": "Sundial: Continue switching day/night theme automatically"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "sundial.toggleDayNightTheme",
+        "key": "ctrl+alt+t",
+        "mac": "ctrl+cmd+t"
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "Sundial Configurations",

@@ -3,6 +3,12 @@
 All notable changes to the "vscode-sundial" extension will be documented in this
 file.
 
+## [1.2.0]
+
+- Added VS Code commands to switch the theme by hand
+- Added explanation for the new commands feature to README.md
+- Updated the README.md a little bit to improve reading
+
 ## [1.1.21]
 
 - Removed test console.log

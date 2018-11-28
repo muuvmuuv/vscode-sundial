@@ -32,50 +32,92 @@ found a bug, feel free to create an issue or start contributing! 😇
   <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee">
 </a>
 
-![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
+## ![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
+
+---
 
 ## :desert_island: Installation
 
 You can simply install any VS Code extension via the VS Code Marketplace:
 
-[![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+## [![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+
+---
+
+## :keyboard: Extension Keybindings
+
+**Sundial** contributes the following keybindings:
+
+| Platform | Keybinding            | Action                        |
+| -------- | --------------------- | ----------------------------- |
+| Windows  | <kbd>ctrl+alt+t</kbd> | `sundial.toggleDayNightTheme` |
+| Mac      | <kbd>ctrl+cmd+t</kbd> | `sundial.toggleDayNightTheme` |
+
+---
+
+## :bellhop_bell: Extension commands
+
+**Sundial** contributes the following commands:
+
+| Command                                                     | Action                        | Description                                               |
+| ----------------------------------------------------------- | ----------------------------- | --------------------------------------------------------- |
+| _Sundial: Night Theme_                                      | `sundial.switchToNightTheme`  | Switch to your night theme.                               |
+| _Sundial: Day Theme_                                        | `sundial.switchToDayTheme`    | Switch to your day theme.                                 |
+| _Sundial: Toggle Day/Night Theme_                           | `sundial.toggleDayNightTheme` | Toggle between you day/night theme.                       |
+| _Sundial: Continue switching day/night theme automatically_ | `sundial.continueAutomation`  | Continue to use the sundial configured automation script. |
+
+> Note that whenever you use one of this commands Sundial will disable the
+> automation process of changing your theme on day night basis. To continue
+> using that feature you need to reactivate it with
+> `sundial.continueAutomation`. If you thing you know a better implementation
+> please contribute!
+
+---
 
 ## :gear: Extension Settings
 
 **Sundial** contributes the following settings:
 
-- `sundial.dayTheme`: name of the theme of choice for your day work. (default:
-  `Default Light+`)
-- `sundial.nightTheme`: name of the theme of choice for your night work.
-  (default: `Default Dark+`)
-- `sundial.sunrise`: set a time when your day starts in _24 hours format_.
-  (default: `07:00`)
-- `sundial.sunset`: set a time when your night starts in _24 hours format_.
-  (default: `19:00`)
-- `sundial.interval`: set a interval in which sundial should check the time.
-  (default: `5`)
+| Setting              | Default  | Description                                               |
+| -------------------- | -------- | --------------------------------------------------------- |
+| `sundial.dayTheme`   | _Light+_ | Name of the theme of choice for your day work.            |
+| `sundial.nightTheme` | _Dark+_  | Name of the theme of choice for your night work.          |
+| `sundial.sunrise`    | _07:00_  | Set a time when your day starts in **24 hours format**.   |
+| `sundial.sunset`     | _19:00_  | Set a time when your night starts in **24 hours format**. |
+| `sundial.interval`   | _5_      | Set a interval in which sundial should check the time.    |
 
 > If you set the interval to zero (0) sundial will not periodically check the
-> time but still when you `ChangeWindowState`, `ChangeActiveTextEditor` and
-> `ChangeTextEditorViewColumn`.
+> time but still when VS Code triggers the events `ChangeWindowState`,
+> `ChangeActiveTextEditor` and `ChangeTextEditorViewColumn`.
 
 ### Automatically get sunrise and sunset
 
 To get your sunrise and sunset automatically you can either set latitude and
 longitude or set `autoLocale` to `true`.
 
-It is recommended to set your latitude and longitude manually for better
-performance because `autoLocale` uses an external provider with limited API
-calls (free plan includes 10.000 requests per month). You can get your latitude
-and logitude from [ipapi](https://ipapi.com/) (the box on the right).
+On `autoLocale` set to `true` Sundial will pull you public IP Address with the
+node package [public-ip](https://www.npmjs.com/package/public-ip) and then pass
+it to [ipapi](https://ipapi.com/) to get you locationstring.
 
-- `sundial.autoLocale`: default `false` (only updates location when your public
-  IP changes)
-- `sundial.latitude`: latitude (e.g.: `50.110924`)
-- `sundial.longitude`: longitude (e.g.: `8.682127`)
+It is recommended to set your latitude and longitude manually for better a
+stability because `autoLocale`, which uses [ipapi](https://ipapi.com/), has
+limited API calls (free plan includes 10.000 requests per month). You can get
+your latitude and longitude from [ipapi](https://ipapi.com/) website (the box on
+the right).
+
+| Setting              | Default | Description                                       |
+| -------------------- | ------- | ------------------------------------------------- |
+| `sundial.autoLocale` | _false_ | Only updates location when your public IP changes |
+| `sundial.latitude`   | _⊘_     | e.g. _"50.110924"_                                |
+| `sundial.longitude`  | _⊘_     | e.g. _"8.682127"_                                 |
+
+---
 
 ## :hammer_and_wrench: Development
 
 1.  Install packages via `npm install`
 2.  Set `sundial.debug` to `true` (prints more info to the debug console)
 3.  Run debugger => `Extension`
+
+> ⚠️ Don't forget to change the version and include a detailed changelog of the
+> changes you made!

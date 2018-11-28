@@ -16,14 +16,19 @@ interface ITides {
 }
 
 export default class Sundial {
+  readonly extensionName: string = "Sundial";
+  readonly extensionAlias: string = "sundial";
+
   SundialConfig!: WorkspaceConfiguration;
   WorkbenchConfig!: WorkspaceConfiguration;
   extensionContext!: ExtensionContext;
+
   debug: boolean = false;
-  // NOTE: check usage here: https://ipapi.com/usage
   geoAPI: string =
-    "http://api.ipapi.com/{IP}?access_key=aae7ba6db75c991f311debe20ec58d7e&fields=latitude,longitude";
+    "http://api.ipapi.com/{IP}?access_key=aae7ba6db75c991f311debe20ec58d7e&fields=latitude,longitude"; // https://ipapi.com/usage
   tides: ITides;
+  polos: boolean = true; // mount/dismount the polos from the sundial
+  interval!: NodeJS.Timer;
 
   constructor() {
     this.updateConfig();
@@ -44,18 +49,24 @@ export default class Sundial {
     this.extensionContext = context;
   }
 
-  automater(): NodeJS.Timer {
+  automater() {
     console.info(
       `Sundial will automatically run every ${
         this.SundialConfig.interval
       } minutes.`
     );
 
-    return setInterval(this.check, 1000 * 60 * this.SundialConfig.interval);
+    this.interval = setInterval(
+      this.check,
+      1000 * 60 * this.SundialConfig.interval
+    );
   }
 
   async check() {
-    console.info(`Sundial async check initialized...`);
+    if (!this.polos) {
+      return; // Just mute it here, info would be disturbing
+    }
+    console.info(`Sundial check initialized...`);
     await this.updateConfig();
     await this.checkConfig();
 
@@ -171,10 +182,20 @@ export default class Sundial {
   updateConfig() {
     this.SundialConfig = workspace.getConfiguration("sundial");
     this.WorkbenchConfig = workspace.getConfiguration("workbench");
+    if (this.SundialConfig.debug) {
+      console.log("(SundialConfig) =>", this.SundialConfig);
+      console.log("(WorkbenchConfig) =>", this.WorkbenchConfig);
+    }
+  }
+
+  disablePolos() {
+    console.info(`Removing the polos from the sundial...`);
+    this.polos = false;
+    clearInterval(this.interval);
   }
 
   changeThemeTo(newTheme: string) {
-    if (newTheme !== this.WorkbenchConfig.theme) {
+    if (newTheme !== this.WorkbenchConfig.colorTheme) {
       const status: any = this.WorkbenchConfig.update(
         "colorTheme",
         <string>newTheme,
