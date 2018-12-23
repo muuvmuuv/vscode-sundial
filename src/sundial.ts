@@ -11,8 +11,8 @@ const SunCalc = require("suncalc");
 const publicIp = require("public-ip");
 
 interface ITides {
-  sunrise: string | moment.Moment;
-  sunset: string | moment.Moment;
+  sunrise: string;
+  sunset: string;
 }
 
 export default class Sundial {
@@ -26,18 +26,13 @@ export default class Sundial {
   debug: boolean = false;
   geoAPI: string =
     "http://api.ipapi.com/{IP}?access_key=aae7ba6db75c991f311debe20ec58d7e&fields=latitude,longitude"; // https://ipapi.com/usage
-  tides: ITides;
   polos: boolean = true; // mount/dismount the polos from the sundial
   interval!: NodeJS.Timer;
+  tides!: ITides;
 
   constructor() {
     this.updateConfig();
     this.checkConfig();
-
-    this.tides = {
-      sunrise: moment(this.SundialConfig.sunrise, "H:m", true),
-      sunset: moment(this.SundialConfig.sunset, "H:m", true)
-    };
 
     if (this.SundialConfig.debug) {
       console.log("(Sundial) => WorkbenchConfig:", this.WorkbenchConfig);
@@ -70,7 +65,7 @@ export default class Sundial {
     await this.updateConfig();
     await this.checkConfig();
 
-    let now = moment();
+    let now = moment(moment.now());
 
     if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
       console.info("Sundial will now use your configurated location");
@@ -79,6 +74,8 @@ export default class Sundial {
       console.info("Sundial will now detecting your location automatically");
       this.tides = await this.useAutoLocale(now);
     }
+
+    console.log(this.tides);
 
     const nowIsBeforeSunrise = now.isBefore(this.tides.sunrise);
     const nowIsAfterSunrise = now.isAfter(this.tides.sunrise);
@@ -153,9 +150,10 @@ export default class Sundial {
       this.context.globalState.update("userPublicIP", IP);
       this.context.globalState.update("userLatitude", ipLocation.latitude);
       this.context.globalState.update("userLongitude", ipLocation.longitude);
+    } else {
+      console.info("Sundial will use your cached location");
     }
 
-    console.info("Sundial will use your cached location");
     const tides = await SunCalc.getTimes(now, latitude, longitude);
     return <ITides>{
       sunrise: tides.sunrise,
@@ -166,7 +164,6 @@ export default class Sundial {
   checkConfig() {
     const configSunrise = moment(this.SundialConfig.sunrise, "H:m", true);
     const configSunset = moment(this.SundialConfig.sunset, "H:m", true);
-
     if (
       (!configSunrise.isValid() || !configSunset.isValid()) &&
       (!this.SundialConfig.latitude ||
@@ -182,8 +179,13 @@ export default class Sundial {
   updateConfig() {
     this.SundialConfig = workspace.getConfiguration("sundial");
     this.WorkbenchConfig = workspace.getConfiguration("workbench");
+    this.tides = {
+      sunrise: moment(this.SundialConfig.sunrise, "H:m", true).format(),
+      sunset: moment(this.SundialConfig.sunset, "H:m", true).format()
+    };
     if (this.SundialConfig.debug) {
       console.log("(SundialConfig) =>", this.SundialConfig);
+      console.log("(SundialTides) =>", this.tides);
       console.log("(WorkbenchConfig) =>", this.WorkbenchConfig);
     }
   }

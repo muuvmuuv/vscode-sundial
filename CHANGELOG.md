@@ -3,6 +3,11 @@
 All notable changes to the "vscode-sundial" extension will be documented in this
 file.
 
+## [1.2.1]
+
+- Fixed a problem where sundial catched the wrong date after leaving the editor
+  open for longer then a day (currently in testing stage)
+
 ## [1.2.0]
 
 - Added VS Code commands to switch the theme by hand

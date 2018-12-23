@@ -5,9 +5,9 @@
 
 #### Change your [VS Code](https://code.visualstudio.com/) theme based on your sunset and sunrise!
 
-[![Visual Studio Marketplace](http://vsmarketplacebadge.apphb.com/version-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
-[![Visual Studio Marketplace](http://vsmarketplacebadge.apphb.com/installs-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
-[![Visual Studio Marketplace](http://vsmarketplacebadge.apphb.com/rating-star/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/installs-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/rating-star/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Repository](https://david-dm.org/muuvmuuv/vscode-sundial.svg)](https://david-dm.org/muuvmuuv/vscode-sundial)
 [![Maintainability](https://api.codeclimate.com/v1/badges/52f93dc5f852410ef448/maintainability)](https://codeclimate.com/github/muuvmuuv/vscode-sundial/maintainability)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/alerts/)
@@ -22,7 +22,7 @@
 
 Sundial changes your theme based on your day and night cycle. It is inspired by
 the [OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and
-[Nigth Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_
+[Night Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_
 when working in the night or on the day. Humans should not strain their eyes too
 much, it's **not recommended** to have a light theme in the night and vice
 versa.
@@ -42,7 +42,7 @@ found a bug, feel free to create an issue or start contributing! 😇
 
 You can simply install any VS Code extension via the VS Code Marketplace:
 
-## [![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+[![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 
 ---
 

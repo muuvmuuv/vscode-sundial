@@ -3,9 +3,9 @@
 import { window, ExtensionContext, commands } from "vscode";
 import Sundial from "./sundial";
 
-const sundial = new Sundial();
-
 export function activate(context: ExtensionContext) {
+  const sundial = new Sundial();
+
   sundial.context = context;
   sundial.check(); // first check
 
@@ -55,12 +55,12 @@ export function activate(context: ExtensionContext) {
   }
 
   console.info("Sundial is now active! ☀️");
-}
 
-// Helper for change events
-function check(state: any) {
-  if (sundial.SundialConfig.debug) {
-    console.log(state);
+  // Helper for change events
+  function check(state: any) {
+    if (sundial.SundialConfig.debug) {
+      console.log(state);
+    }
+    sundial.check();
   }
-  sundial.check();
 }
