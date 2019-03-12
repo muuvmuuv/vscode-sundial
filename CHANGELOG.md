@@ -3,6 +3,13 @@
 All notable changes to the "vscode-sundial" extension will be documented in this
 file.
 
+## [1.2.2]
+
+- Typos
+- Reformatted files with prettier
+- New style (no semi)
+- Fixed issue #4
+
 ## [1.2.1]
 
 - Fixed a problem where sundial catched the wrong date after leaving the editor

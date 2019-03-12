@@ -1,4 +1,5 @@
 {
+  "prettier.tslintIntegration": false,
   "markdown.preview.scrollEditorWithPreview": false,
   "markdown.preview.scrollPreviewWithEditor": false
 }
