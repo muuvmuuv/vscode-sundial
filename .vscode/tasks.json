@@ -6,10 +6,39 @@
     {
       "type": "npm",
       "script": "watch",
-      "problemMatcher": "$tsc-watch",
       "isBackground": true,
+      "problemMatcher": [
+        {
+          "owner": "webpack",
+          "source": "webpack",
+          "fileLocation": "absolute",
+          "severity": "error",
+          "pattern": [
+            {
+              "regexp": "^ERROR in (.*)$"
+            },
+            {
+              "regexp": "^.*$"
+            },
+            {
+              "regexp": "^([^:]*): ([^:]*): ([^\\(]*) \\((\\d+):(\\d+)\\)$",
+              "file": 2,
+              "message": 3,
+              "line": 4,
+              "column": 5
+            }
+          ],
+          "background": {
+            "activeOnStart": true,
+            "beginsPattern": "^.*: Hash: *$",
+            "endsPattern": "^.*\\+ [0-9]{1,3} (hidden modules).*$"
+          }
+        }
+      ],
       "presentation": {
-        "reveal": "never"
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
       },
       "group": {
         "kind": "build",

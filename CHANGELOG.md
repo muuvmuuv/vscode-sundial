@@ -3,6 +3,26 @@
 All notable changes to the "vscode-sundial" extension will be documented in this
 file.
 
+[[1.3.0]](#130) ← [[1.2.2]](#122) ← [[1.2.1]](#121) ← [[1.2.0]](#120) ←
+[[1.1.21]](#1121) ← [[1.1.2]](#112) ← [[1.1.1]](#111) ← [[1.1.0]](#110) ←
+[[1.0.3]](#103) ← [[1.0.2]](#102) ← [[1.0.1]](#101) ← [[1.0.0]](#100) ←
+[[0.2.1]](#021) ← [[0.2.0]](#020) ← [[0.1.0]](#010) ← [[0.0.3]](#003) ←
+[[0.0.2]](#002) ← [[Unreleased]](#unreleased)
+
+## [1.3.0]
+
+- Added webpack to bundle and minify the extension
+- Adjusted the vscode [launch.json](.vscode/launch.json) and
+  [tasks.json](.vscode/tasks.json)
+- More typings
+- Transformed webpack to typescript with types :heart:
+- Edited the
+  [README Development-Section](README.md#hammer_and_wrench-development) Adjusted
+  the package.json file and made some improvements
+- Added extension recommendations
+- Added error response for ipapi + request limit message
+- Added HTTPS support for parts (ipapi requires a subscription plan)
+
 ## [1.2.2]
 
 - Typos

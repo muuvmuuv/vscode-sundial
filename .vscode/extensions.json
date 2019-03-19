@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "bierner.github-markdown-preview",
+    "bierner.emojisense",
+    "yzhang.markdown-all-in-one",
+    "muuvmuuv.vscode-theme-cloudy-mountain",
+    "editorconfig.editorconfig",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-typescript-tslint-plugin"
+  ]
+}

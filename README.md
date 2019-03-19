@@ -80,13 +80,14 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 
 **Sundial** contributes the following settings:
 
-| Setting              | Default  | Description                                               |
-| -------------------- | -------- | --------------------------------------------------------- |
-| `sundial.dayTheme`   | _Light+_ | Name of the theme of choice for your day work.            |
-| `sundial.nightTheme` | _Dark+_  | Name of the theme of choice for your night work.          |
-| `sundial.sunrise`    | _07:00_  | Set a time when your day starts in **24 hours format**.   |
-| `sundial.sunset`     | _19:00_  | Set a time when your night starts in **24 hours format**. |
-| `sundial.interval`   | _5_      | Set a interval in which sundial should check the time.    |
+| Setting              | Default  | Description                                                                      |
+| -------------------- | -------- | -------------------------------------------------------------------------------- |
+| `sundial.dayTheme`   | _Light+_ | Name of the theme of choice for your day work.                                   |
+| `sundial.nightTheme` | _Dark+_  | Name of the theme of choice for your night work.                                 |
+| `sundial.sunrise`    | _07:00_  | Set a time when your day starts in **24 hours format**.                          |
+| `sundial.sunset`     | _19:00_  | Set a time when your night starts in **24 hours format**.                        |
+| `sundial.interval`   | _5_      | Set a interval in which sundial should check the time.                           |
+| `sundial.useHTTPS`   | _false_  | Use some services with HTTPS instead of HTTP. (Please note that this is slower!) |
 
 > If you set the interval to zero (0) sundial will not periodically check the
 > time but still when VS Code triggers the events `ChangeWindowState`,
@@ -117,9 +118,19 @@ the right).
 
 ## :hammer_and_wrench: Development
 
-1.  Install packages via `npm install`
-2.  Set `sundial.debug` to `true` (prints more info to the debug console)
-3.  Run debugger => `Extension`
+We are working with [webpack](https://webpack.js.org/) to bundle Sundial to the
+smallest possible size to increase the load time in VSCode.
 
-> ⚠️ Don't forget to change the version and include a detailed changelog of the
-> changes you made!
+1.  Install packages via `npm install`
+2.  Set `sundial.debug` to `true` (not necessary but recommended)
+3.  Run debugger => `Extension`
+4.  Go into the _extensionHost_ and adjust settings to test
+5.  Change a file and save it, let _webpack_ compile
+6.  Reload the debugger (<kbd>⇧⌘F5</kbd>)
+
+> Please note that while `sundial.debug` is set to `true` Sundial will always
+> pull your IP again. So keep that in mind before using it because we have a
+> request limit.
+
+> ⚠️ Don't forget to change the [version](package.json) and include a detailed
+> [changelog](CHANGELOG.md) of the changes you made!
