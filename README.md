@@ -42,7 +42,7 @@ found a bug, feel free to create an issue or start contributing! 😇
 
 You can simply install any VS Code extension via the VS Code Marketplace:
 
-[![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+[![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial) [![Greenkeeper badge](https://badges.greenkeeper.io/muuvmuuv/vscode-sundial.svg)](https://greenkeeper.io/)
 
 ---
 
