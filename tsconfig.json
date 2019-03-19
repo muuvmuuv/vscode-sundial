@@ -6,10 +6,17 @@
     "lib": ["es6"],
     "sourceMap": true,
     "strict": true,
+    "rootDir": ".",
     "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "resolveJsonModule": true
   },
-  "exclude": ["node_modules", ".vscode-test", "tests"]
+  "exclude": ["node_modules", ".vscode-test", "test"],
+  "include": [
+    "src/**/*.ts",
+    "webpack.config.ts",
+    "./node_modules/vscode/vscode.d.ts",
+    "./node_modules/vscode/lib/*"
+  ]
 }
