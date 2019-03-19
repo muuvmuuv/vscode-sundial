@@ -5,27 +5,52 @@ import {
   ExtensionContext,
 } from 'vscode'
 import * as moment from 'moment'
-
-const request = require('request-promise')
-const SunCalc = require('suncalc')
-const publicIp = require('public-ip')
+import * as got from 'got'
+import { getTimes } from 'suncalc'
+import { v4 } from 'public-ip'
 
 interface ITides {
+  sunrise: moment.Moment
+  sunset: moment.Moment
+}
+
+interface IpapiResponse {
+  success: boolean
+  error: {
+    code: number
+    type: string
+    info: string
+  }
+  latitude: number
+  longitude: number
+}
+
+interface SundialConfiguration extends WorkspaceConfiguration {
+  dayTheme: string
+  nightTheme: string
   sunrise: string
   sunset: string
+  latitude: string
+  longitude: string
+  autoLocale: boolean
+  interval: number
+  useHTTPS: boolean
+  debug: boolean
 }
 
 export default class Sundial {
   readonly extensionName: string = 'Sundial'
   readonly extensionAlias: string = 'sundial'
 
-  SundialConfig!: WorkspaceConfiguration
+  SundialConfig!: SundialConfiguration
   WorkbenchConfig!: WorkspaceConfiguration
   extensionContext!: ExtensionContext
 
   debug: boolean = false
-  geoAPI: string =
-    'http://api.ipapi.com/{IP}?access_key=aae7ba6db75c991f311debe20ec58d7e&fields=latitude,longitude' // https://ipapi.com/usage
+  ipapiAccessKey: string = 'aae7ba6db75c991f311debe20ec58d7e'
+  ipapi: string = `http://api.ipapi.com/{IP}?access_key=${
+    this.ipapiAccessKey
+  }&fields=latitude,longitude` // https://ipapi.com/usage
   polos: boolean = true // mount/dismount the polos from the sundial
   interval!: NodeJS.Timer
   tides!: ITides
@@ -66,8 +91,6 @@ export default class Sundial {
     await this.checkConfig()
 
     let now = moment(moment.now())
-    console.log(moment())
-    console.log(now)
 
     if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
       console.info('Sundial will try to use your configurated location')
@@ -76,8 +99,6 @@ export default class Sundial {
       console.info('Sundial will try to detect your location automatically')
       this.tides = await this.useAutoLocale(now)
     }
-
-    console.log(this.tides)
 
     const nowIsBeforeSunrise = now.isBefore(this.tides.sunrise)
     const nowIsAfterSunrise = now.isAfter(this.tides.sunrise)
@@ -102,70 +123,92 @@ export default class Sundial {
     }
   }
 
-  private async useLatitudeLongitude(now: moment.Moment) {
+  private async useLatitudeLongitude(now: moment.Moment): Promise<ITides> {
     if (!this.SundialConfig.latitude || !this.SundialConfig.longitude) {
       throw window.showErrorMessage(
         'Sundial needs both, latitude and longitude, to work with this configuration!'
       )
     }
+
     if (this.SundialConfig.debug) {
       console.log('(Sundial) => Latitude:', this.SundialConfig.latitude)
       console.log('(Sundial) => Longitude:', this.SundialConfig.longitude)
     }
-    const tides = await SunCalc.getTimes(
-      now,
-      this.SundialConfig.latitude,
-      this.SundialConfig.longitude
+
+    const tides = await getTimes(
+      now.toDate(),
+      Number(this.SundialConfig.latitude),
+      Number(this.SundialConfig.longitude)
     )
-    return <ITides>{
-      sunrise: tides.sunrise,
-      sunset: tides.sunset,
+
+    return {
+      sunrise: moment(tides.sunrise),
+      sunset: moment(tides.sunset),
     }
   }
 
-  private async useAutoLocale(now: moment.Moment) {
-    const IP = await publicIp.v4()
-    let storedPublicIP = this.extensionContext.globalState.get('userPublicIP')
-    let latitude = this.extensionContext.globalState.get('userLatitude')
-    let longitude = this.extensionContext.globalState.get('userLongitude')
+  private async useAutoLocale(now: moment.Moment): Promise<ITides> {
+    const ip: string = await v4({
+      https: this.SundialConfig.useHTTPS,
+    })
+    let storedPublicIP: string =
+      this.extensionContext.globalState.get('userPublicIP') || ''
+    let latitude: number =
+      this.extensionContext.globalState.get('userLatitude') || 0
+    let longitude: number =
+      this.extensionContext.globalState.get('userLongitude') || 0
     if (this.SundialConfig.debug) {
-      console.log('(Sundial) => Public IP:', IP)
+      console.log('(Sundial) => Public IP:', ip)
       console.log('(Sundial) => Stored public IP:', storedPublicIP)
       console.log('(Sundial) => Stored latitude:', latitude)
       console.log('(Sundial) => Stored longitude:', longitude)
     }
 
-    // only pull new location data if the location has really changed
-    if (storedPublicIP !== IP || (!latitude || !longitude)) {
+    // only pull new location data if the location has really changed or while debugging
+    if (
+      storedPublicIP !== ip ||
+      (!latitude || !longitude) ||
+      this.SundialConfig.debug
+    ) {
       console.info(
         'Sundial detected a location change and will search for your location again'
       )
-      let url = this.geoAPI.replace('{IP}', IP)
-      let ipLocationRequest = await request(url)
-      console.info('(Sundial) => IPAPI Request called')
-      let ipLocation = JSON.parse(ipLocationRequest)
+      const url = this.ipapi.replace('{IP}', ip)
       if (this.SundialConfig.debug) {
-        console.log('(Sundial) => IP Location:', ipLocation)
+        console.info('(Sundial) => Calling ipapi...')
       }
-      latitude = ipLocation.latitude
-      longitude = ipLocation.longitude
-      this.extensionContext.globalState.update('userPublicIP', IP)
-      this.extensionContext.globalState.update(
-        'userLatitude',
-        ipLocation.latitude
-      )
-      this.extensionContext.globalState.update(
-        'userLongitude',
-        ipLocation.longitude
-      )
+      const gotPromise = await got(url) // request to ipapi
+      const ipapiResponse: IpapiResponse = JSON.parse(gotPromise.body)
+      if (!ipapiResponse.latitude && !ipapiResponse.longitude) {
+        if (!ipapiResponse.success && ipapiResponse.error) {
+          if (ipapiResponse.error.code === 104) {
+            throw window.showErrorMessage(
+              'We are sorry but ipapi request limit is reached (10.000 request per month). Please add your location manually and create an issue on GitHub!'
+            )
+          }
+          console.error('(Sundial) => ERROR:', ipapiResponse.error.info)
+          throw window.showErrorMessage(
+            'Oops, something went wrong pulling your location from ipapi! Maybe it is a problem on their side. Please create an issue on GitHub should this problem persist.'
+          )
+        }
+      }
+      if (this.SundialConfig.debug) {
+        console.log('(Sundial) => Success:', ipapiResponse)
+      }
+      latitude = ipapiResponse.latitude
+      longitude = ipapiResponse.longitude
+      this.extensionContext.globalState.update('userPublicIP', ip)
+      this.extensionContext.globalState.update('userLatitude', latitude)
+      this.extensionContext.globalState.update('userLongitude', longitude)
     } else {
       console.info('Sundial will use your cached location')
     }
 
-    const tides = await SunCalc.getTimes(now, latitude, longitude)
-    return <ITides>{
-      sunrise: tides.sunrise,
-      sunset: tides.sunset,
+    const tides = await getTimes(now.toDate(), latitude, longitude)
+
+    return {
+      sunrise: moment(tides.sunrise),
+      sunset: moment(tides.sunset),
     }
   }
 
@@ -185,11 +228,13 @@ export default class Sundial {
   }
 
   updateConfig() {
-    this.SundialConfig = workspace.getConfiguration('sundial')
+    this.SundialConfig = <SundialConfiguration>(
+      workspace.getConfiguration('sundial')
+    )
     this.WorkbenchConfig = workspace.getConfiguration('workbench')
     this.tides = {
-      sunrise: moment(this.SundialConfig.sunrise, 'H:m', true).format(),
-      sunset: moment(this.SundialConfig.sunset, 'H:m', true).format(),
+      sunrise: moment(this.SundialConfig.sunrise, 'H:m', true),
+      sunset: moment(this.SundialConfig.sunset, 'H:m', true),
     }
     if (this.SundialConfig.debug) {
       console.log('(SundialConfig) =>', this.SundialConfig)
