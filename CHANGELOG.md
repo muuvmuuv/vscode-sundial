@@ -11,7 +11,7 @@ file.
 
 ## [1.3.0]
 
-- Added webpack to bundle and minify the extension
+- Added webpack to bundle and minify the extension (Closes #8)
 - Adjusted the vscode [launch.json](.vscode/launch.json) and
   [tasks.json](.vscode/tasks.json)
 - More typings
