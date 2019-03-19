@@ -65,7 +65,7 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 | ----------------------------------------------------------- | ----------------------------- | --------------------------------------------------------- |
 | _Sundial: Night Theme_                                      | `sundial.switchToNightTheme`  | Switch to your night theme.                               |
 | _Sundial: Day Theme_                                        | `sundial.switchToDayTheme`    | Switch to your day theme.                                 |
-| _Sundial: Toggle Day/Night Theme_                           | `sundial.toggleDayNightTheme` | Toggle between you day/night theme.                       |
+| _Sundial: Toggle Day/Night Theme_                           | `sundial.toggleDayNightTheme` | Toggle between your day/night theme.                       |
 | _Sundial: Continue switching day/night theme automatically_ | `sundial.continueAutomation`  | Continue to use the sundial configured automation script. |
 
 > Note that whenever you use one of this commands Sundial will disable the
