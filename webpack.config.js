@@ -41,11 +41,7 @@ module.exports = (env, argv) => {
   // Show general information
   console.log('whoIsMe:', chalk.whiteBright(developerName))
   console.log('whichOs:', chalk.whiteBright(platformName))
-  console.log(
-    'devMode:',
-    isDev ? chalk.green('true') : chalk.red('false'),
-    '\n'
-  )
+  console.log('devMode:', isDev ? chalk.green('true') : chalk.red('false'), '\n')
 
   return {
     target: 'node',

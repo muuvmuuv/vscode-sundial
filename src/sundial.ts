@@ -1,9 +1,4 @@
-import {
-  workspace,
-  window,
-  WorkspaceConfiguration,
-  ExtensionContext,
-} from 'vscode'
+import { workspace, window, WorkspaceConfiguration, ExtensionContext } from 'vscode'
 import * as moment from 'moment'
 import * as got from 'got'
 import { getTimes } from 'suncalc'
@@ -70,16 +65,9 @@ export default class Sundial {
   }
 
   automater() {
-    console.info(
-      `Sundial will automatically run every ${
-        this.SundialConfig.interval
-      } minutes.`
-    )
+    console.info(`Sundial will automatically run every ${this.SundialConfig.interval} minutes.`)
 
-    this.interval = setInterval(
-      this.check,
-      1000 * 60 * this.SundialConfig.interval
-    )
+    this.interval = setInterval(this.check, 1000 * 60 * this.SundialConfig.interval)
   }
 
   async check() {
@@ -151,12 +139,9 @@ export default class Sundial {
     const ip: string = await v4({
       https: this.SundialConfig.useHTTPS,
     })
-    let storedPublicIP: string =
-      this.extensionContext.globalState.get('userPublicIP') || ''
-    let latitude: number =
-      this.extensionContext.globalState.get('userLatitude') || 0
-    let longitude: number =
-      this.extensionContext.globalState.get('userLongitude') || 0
+    let storedPublicIP: string = this.extensionContext.globalState.get('userPublicIP') || ''
+    let latitude: number = this.extensionContext.globalState.get('userLatitude') || 0
+    let longitude: number = this.extensionContext.globalState.get('userLongitude') || 0
     if (this.SundialConfig.debug) {
       console.log('(Sundial) => Public IP:', ip)
       console.log('(Sundial) => Stored public IP:', storedPublicIP)
@@ -165,14 +150,8 @@ export default class Sundial {
     }
 
     // only pull new location data if the location has really changed or while debugging
-    if (
-      storedPublicIP !== ip ||
-      (!latitude || !longitude) ||
-      this.SundialConfig.debug
-    ) {
-      console.info(
-        'Sundial detected a location change and will search for your location again'
-      )
+    if (storedPublicIP !== ip || (!latitude || !longitude) || this.SundialConfig.debug) {
+      console.info('Sundial detected a location change and will search for your location again')
       const url = this.ipapi.replace('{IP}', ip)
       if (this.SundialConfig.debug) {
         console.info('(Sundial) => Calling ipapi...')
@@ -228,9 +207,7 @@ export default class Sundial {
   }
 
   updateConfig() {
-    this.SundialConfig = <SundialConfiguration>(
-      workspace.getConfiguration('sundial')
-    )
+    this.SundialConfig = <SundialConfiguration>workspace.getConfiguration('sundial')
     this.WorkbenchConfig = workspace.getConfiguration('workbench')
     this.tides = {
       sunrise: moment(this.SundialConfig.sunrise, 'H:m', true),
@@ -251,11 +228,7 @@ export default class Sundial {
 
   changeThemeTo(newTheme: string) {
     if (newTheme !== this.WorkbenchConfig.colorTheme) {
-      const status: any = this.WorkbenchConfig.update(
-        'colorTheme',
-        <string>newTheme,
-        true
-      )
+      const status: any = this.WorkbenchConfig.update('colorTheme', <string>newTheme, true)
 
       if (status._hasError) {
         console.error('(Sundial) => ERROR:', status)
