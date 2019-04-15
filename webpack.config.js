@@ -1,5 +1,5 @@
-const { platform, userInfo } = require('os')
-const { resolve } = require('path')
+const os = require('os')
+const path = require('path')
 const chalk = require('chalk')
 const { BannerPlugin } = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -20,24 +20,25 @@ const PACKAGE = require('./package.json')
  * https://github.com/sindresorhus/got/issues/742
  */
 
+const Banner = `${'┄'.repeat(46)}
+${PACKAGE.displayName} (${PACKAGE.name})
+${PACKAGE.description}
+
+@version ${PACKAGE.version}
+@license ${PACKAGE.license}
+@author ${PACKAGE.author.name} (${PACKAGE.author.url})
+@readme ${PACKAGE.homepage}
+@package ${PACKAGE.repository}
+${'┄'.repeat(46)}`
+
 module.exports = (env, argv) => {
-  const platformName = platform()
-  const developerName = userInfo().username
+  const platformName = os.platform()
+  const developerName = os.userInfo().username
   const mode = argv.mode ? argv.mode : 'none'
   const isProd = mode === 'production'
   const isDev = mode === 'development'
 
-  let banner = '' // dist/extension.js
-  banner += `${PACKAGE.displayName} (${PACKAGE.name})\n`
-  banner += `${PACKAGE.description}\n\n`
-  banner += `@version ${PACKAGE.version}\n`
-  banner += `@license ${PACKAGE.license}\n`
-  banner += `@author ${PACKAGE.author.name} (${PACKAGE.author.url})\n`
-  banner += `@readme ${PACKAGE.homepage}\n`
-  banner += `@package ${PACKAGE.repository}`
-
-  // Log some general information
-  console.log('wbpMode:', chalk.whiteBright(mode))
+  // Show general information
   console.log('whoIsMe:', chalk.whiteBright(developerName))
   console.log('whichOs:', chalk.whiteBright(platformName))
   console.log(
@@ -48,9 +49,9 @@ module.exports = (env, argv) => {
 
   return {
     target: 'node',
-    entry: './src/extension.ts',
+    entry: path.resolve(__dirname, 'src', 'extension.ts'),
     output: {
-      path: resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'dist'),
       filename: 'extension.js',
       libraryTarget: 'commonjs2',
       devtoolModuleFilenameTemplate: '../[resource-path]',
@@ -71,13 +72,13 @@ module.exports = (env, argv) => {
     plugins: [
       new BuildNotifier({
         title: 'Sundial',
-        logo: resolve(__dirname, 'assets/icon.jpg'),
+        logo: path.resolve(__dirname, 'assets', 'icon.jpg'),
         onClick: () => {
           // https://github.com/RoccoC/webpack-build-notifier/issues/38
         },
       }),
       new CleanPlugin(),
-      new BannerPlugin(banner),
+      new BannerPlugin(Banner),
     ],
     module: {
       rules: [
@@ -91,24 +92,6 @@ module.exports = (env, argv) => {
           ],
         },
       ],
-    },
-    stats: {
-      assets: true,
-      builtAt: true,
-      cached: false,
-      cachedAssets: false,
-      children: false,
-      reasons: false,
-      chunks: false,
-      colors: true,
-      errors: true,
-      maxModules: 10,
-      hash: true,
-      moduleTrace: true,
-      performance: true,
-      timings: true,
-      version: false,
-      warnings: true,
     },
   }
 }
