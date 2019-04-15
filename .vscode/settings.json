@@ -1,6 +1,6 @@
 {
   "markdown.preview.scrollEditorWithPreview": false,
   "markdown.preview.scrollPreviewWithEditor": false,
-  "cSpell.words": ["ipapi"],
+  "cSpell.words": ["ipapi", "lgtm"],
   "editor.rulers": [100]
 }

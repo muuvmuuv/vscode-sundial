@@ -7,6 +7,19 @@ All notable changes to the "vscode-sundial" extension will be documented in this
 [[1.0.1]](#101) ← [[1.0.0]](#100) ← [[0.2.1]](#021) ← [[0.2.0]](#020) ← [[0.1.0]](#010) ←
 [[0.0.3]](#003) ← [[0.0.2]](#002) ← [[Unreleased]](#unreleased)
 
+## [1.3.2]
+
+- Updated dependencies
+- Ported webpack conf to JS version 'cause of an issue with webpack-build-notifier
+- Adjusted the vscode [launch.json](.vscode/launch.json) and [tasks.json](.vscode/tasks.json)
+- CC-Fix: exceeds 25 allowed
+- CC-Fix: Exceeds 25 allowed
+- CC-Fix: Similar blocks of code found
+- Increased print width
+- Removed no longer needed typings
+- Updated markdown files print width
+- Updated lgtm link
+
 ## [1.3.0]
 
 - Added webpack to bundle and minify the extension (Closes #8)
