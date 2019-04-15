@@ -1,24 +1,20 @@
 # Changelog
 
-All notable changes to the "vscode-sundial" extension will be documented in this
-file.
+All notable changes to the "vscode-sundial" extension will be documented in this file.
 
-[[1.3.0]](#130) ← [[1.2.2]](#122) ← [[1.2.1]](#121) ← [[1.2.0]](#120) ←
-[[1.1.21]](#1121) ← [[1.1.2]](#112) ← [[1.1.1]](#111) ← [[1.1.0]](#110) ←
-[[1.0.3]](#103) ← [[1.0.2]](#102) ← [[1.0.1]](#101) ← [[1.0.0]](#100) ←
-[[0.2.1]](#021) ← [[0.2.0]](#020) ← [[0.1.0]](#010) ← [[0.0.3]](#003) ←
-[[0.0.2]](#002) ← [[Unreleased]](#unreleased)
+[[1.3.0]](#130) ← [[1.2.2]](#122) ← [[1.2.1]](#121) ← [[1.2.0]](#120) ← [[1.1.21]](#1121) ←
+[[1.1.2]](#112) ← [[1.1.1]](#111) ← [[1.1.0]](#110) ← [[1.0.3]](#103) ← [[1.0.2]](#102) ←
+[[1.0.1]](#101) ← [[1.0.0]](#100) ← [[0.2.1]](#021) ← [[0.2.0]](#020) ← [[0.1.0]](#010) ←
+[[0.0.3]](#003) ← [[0.0.2]](#002) ← [[Unreleased]](#unreleased)
 
 ## [1.3.0]
 
 - Added webpack to bundle and minify the extension (Closes #8)
-- Adjusted the vscode [launch.json](.vscode/launch.json) and
-  [tasks.json](.vscode/tasks.json)
+- Adjusted the vscode [launch.json](.vscode/launch.json) and [tasks.json](.vscode/tasks.json)
 - More typings
 - Transformed webpack to typescript with types :heart:
-- Edited the
-  [README Development-Section](README.md#hammer_and_wrench-development) Adjusted
-  the package.json file and made some improvements
+- Edited the [README Development-Section](README.md#hammer_and_wrench-development) Adjusted the
+  package.json file and made some improvements
 - Added extension recommendations
 - Added error response for ipapi + request limit message
 - Added HTTPS support for parts (ipapi requires a subscription plan)
@@ -32,8 +28,8 @@ file.
 
 ## [1.2.1]
 
-- Fixed a problem where sundial catched the wrong date after leaving the editor
-  open for longer then a day (currently in testing stage)
+- Fixed a problem where sundial catched the wrong date after leaving the editor open for longer then
+  a day (currently in testing stage)
 
 ## [1.2.0]
 
@@ -57,14 +53,12 @@ file.
 
 ## [1.1.0]
 
-- Fixed a bug where autoLocale could not access the API server because the
-  provider is down
+- Fixed a bug where autoLocale could not access the API server because the provider is down
 - Sundial will check for lat/long first before `autoLocale`
-- `autoLocale` will now store the public up and lat/long into VS Code state to
-  avoid much api calls to the new provider
+- `autoLocale` will now store the public up and lat/long into VS Code state to avoid much api calls
+  to the new provider
 - Some typo and text optimization
-- Sunrise and sunset are set on start up to avoid conflicts when nothing could
-  grab the location
+- Sunrise and sunset are set on start up to avoid conflicts when nothing could grab the location
 - Some styling and formating
 - Added some more debug output and type checking
 - Removed config check (no need because we have defaults)
