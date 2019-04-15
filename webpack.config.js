@@ -1,14 +1,26 @@
-import { platform, userInfo } from 'os'
-import { resolve } from 'path'
-import chalk from 'chalk'
-import { Configuration, BannerPlugin } from 'webpack'
-import * as TerserPlugin from 'terser-webpack-plugin'
-import CleanPlugin from 'clean-webpack-plugin'
-import * as BuildNotifier from 'webpack-build-notifier'
-import * as PACKAGE from './package.json'
+const { platform, userInfo } = require('os')
+const { resolve } = require('path')
+const chalk = require('chalk')
+const { BannerPlugin } = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin')
+const CleanPlugin = require('clean-webpack-plugin')
+const BuildNotifier = require('webpack-build-notifier')
+const PACKAGE = require('./package.json')
 
-// @ts-ignore
-const webpackConfig = (env: any, argv: Configuration): Configuration => {
+/**
+ * Console warnings:
+ *
+ * WARNING in ./node_modules/keyv/src/index.js 18:14-40
+ * Critical dependency: the request of a dependency is an expression
+ * https://github.com/lukechilds/keyv/issues/45
+ *
+ * WARNING in ./node_modules/got/source/request-as-event-emitter.js 72:18-25
+ * Critical dependency: require function is used in a way in which dependencies
+ * cannot be statically extracted
+ * https://github.com/sindresorhus/got/issues/742
+ */
+
+module.exports = (env, argv) => {
   const platformName = platform()
   const developerName = userInfo().username
   const mode = argv.mode ? argv.mode : 'none'
@@ -60,6 +72,9 @@ const webpackConfig = (env: any, argv: Configuration): Configuration => {
       new BuildNotifier({
         title: 'Sundial',
         logo: resolve(__dirname, 'assets/icon.jpg'),
+        onClick: () => {
+          // https://github.com/RoccoC/webpack-build-notifier/issues/38
+        },
       }),
       new CleanPlugin(),
       new BannerPlugin(banner),
@@ -97,5 +112,3 @@ const webpackConfig = (env: any, argv: Configuration): Configuration => {
     },
   }
 }
-
-export default webpackConfig
