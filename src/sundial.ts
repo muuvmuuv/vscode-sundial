@@ -49,6 +49,7 @@ export default class Sundial {
   polos: boolean = true // mount/dismount the polos from the sundial
   interval!: NodeJS.Timer
   tides!: ITides
+  isRunning: boolean = false
 
   constructor() {
     this.updateConfig()
@@ -65,16 +66,17 @@ export default class Sundial {
   }
 
   automater() {
-    console.info(`Sundial will automatically run every ${this.SundialConfig.interval} minutes.`)
-
     this.interval = setInterval(this.check, 1000 * 60 * this.SundialConfig.interval)
   }
 
   async check() {
-    if (!this.polos) {
+    if (!this.polos || this.isRunning) {
       return // Just mute it here, info would be disturbing
     }
     console.info('Sundial check initialized...')
+    clearInterval(this.interval) // reset timer
+    this.isRunning = true
+
     await this.updateConfig()
     await this.checkConfig()
 
@@ -109,6 +111,10 @@ export default class Sundial {
       console.info('Sundial applied your night theme! 🌑')
       this.changeThemeTo(this.SundialConfig.nightTheme)
     }
+
+    await this.timer(400) // Cool down 😴
+    this.isRunning = false
+    this.automater()
   }
 
   private async useLatitudeLongitude(now: moment.Moment): Promise<ITides> {
@@ -190,6 +196,8 @@ export default class Sundial {
       sunset: moment(tides.sunset),
     }
   }
+
+  timer = (ms: number): Promise<NodeJS.Timeout> => new Promise(r => setTimeout(r, ms))
 
   checkConfig() {
     const configSunrise = moment(this.SundialConfig.sunrise, 'H:m', true)

@@ -36,6 +36,7 @@ export function activate(context: ExtensionContext) {
   })
 
   if (sundial.SundialConfig.interval !== 0) {
+    console.info(`Sundial will automatically run every ${sundial.SundialConfig.interval} minutes.`)
     sundial.automater()
   }
 
@@ -49,7 +50,7 @@ export function activate(context: ExtensionContext) {
  */
 function check(state: TextEditorViewColumnChangeEvent | TextEditor | WindowState | undefined) {
   if (sundial.SundialConfig.debug) {
-    console.log(state)
+    console.log('check.State', state)
   }
   sundial.check()
 }
