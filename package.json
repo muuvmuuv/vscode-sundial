@@ -54,7 +54,7 @@
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
-    "@types/got": "^9.4.1",
+    "@types/got": "^9.4.2",
     "@types/mocha": "^5.2.6",
     "@types/node": "^11.13.4",
     "@types/public-ip": "^2.4.0",
@@ -73,7 +73,7 @@
     "typescript": "^3.4.3",
     "vscode": "^1.1.33",
     "webpack": "^4.30.0",
-    "webpack-build-notifier": "^0.1.31",
+    "webpack-build-notifier": "^0.1.32",
     "webpack-cli": "^3.3.0"
   },
   "activationEvents": [

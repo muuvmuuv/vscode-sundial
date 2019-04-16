@@ -69,9 +69,6 @@ module.exports = (env, argv) => {
       new BuildNotifier({
         title: 'Sundial',
         logo: path.resolve(__dirname, 'assets', 'icon.jpg'),
-        onClick: () => {
-          // https://github.com/RoccoC/webpack-build-notifier/issues/38
-        },
       }),
       new CleanPlugin(),
       new BannerPlugin(Banner),
