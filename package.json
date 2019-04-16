@@ -73,7 +73,7 @@
     "typescript": "^3.4.3",
     "vscode": "^1.1.33",
     "webpack": "^4.30.0",
-    "webpack-build-notifier": "^0.1.32",
+    "webpack-build-notifier": "^1.0.0",
     "webpack-cli": "^3.3.0"
   },
   "activationEvents": [
