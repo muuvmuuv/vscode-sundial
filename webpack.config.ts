@@ -1,10 +1,10 @@
-import os from 'os'
-import path from 'path'
+import { platform, userInfo } from 'os'
+import { resolve } from 'path'
 import chalk from 'chalk'
 import { Configuration, BannerPlugin } from 'webpack'
 import * as TerserPlugin from 'terser-webpack-plugin'
 import CleanPlugin from 'clean-webpack-plugin'
-import WebpackBuildNotifierPlugin from 'webpack-build-notifier'
+import * as WebpackBuildNotifierPlugin from 'webpack-build-notifier'
 import * as PACKAGE from './package.json'
 
 /**
@@ -21,20 +21,20 @@ import * as PACKAGE from './package.json'
  */
 
 const Banner = `${'┄'.repeat(46)}
-  ${PACKAGE.displayName} (${PACKAGE.name})
-  ${PACKAGE.description}
+${PACKAGE.displayName} (${PACKAGE.name})
+${PACKAGE.description}
 
-  @version ${PACKAGE.version}
-  @license ${PACKAGE.license}
-  @author ${PACKAGE.author.name} (${PACKAGE.author.url})
-  @readme ${PACKAGE.homepage}
-  @package ${PACKAGE.repository}
-  ${'┄'.repeat(46)}`
+@version ${PACKAGE.version}
+@license ${PACKAGE.license}
+@author ${PACKAGE.author.name} (${PACKAGE.author.url})
+@readme ${PACKAGE.homepage}
+@package ${PACKAGE.repository}
+${'┄'.repeat(46)}`
 
 // @ts-ignore
 export default (env: any, argv: Configuration): Configuration => {
-  const platformName = os.platform()
-  const developerName = os.userInfo().username
+  const platformName = platform()
+  const developerName = userInfo().username
   const mode = argv.mode ? argv.mode : 'none'
   const isProd = mode === 'production'
   const isDev = mode === 'development'
@@ -46,9 +46,9 @@ export default (env: any, argv: Configuration): Configuration => {
 
   return {
     target: 'node',
-    entry: path.resolve(__dirname, 'src', 'extension.ts'),
+    entry: resolve(__dirname, 'src', 'extension.ts'),
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: resolve(__dirname, 'dist'),
       filename: 'extension.js',
       libraryTarget: 'commonjs2',
       devtoolModuleFilenameTemplate: '../[resource-path]',
@@ -67,10 +67,9 @@ export default (env: any, argv: Configuration): Configuration => {
       minimizer: [new TerserPlugin()],
     },
     plugins: [
-      // BUG: https://github.com/RoccoC/webpack-build-notifier/issues/39
       new WebpackBuildNotifierPlugin({
         title: 'Sundial',
-        logo: path.resolve(__dirname, 'assets', 'icon.jpg'),
+        logo: resolve(__dirname, 'assets', 'icon.jpg'),
       }),
       new CleanPlugin(),
       new BannerPlugin(Banner),
