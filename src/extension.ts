@@ -31,12 +31,14 @@ export function activate(context: ExtensionContext) {
   commands.registerCommand('sundial.continueAutomation', async () => {
     console.info('Attaching the polos to the sundial again...')
     await sundial.updateConfig()
-    sundial.automater()
+    if (sundial.SundialConfig.interval !== 0) {
+      sundial.automater()
+    }
     sundial.polos = true
   })
 
   if (sundial.SundialConfig.interval !== 0) {
-    console.info(`Sundial will automatically run every ${sundial.SundialConfig.interval} minutes.`)
+    console.info(`Sundial will automatically run every ${sundial.SundialConfig.interval} minute/s.`)
     sundial.automater()
   }
 
