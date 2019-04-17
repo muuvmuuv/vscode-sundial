@@ -14,6 +14,7 @@
   },
   "exclude": ["node_modules", ".vscode-test", "test"],
   "include": [
+    "scripts/**/*.ts",
     "src/**/*.ts",
     "webpack.config.ts",
     "./node_modules/vscode/vscode.d.ts",

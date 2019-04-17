@@ -7,6 +7,13 @@ All notable changes to the "vscode-sundial" extension will be documented in this
 [[1.0.3]](#103) ← [[1.0.2]](#102) ← [[1.0.1]](#101) ← [[1.0.0]](#100) ← [[0.2.1]](#021) ←
 [[0.2.0]](#020) ← [[0.1.0]](#010) ← [[0.0.3]](#003) ← [[0.0.2]](#002) ← [[Unreleased]](#unreleased)
 
+## [1.4.0]
+
+- Added scripts to interactively create version
+- Added script to faster push a new tag
+- Fixed issue of webpack build notifier
+- Fix: #26 and typo
+
 ## [1.3.3]
 
 - Fixes #13

@@ -127,5 +127,14 @@ size to increase the load time in VSCode.
 > Please note that while `sundial.debug` is set to `true` Sundial will always pull your IP again. So
 > keep that in mind before using it because we have a request limit.
 
-> ⚠️ Don't forget to change the [version](package.json) and include a detailed
-> [changelog](CHANGELOG.md) of the changes you made!
+> ⚠️ Don't forget to change the [version](#tools) and include a detailed [changelog](CHANGELOG.md)
+> of the changes you made!
+
+### Tools
+
+To make it easier for you, I have added two scripts to create a new version and tag faster then
+doing it manually.
+
+- Run `npm run version` to interactively create a new version (based on the awesome
+  [np](https://github.com/sindresorhus/np)-package from @sindresorhus)
+- Run `npm run tag` to tag the current package.json version to your latest commit
