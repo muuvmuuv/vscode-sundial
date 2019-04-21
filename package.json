@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
   "description": "Change your VS Code theme based on your sunset and sunrise!",
@@ -34,6 +34,8 @@
     "pretty": "pretty-quick",
     "lint": "tslint src/*.ts",
     "vscode:prepublish": "webpack --mode production",
+    "release": "run-s lint tag release:create && vsce publish",
+    "release:create": "ts-node -T ./scripts/release.ts",
     "prod": "webpack --mode production --progress",
     "dev": "webpack --mode development --progress",
     "watch": "webpack --mode development --watch",
@@ -53,6 +55,7 @@
     }
   },
   "dependencies": {
+    "fs-extra": "^7.0.1",
     "got": "^9.6.0",
     "moment": "^2.24.0",
     "public-ip": "^3.0.0",
@@ -60,6 +63,7 @@
   },
   "devDependencies": {
     "@types/execa": "^0.9.0",
+    "@types/fs-extra": "^5.0.5",
     "@types/got": "^9.4.3",
     "@types/inquirer": "^6.0.0",
     "@types/mocha": "^5.2.6",

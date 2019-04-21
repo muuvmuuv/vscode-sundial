@@ -1,6 +1,6 @@
 import { workspace, window, WorkspaceConfiguration, ExtensionContext } from 'vscode'
-import * as moment from 'moment'
-import * as got from 'got'
+import moment from 'moment'
+import got from 'got'
 import { getTimes } from 'suncalc'
 import { v4 } from 'public-ip'
 

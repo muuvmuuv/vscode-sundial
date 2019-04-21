@@ -5,7 +5,7 @@
  */
 
 import chalk from 'chalk'
-import * as execa from 'execa'
+import execa from 'execa'
 
 checkDiff()
 async function checkDiff() {

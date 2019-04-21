@@ -10,9 +10,9 @@
 import { valid, inc, ReleaseType, SemVer, lte } from 'semver'
 import chalk from 'chalk'
 import { prompt } from 'inquirer'
-import * as fs from 'fs'
-import * as path from 'path'
-import * as pkg from '../package.json'
+import fs from 'fs'
+import path from 'path'
+import pkg from '../package.json'
 
 const SEMVER_INCREMENTS: any[] = [
   'patch',

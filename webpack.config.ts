@@ -2,10 +2,10 @@ import { platform, userInfo } from 'os'
 import { resolve } from 'path'
 import chalk from 'chalk'
 import { Configuration, BannerPlugin } from 'webpack'
-import * as TerserPlugin from 'terser-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 import CleanPlugin from 'clean-webpack-plugin'
-import * as WebpackBuildNotifierPlugin from 'webpack-build-notifier'
-import * as PACKAGE from './package.json'
+import WebpackBuildNotifierPlugin from 'webpack-build-notifier'
+import pkg from './package.json'
 
 /**
  * Console warnings:
@@ -21,14 +21,14 @@ import * as PACKAGE from './package.json'
  */
 
 const Banner = `${'┄'.repeat(46)}
-${PACKAGE.displayName} (${PACKAGE.name})
-${PACKAGE.description}
+${pkg.displayName} (${pkg.name})
+${pkg.description}
 
-@version ${PACKAGE.version}
-@license ${PACKAGE.license}
-@author ${PACKAGE.author.name} (${PACKAGE.author.url})
-@readme ${PACKAGE.homepage}
-@package ${PACKAGE.repository}
+@version ${pkg.version}
+@license ${pkg.license}
+@author ${pkg.author.name} (${pkg.author.url})
+@readme ${pkg.homepage}
+@pkg ${pkg.repository}
 ${'┄'.repeat(46)}`
 
 // @ts-ignore
