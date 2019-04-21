@@ -34,7 +34,7 @@
     "pretty": "pretty-quick",
     "lint": "tslint src/*.ts",
     "vscode:prepublish": "webpack --mode production",
-    "release": "run-s lint tag release:create && vsce publish",
+    "release": "run-s lint tag release:create",
     "release:create": "ts-node -T ./scripts/release.ts",
     "prod": "webpack --mode production --progress",
     "dev": "webpack --mode development --progress",
