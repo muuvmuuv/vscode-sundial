@@ -29,8 +29,8 @@ async function release() {
   hubFlags.push(`--message="${changelog}"`) // message
   hubFlags.push(`v${version}`) // tag
 
-  console.log(chalk.dim(hubFlags.join(' ')), '\n')
-  const { stdout } = await execa('hub', hubFlags, { shell: true })
+  const { cmd } = await execa('hub', hubFlags, { shell: true })
+  console.log(chalk.dim(cmd), '\n')
   console.log(chalk.green('Successfully created new release!\n'))
   process.exit(0)
 }
