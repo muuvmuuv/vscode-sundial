@@ -7,6 +7,12 @@ All notable changes to the "vscode-sundial" extension will be documented in this
 [[1.0.3]](#103) ← [[1.0.2]](#102) ← [[1.0.1]](#101) ← [[1.0.0]](#100) ← [[0.2.1]](#021) ←
 [[0.2.0]](#020) ← [[0.1.0]](#010) ← [[0.0.3]](#003) ← [[0.0.2]](#002) ← [[Unreleased]](#unreleased)
 
+## [1.5.0]
+
+- Added support for day/night time variable, so a user can set minutes where the theme should change
+  before/after sunset/sunrise
+- Fixes a bug with automater, where it has never called the check
+
 ## [1.4.0]
 
 - Added scripts to interactively create version

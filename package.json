@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
   "description": "Change your VS Code theme based on your sunset and sunrise!",
@@ -155,6 +155,16 @@
           "type": "boolean",
           "default": false,
           "description": "Automatically set your sunset and sunrise based on your public ip location."
+        },
+        "sundial.dayVariable": {
+          "type": "number",
+          "default": 0,
+          "description": "Set a variable to change the theme X minutes before or after sunrise."
+        },
+        "sundial.nightVariable": {
+          "type": "number",
+          "default": 0,
+          "description": "Set a variable to change the theme X minutes before or after sunset."
         },
         "sundial.interval": {
           "type": "number",

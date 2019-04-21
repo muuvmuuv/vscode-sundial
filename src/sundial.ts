@@ -28,6 +28,8 @@ interface SundialConfiguration extends WorkspaceConfiguration {
   latitude: string
   longitude: string
   autoLocale: boolean
+  dayVariable: number
+  nightVariable: number
   interval: number
   useHTTPS: boolean
   debug: boolean
@@ -66,7 +68,10 @@ export default class Sundial {
   }
 
   automater() {
-    this.interval = setInterval(this.check, 1000 * 60 * this.SundialConfig.interval)
+    const interval = this.SundialConfig.debug
+      ? this.SundialConfig.interval // while debugging do seconds
+      : 60 * this.SundialConfig.interval
+    this.interval = setInterval(() => this.check(), 1000 * interval)
   }
 
   async check() {
@@ -88,6 +93,10 @@ export default class Sundial {
     } else if (this.SundialConfig.autoLocale) {
       console.info('Sundial will try to detect your location automatically')
       this.tides = await this.useAutoLocale(now)
+    }
+
+    if (this.SundialConfig.dayVariable || this.SundialConfig.nightVariable) {
+      this.setVariable()
     }
 
     const nowIsBeforeSunrise = now.isBefore(this.tides.sunrise)
@@ -195,6 +204,13 @@ export default class Sundial {
       sunrise: moment(tides.sunrise),
       sunset: moment(tides.sunset),
     }
+  }
+
+  private setVariable() {
+    let { sunrise, sunset } = this.tides
+    sunrise = sunrise.add(this.SundialConfig.dayVariable, 'minutes')
+    sunset = sunset.add(this.SundialConfig.nightVariable, 'minutes')
+    this.tides = { sunrise, sunset }
   }
 
   timer = (ms: number): Promise<NodeJS.Timeout> => new Promise(r => setTimeout(r, ms))
