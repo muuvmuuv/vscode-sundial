@@ -2,22 +2,25 @@ import { workspace, window, WorkspaceConfiguration, ExtensionContext } from 'vsc
 import moment from 'moment'
 import got from 'got'
 import { getTimes } from 'suncalc'
-import { v4 } from 'public-ip'
+import logger from './utils/logger'
 
 interface ITides {
   sunrise: moment.Moment
   sunset: moment.Moment
 }
 
-interface IpapiResponse {
-  success: boolean
-  error: {
-    code: number
-    type: string
-    info: string
-  }
+interface IResponse {
+  ip: string
+  country_code: string
+  country_name: string
+  region_code: string
+  region_name: string
+  city: string
+  zip_code: string
+  time_zone: string
   latitude: number
   longitude: number
+  metro_code: number
 }
 
 interface SundialConfiguration extends WorkspaceConfiguration {
@@ -31,7 +34,6 @@ interface SundialConfiguration extends WorkspaceConfiguration {
   dayVariable: number
   nightVariable: number
   interval: number
-  useHTTPS: boolean
   debug: boolean
 }
 
@@ -43,11 +45,9 @@ export default class Sundial {
   WorkbenchConfig!: WorkspaceConfiguration
   extensionContext!: ExtensionContext
 
+  readonly geoAPI: string = `https://freegeoip.app/json` // https://freegeoip.app/
+
   debug: boolean = false
-  ipapiAccessKey: string = 'aae7ba6db75c991f311debe20ec58d7e'
-  ipapi: string = `http://api.ipapi.com/{IP}?access_key=${
-    this.ipapiAccessKey
-  }&fields=latitude,longitude` // https://ipapi.com/usage
   polos: boolean = true // mount/dismount the polos from the sundial
   interval!: NodeJS.Timer
   tides!: ITides
@@ -56,11 +56,6 @@ export default class Sundial {
   constructor() {
     this.updateConfig()
     this.checkConfig()
-
-    if (this.SundialConfig.debug) {
-      console.log('(Sundial) => WorkbenchConfig:', this.WorkbenchConfig)
-      console.log('(Sundial) => SundialConfig:', this.SundialConfig)
-    }
   }
 
   set context(context: ExtensionContext) {
@@ -78,20 +73,22 @@ export default class Sundial {
     if (!this.polos || this.isRunning) {
       return // Just mute it here, info would be disturbing
     }
-    console.info('Sundial check initialized...')
     clearInterval(this.interval) // reset timer
     this.isRunning = true
 
     await this.updateConfig()
     await this.checkConfig()
 
+    const log = logger.getLogger('check')
+    log.info('Sundial check initialized...')
+
     let now = moment(moment.now())
 
     if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
-      console.info('Sundial will try to use your configurated location')
+      log.info('Sundial will try to use your configurated location')
       this.tides = await this.useLatitudeLongitude(now)
     } else if (this.SundialConfig.autoLocale) {
-      console.info('Sundial will try to detect your location automatically')
+      log.info('Sundial will try to detect your location automatically')
       this.tides = await this.useAutoLocale(now)
     }
 
@@ -104,20 +101,18 @@ export default class Sundial {
     const nowIsBeforeSunset = now.isBefore(this.tides.sunset)
     const nowIsAfterSunset = now.isAfter(this.tides.sunset)
 
-    if (this.SundialConfig.debug) {
-      console.log('(Sundial) => Sunrise:', this.tides.sunrise)
-      console.log('(Sundial) => Sunset:', this.tides.sunset)
-      console.log('(Sundial) => nowIsBeforeSunrise:', nowIsBeforeSunrise)
-      console.log('(Sundial) => nowIsAfterSunrise:', nowIsAfterSunrise)
-      console.log('(Sundial) => nowIsBeforeSunset:', nowIsBeforeSunset)
-      console.log('(Sundial) => nowIsAfterSunset:', nowIsAfterSunset)
-    }
+    log.debug('Sunrise:', this.tides.sunrise)
+    log.debug('Sunset:', this.tides.sunset)
+    log.debug('nowIsBeforeSunrise:', nowIsBeforeSunrise)
+    log.debug('nowIsAfterSunrise:', nowIsAfterSunrise)
+    log.debug('nowIsBeforeSunset:', nowIsBeforeSunset)
+    log.debug('nowIsAfterSunset:', nowIsAfterSunset)
 
     if (nowIsAfterSunrise && nowIsBeforeSunset) {
-      console.info('Sundial applied your day theme! 🌕')
+      log.info('Sundial applied your day theme! 🌕')
       this.changeThemeTo(this.SundialConfig.dayTheme)
     } else if (nowIsBeforeSunrise || nowIsAfterSunset) {
-      console.info('Sundial applied your night theme! 🌑')
+      log.info('Sundial applied your night theme! 🌑')
       this.changeThemeTo(this.SundialConfig.nightTheme)
     }
 
@@ -127,16 +122,16 @@ export default class Sundial {
   }
 
   private async useLatitudeLongitude(now: moment.Moment): Promise<ITides> {
+    const log = logger.getLogger('useLatitudeLongitude')
+
     if (!this.SundialConfig.latitude || !this.SundialConfig.longitude) {
       throw window.showErrorMessage(
         'Sundial needs both, latitude and longitude, to work with this configuration!'
       )
     }
 
-    if (this.SundialConfig.debug) {
-      console.log('(Sundial) => Latitude:', this.SundialConfig.latitude)
-      console.log('(Sundial) => Longitude:', this.SundialConfig.longitude)
-    }
+    log.debug('Latitude:', this.SundialConfig.latitude)
+    log.debug('Longitude:', this.SundialConfig.longitude)
 
     const tides = await getTimes(
       now.toDate(),
@@ -151,55 +146,33 @@ export default class Sundial {
   }
 
   private async useAutoLocale(now: moment.Moment): Promise<ITides> {
-    const ip: string = await v4({
-      https: this.SundialConfig.useHTTPS,
-    })
-    let storedPublicIP: string = this.extensionContext.globalState.get('userPublicIP') || ''
-    let latitude: number = this.extensionContext.globalState.get('userLatitude') || 0
-    let longitude: number = this.extensionContext.globalState.get('userLongitude') || 0
-    if (this.SundialConfig.debug) {
-      console.log('(Sundial) => Public IP:', ip)
-      console.log('(Sundial) => Stored public IP:', storedPublicIP)
-      console.log('(Sundial) => Stored latitude:', latitude)
-      console.log('(Sundial) => Stored longitude:', longitude)
-    }
+    const log = logger.getLogger('useAutoLocale')
+    let latitude: number = 0
+    let longitude: number = 0
 
-    // only pull new location data if the location has really changed or while debugging
-    if (storedPublicIP !== ip || (!latitude || !longitude) || this.SundialConfig.debug) {
-      console.info('Sundial detected a location change and will search for your location again')
-      const url = this.ipapi.replace('{IP}', ip)
-      if (this.SundialConfig.debug) {
-        console.info('(Sundial) => Calling ipapi...')
+    try {
+      const gotResponse = await got(this.geoAPI)
+      const response: IResponse = JSON.parse(gotResponse.body)
+      if ((!response.latitude && !response.longitude) || gotResponse.statusCode !== 200) {
+        throw new Error(`[${gotResponse.statusCode}]: ${gotResponse.statusMessage}`)
       }
-      const gotPromise = await got(url) // request to ipapi
-      const ipapiResponse: IpapiResponse = JSON.parse(gotPromise.body)
-      if (!ipapiResponse.latitude && !ipapiResponse.longitude) {
-        if (!ipapiResponse.success && ipapiResponse.error) {
-          if (ipapiResponse.error.code === 104) {
-            throw window.showErrorMessage(
-              'We are sorry but ipapi request limit is reached (10.000 request per month). Please add your location manually and create an issue on GitHub!'
-            )
-          }
-          console.error('(Sundial) => ERROR:', ipapiResponse.error.info)
-          throw window.showErrorMessage(
-            'Oops, something went wrong pulling your location from ipapi! Maybe it is a problem on their side. Please create an issue on GitHub should this problem persist.'
-          )
-        }
-      }
-      if (this.SundialConfig.debug) {
-        console.log('(Sundial) => Success:', ipapiResponse)
-      }
-      latitude = ipapiResponse.latitude
-      longitude = ipapiResponse.longitude
-      this.extensionContext.globalState.update('userPublicIP', ip)
+      log.debug('Response:', response)
+      latitude = response.latitude
+      longitude = response.longitude
       this.extensionContext.globalState.update('userLatitude', latitude)
       this.extensionContext.globalState.update('userLongitude', longitude)
-    } else {
-      console.info('Sundial will use your cached location')
+    } catch (error) {
+      log.error(error)
+      window.showErrorMessage(
+        'Oops, something went wrong collecting your geolocation! Maybe it is a problem with the API. Please create an issue on GitHub should this problem persist.'
+      )
+    }
+
+    if (latitude === 0 || longitude === 0) {
+      return this.tides // fallback
     }
 
     const tides = await getTimes(now.toDate(), latitude, longitude)
-
     return {
       sunrise: moment(tides.sunrise),
       sunset: moment(tides.sunset),
@@ -238,24 +211,30 @@ export default class Sundial {
       sunset: moment(this.SundialConfig.sunset, 'H:m', true),
     }
     if (this.SundialConfig.debug) {
-      console.log('(SundialConfig) =>', this.SundialConfig)
-      console.log('(SundialTides) =>', this.tides)
-      console.log('(WorkbenchConfig) =>', this.WorkbenchConfig)
+      logger.setLevel(logger.levels.DEBUG)
+    } else {
+      logger.setLevel(logger.levels.INFO)
     }
+    const log = logger.getLogger('updateConfig')
+    log.debug('SundialConfig:', this.SundialConfig)
+    log.debug('SundialTides:', this.tides)
+    log.debug('WorkbenchConfig:', this.WorkbenchConfig)
   }
 
   disablePolos() {
-    console.info('Removing the polos from the sundial...')
+    const log = logger.getLogger('disablePolos')
+    log.info('Removing the polos from the sundial...')
     this.polos = false
     clearInterval(this.interval)
   }
 
   changeThemeTo(newTheme: string) {
+    const log = logger.getLogger('changeThemeTo')
     if (newTheme !== this.WorkbenchConfig.colorTheme) {
       const status: any = this.WorkbenchConfig.update('colorTheme', <string>newTheme, true)
 
       if (status._hasError) {
-        console.error('(Sundial) => ERROR:', status)
+        log.error(status)
         throw window.showErrorMessage(
           'Oops, something went wrong while changing your theme. Please set debugging to true and post an issue with the console output!'
         )

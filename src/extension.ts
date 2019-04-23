@@ -9,6 +9,7 @@ import {
   WindowState,
 } from 'vscode'
 import Sundial from './sundial'
+import logger from './utils/logger'
 
 const sundial = new Sundial()
 
@@ -25,24 +26,28 @@ export function activate(context: ExtensionContext) {
   context.subscriptions.push(window.onDidChangeActiveTextEditor(check))
   context.subscriptions.push(window.onDidChangeTextEditorViewColumn(check))
 
-  commands.registerCommand('sundial.switchToNightTheme', () => changeTheme('night'))
-  commands.registerCommand('sundial.switchToDayTheme', () => changeTheme('day'))
-  commands.registerCommand('sundial.toggleDayNightTheme', () => changeTheme())
+  commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme('night'))
+  commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme('day'))
+  commands.registerCommand('sundial.toggleDayNightTheme', () => toggleTheme())
   commands.registerCommand('sundial.continueAutomation', async () => {
-    console.info('Attaching the polos to the sundial again...')
+    logger.info('Attaching the polos to the sundial again...')
     await sundial.updateConfig()
-    if (sundial.SundialConfig.interval !== 0) {
-      sundial.automater()
-    }
     sundial.polos = true
+    automater()
   })
 
+  automater()
+  logger.info('Sundial is now active! ☀️')
+}
+
+/**
+ * Init the Sundial automater.
+ */
+function automater() {
   if (sundial.SundialConfig.interval !== 0) {
-    console.info(`Sundial will automatically run every ${sundial.SundialConfig.interval} minute/s.`)
+    logger.info(`Sundial will automatically run every ${sundial.SundialConfig.interval} minute/s.`)
     sundial.automater()
   }
-
-  console.info('Sundial is now active! ☀️')
 }
 
 /**
@@ -51,9 +56,7 @@ export function activate(context: ExtensionContext) {
  * @param state Represents an event describing the change of a text editor's view column
  */
 function check(state: TextEditorViewColumnChangeEvent | TextEditor | WindowState | undefined) {
-  if (sundial.SundialConfig.debug) {
-    console.log('check.State', state)
-  }
+  // logger.debug('check.State', state)
   sundial.check()
 }
 
@@ -62,7 +65,7 @@ function check(state: TextEditorViewColumnChangeEvent | TextEditor | WindowState
  *
  * @param which Day or night theme
  */
-async function changeTheme(which?: string) {
+async function toggleTheme(which?: string) {
   await sundial.updateConfig()
   await sundial.disablePolos()
 

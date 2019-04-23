@@ -2,10 +2,22 @@
 
 All notable changes to the "vscode-sundial" extension will be documented in this file.
 
-[[1.3.3]](#133) ← [[1.3.2]](#132) ← [[1.3.0]](#130) ← [[1.2.2]](#122) ← [[1.2.1]](#121) ←
-[[1.2.0]](#120) ← [[1.1.21]](#1121) ← [[1.1.2]](#112) ← [[1.1.1]](#111) ← [[1.1.0]](#110) ←
-[[1.0.3]](#103) ← [[1.0.2]](#102) ← [[1.0.1]](#101) ← [[1.0.0]](#100) ← [[0.2.1]](#021) ←
-[[0.2.0]](#020) ← [[0.1.0]](#010) ← [[0.0.3]](#003) ← [[0.0.2]](#002) ← [[Unreleased]](#unreleased)
+[[1.6.0]](#133) ← [[1.5.1]](#133) ← [[1.5.0]](#133) ← [[1.4.0]](#140) ← [[1.3.3]](#133) ←
+[[1.3.2]](#132) ← [[1.3.0]](#130) ← [[1.2.2]](#122) ← [[1.2.1]](#121) ← [[1.2.0]](#120) ←
+[[1.1.21]](#1121) ← [[1.1.2]](#112) ← [[1.1.1]](#111) ← [[1.1.0]](#110) ← [[1.0.3]](#103) ←
+[[1.0.2]](#102) ← [[1.0.1]](#101) ← [[1.0.0]](#100) ← [[0.2.1]](#021) ← [[0.2.0]](#020) ←
+[[0.1.0]](#010) ← [[0.0.3]](#003) ← [[0.0.2]](#002) ← [[Unreleased]](#unreleased)
+
+## [1.6.0]
+
+- Removed `useHTTPS`, on by default now
+- Removed ipapi as our geoIP provider and replace it with https://freegeoip.app
+- Removed package `public-ip` because _freegeopip_ does not need a IP
+- Added `dayVariable` and `nightVariable` to the README
+- Some typo
+- Renamed function `changeTheme`
+- Added offline support 🏖 #10 (just a fallback to defaults)
+- Added advanced logging
 
 ## [1.5.1]
 

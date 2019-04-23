@@ -1,6 +1,4 @@
 {
-  "markdown.preview.scrollEditorWithPreview": false,
-  "markdown.preview.scrollPreviewWithEditor": false,
   "cSpell.words": ["execa", "ipapi", "lgtm"],
   "editor.rulers": [100],
   "workbench.colorCustomizations": {

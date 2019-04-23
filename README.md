@@ -77,14 +77,15 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 
 **Sundial** contributes the following settings:
 
-| Setting              | Default  | Description                                                                      |
-| -------------------- | -------- | -------------------------------------------------------------------------------- |
-| `sundial.dayTheme`   | _Light+_ | Name of the theme of choice for your day work.                                   |
-| `sundial.nightTheme` | _Dark+_  | Name of the theme of choice for your night work.                                 |
-| `sundial.sunrise`    | _07:00_  | Set a time when your day starts in **24 hours format**.                          |
-| `sundial.sunset`     | _19:00_  | Set a time when your night starts in **24 hours format**.                        |
-| `sundial.interval`   | _5_      | Set a interval in which sundial should check the time.                           |
-| `sundial.useHTTPS`   | _false_  | Use some services with HTTPS instead of HTTP. (Please note that this is slower!) |
+| Setting                 | Default  | Description                                                               |
+| ----------------------- | -------- | ------------------------------------------------------------------------- |
+| `sundial.dayTheme`      | _Light+_ | Name of the theme of choice for your day work.                            |
+| `sundial.nightTheme`    | _Dark+_  | Name of the theme of choice for your night work.                          |
+| `sundial.sunrise`       | _07:00_  | Set a time when your day starts in **24 hours format**.                   |
+| `sundial.sunset`        | _19:00_  | Set a time when your night starts in **24 hours format**.                 |
+| `sundial.dayVariable`   | _0_      | Set a variable to change the theme **X minutes** before or after sunrise. |
+| `sundial.nightVariable` | _0_      | Set a variable to change the theme **X minutes** before or after sunset.  |
+| `sundial.interval`      | _5_      | Set a interval in which sundial should check the time in **minutes**.     |
 
 > If you set the interval to zero (0) sundial will not periodically check the time but still when VS
 > Code triggers the events `ChangeWindowState`, `ChangeActiveTextEditor` and
@@ -95,20 +96,15 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 To get your sunrise and sunset automatically you can either set latitude and longitude or set
 `autoLocale` to `true`.
 
-On `autoLocale` set to `true` Sundial will pull you public IP Address with the node package
-[public-ip](https://www.npmjs.com/package/public-ip) and then pass it to [ipapi](https://ipapi.com/)
-to get you locationstring.
+If `autoLocale` is set to `true`, Sundial will get your geolocation from
+[https://freegeoip.app/](https://freegeoip.app/). You can get your latitude and longitude manually
+from the same page.
 
-It is recommended to set your latitude and longitude manually for better a stability because
-`autoLocale`, which uses [ipapi](https://ipapi.com/), has limited API calls (free plan includes
-10.000 requests per month). You can get your latitude and longitude from [ipapi](https://ipapi.com/)
-website (the box on the right).
-
-| Setting              | Default | Description                                       |
-| -------------------- | ------- | ------------------------------------------------- |
-| `sundial.autoLocale` | _false_ | Only updates location when your public IP changes |
-| `sundial.latitude`   | _⊘_     | e.g. _"50.110924"_                                |
-| `sundial.longitude`  | _⊘_     | e.g. _"8.682127"_                                 |
+| Setting              | Default | Description                                         |
+| -------------------- | ------- | --------------------------------------------------- |
+| `sundial.autoLocale` | _false_ | Only updates location when your geolocation changes |
+| `sundial.latitude`   | _⊘_     | e.g. _"50.110924"_                                  |
+| `sundial.longitude`  | _⊘_     | e.g. _"8.682127"_                                   |
 
 ---
 
@@ -124,17 +120,16 @@ size to increase the load time in VSCode.
 5.  Change a file and save it, let _webpack_ compile
 6.  Reload the debugger (<kbd>⇧⌘F5</kbd>)
 
-> Please note that while `sundial.debug` is set to `true` Sundial will always pull your IP again. So
-> keep that in mind before using it because we have a request limit.
+> Please note that while `sundial.debug` is set to `true` Sundial will always pull your IP again.
 
 > ⚠️ Don't forget to change the [version](#tools) and include a detailed [changelog](CHANGELOG.md)
-> of the changes you made!
+> of the changes you've made!
 
 ### Tools
 
-To make it easier for you, I have added two scripts to create a new version and tag faster then
-doing it manually.
+To make it easier for you, I have added scripts to improve some processes:
 
-- Run `npm run version` to interactively create a new version (based on the awesome
-  [np](https://github.com/sindresorhus/np)-package from @sindresorhus)
-- Run `npm run tag` to tag the current package.json version to your latest commit
+- Run `npm run version` to interactively create a new version (based on
+  [semver](https://semver.org/)).
+- Run `npm run tag` to tag the current package.json version to your latest commit.
+- Run `npm run release` to create a new GitHub release draft.

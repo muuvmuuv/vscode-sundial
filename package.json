@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
   "description": "Change your VS Code theme based on your sunset and sunrise!",
@@ -57,8 +57,9 @@
   "dependencies": {
     "fs-extra": "^7.0.1",
     "got": "^9.6.0",
+    "loglevel": "^1.6.1",
+    "loglevel-plugin-prefix": "^0.8.4",
     "moment": "^2.24.0",
-    "public-ip": "^3.0.0",
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
@@ -66,6 +67,7 @@
     "@types/fs-extra": "^5.0.5",
     "@types/got": "^9.4.3",
     "@types/inquirer": "^6.0.0",
+    "@types/loglevel": "^1.5.4",
     "@types/mocha": "^5.2.6",
     "@types/node": "^11.13.7",
     "@types/public-ip": "^2.4.0",
@@ -175,15 +177,10 @@
           "default": 5,
           "description": "Set in which interval Sundial should check the time. (in minutes)"
         },
-        "sundial.useHTTPS": {
-          "type": "boolean",
-          "default": false,
-          "description": "Use some services with HTTPS instead of HTTP."
-        },
         "sundial.debug": {
           "type": "boolean",
           "default": false,
-          "description": "Prints some outputs while developing."
+          "description": "More verbose console logs."
         }
       }
     }
