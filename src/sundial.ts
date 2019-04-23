@@ -33,6 +33,8 @@ interface SundialConfiguration extends WorkspaceConfiguration {
   autoLocale: boolean
   dayVariable: number
   nightVariable: number
+  daySettings: WorkspaceConfiguration
+  nightSettings: WorkspaceConfiguration
   interval: number
   debug: boolean
 }
@@ -63,6 +65,9 @@ export default class Sundial {
   }
 
   automater() {
+    if (this.SundialConfig.interval === 0) {
+      return
+    }
     const interval = this.SundialConfig.debug
       ? this.SundialConfig.interval // while debugging do seconds
       : 60 * this.SundialConfig.interval
@@ -110,10 +115,10 @@ export default class Sundial {
 
     if (nowIsAfterSunrise && nowIsBeforeSunset) {
       log.info('Sundial applied your day theme! 🌕')
-      this.changeThemeTo(this.SundialConfig.dayTheme)
+      this.changeToDay()
     } else if (nowIsBeforeSunrise || nowIsAfterSunset) {
       log.info('Sundial applied your night theme! 🌑')
-      this.changeThemeTo(this.SundialConfig.nightTheme)
+      this.changeToNight()
     }
 
     await this.timer(400) // Cool down 😴
@@ -228,17 +233,45 @@ export default class Sundial {
     clearInterval(this.interval)
   }
 
-  changeThemeTo(newTheme: string) {
-    const log = logger.getLogger('changeThemeTo')
-    if (newTheme !== this.WorkbenchConfig.colorTheme) {
-      const status: any = this.WorkbenchConfig.update('colorTheme', <string>newTheme, true)
+  async changeToDay() {
+    this.changeThemeTo(this.SundialConfig.dayTheme)
+    this.applySettings(this.SundialConfig.daySettings)
+  }
 
-      if (status._hasError) {
-        log.error(status)
-        throw window.showErrorMessage(
-          'Oops, something went wrong while changing your theme. Please set debugging to true and post an issue with the console output!'
-        )
-      }
+  async changeToNight() {
+    this.changeThemeTo(this.SundialConfig.nightTheme)
+    this.applySettings(this.SundialConfig.nightSettings)
+  }
+
+  async changeThemeTo(theme: string) {
+    if (theme !== this.WorkbenchConfig.colorTheme) {
+      this.WorkbenchConfig.update('colorTheme', theme, true)
+    }
+  }
+
+  async applySettings(settings: object) {
+    const workspaceSettings = workspace.getConfiguration()
+    Object.keys(settings).forEach(k => {
+      workspaceSettings.update(k, settings[k], true)
+    })
+  }
+
+  toggleTheme(time?: string) {
+    switch (time) {
+      case 'day':
+        this.changeToDay()
+        break
+      case 'night':
+        this.changeToNight()
+        break
+      default:
+        const currentTheme = this.WorkbenchConfig.colorTheme
+        if (currentTheme === this.SundialConfig.dayTheme) {
+          this.changeToNight()
+        } else {
+          this.changeToDay()
+        }
+        break
     }
   }
 }

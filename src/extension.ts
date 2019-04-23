@@ -1,13 +1,6 @@
 'use strict'
 
-import {
-  window,
-  ExtensionContext,
-  commands,
-  TextEditorViewColumnChangeEvent,
-  TextEditor,
-  WindowState,
-} from 'vscode'
+import { window, ExtensionContext, commands } from 'vscode'
 import Sundial from './sundial'
 import logger from './utils/logger'
 
@@ -33,56 +26,18 @@ export function activate(context: ExtensionContext) {
     logger.info('Attaching the polos to the sundial again...')
     await sundial.updateConfig()
     sundial.polos = true
-    automater()
+    sundial.automater()
   })
 
-  automater()
+  sundial.automater()
   logger.info('Sundial is now active! ☀️')
 }
 
-/**
- * Init the Sundial automater.
- */
-function automater() {
-  if (sundial.SundialConfig.interval !== 0) {
-    logger.info(`Sundial will automatically run every ${sundial.SundialConfig.interval} minute/s.`)
-    sundial.automater()
-  }
-}
-
-/**
- * Run sundial check.
- *
- * @param state Represents an event describing the change of a text editor's view column
- * @use state: TextEditorViewColumnChangeEvent | TextEditor | WindowState | undefined
- */
 function check() {
   sundial.check()
 }
 
-/**
- * Change theme.
- *
- * @param which Day or night theme
- */
-async function toggleTheme(which?: string) {
-  await sundial.updateConfig()
-  await sundial.disablePolos()
-
-  switch (which) {
-    case 'day':
-      sundial.changeThemeTo(sundial.SundialConfig.dayTheme)
-      break
-    case 'night':
-      sundial.changeThemeTo(sundial.SundialConfig.nightTheme)
-      break
-    default:
-      const currentTheme = sundial.WorkbenchConfig.colorTheme
-      if (currentTheme === sundial.SundialConfig.dayTheme) {
-        sundial.changeThemeTo(sundial.SundialConfig.nightTheme)
-      } else {
-        sundial.changeThemeTo(sundial.SundialConfig.dayTheme)
-      }
-      break
-  }
+function toggleTheme(time?: string) {
+  sundial.disablePolos()
+  sundial.toggleTheme(time)
 }
