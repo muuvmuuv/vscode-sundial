@@ -18,7 +18,7 @@ const isDraft = true
 release()
 async function release() {
   const changelog = await getChangelog()
-  const hub = await hubInstalled()
+  await hubInstalled()
 
   const hubFlags = ['release', 'create']
   if (isDraft) {
