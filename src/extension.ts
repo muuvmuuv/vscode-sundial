@@ -54,9 +54,9 @@ function automater() {
  * Run sundial check.
  *
  * @param state Represents an event describing the change of a text editor's view column
+ * @use state: TextEditorViewColumnChangeEvent | TextEditor | WindowState | undefined
  */
-function check(state: TextEditorViewColumnChangeEvent | TextEditor | WindowState | undefined) {
-  // logger.debug('check.State', state)
+function check() {
   sundial.check()
 }
 
