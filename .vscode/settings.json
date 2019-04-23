@@ -2,5 +2,10 @@
   "markdown.preview.scrollEditorWithPreview": false,
   "markdown.preview.scrollPreviewWithEditor": false,
   "cSpell.words": ["execa", "ipapi", "lgtm"],
-  "editor.rulers": [100]
+  "editor.rulers": [100],
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#ffe559",
+    "statusBarItem.hoverBackground": "#ffdd26",
+    "statusBar.foreground": "#15202b"
+  }
 }
