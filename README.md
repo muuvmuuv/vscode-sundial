@@ -3,7 +3,7 @@
   <b>☀️ Sundial ☀️</b>
 </h1>
 
-#### Change your [VS Code](https://code.visualstudio.com/) theme based on your sunset and sunrise!
+#### Change your [VS Code](https://code.visualstudio.com/) theme and settings based on your sunset and sunrise!
 
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/installs-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
@@ -19,8 +19,8 @@
 [Extension Settings](#gear-extension-settings) • [Automation](#automatically-get-sunrise-and-sunset)
 • [Development](#hammer_and_wrench-development)
 
-Sundial changes your theme based on your day and night cycle. It is inspired by the
-[OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and
+Sundial changes your theme and VS Code settings (if needed) based on your day and night cycle. It is
+inspired by the [OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and
 [Night Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_ when working in the
 night or on the day. Humans should not strain their eyes too much, it's **not recommended** to have
 a light theme in the night and vice versa.

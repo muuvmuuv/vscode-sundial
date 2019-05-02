@@ -27,6 +27,7 @@ export function activate(context: ExtensionContext) {
     await sundial.updateConfig()
     sundial.polos = true
     sundial.automater()
+    sundial.check()
   })
 
   sundial.automater()
@@ -37,7 +38,8 @@ function check() {
   sundial.check()
 }
 
-function toggleTheme(time?: string) {
+async function toggleTheme(time?: string) {
+  await sundial.updateConfig()
   sundial.disablePolos()
   sundial.toggleTheme(time)
 }

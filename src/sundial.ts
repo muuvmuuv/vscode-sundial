@@ -250,9 +250,22 @@ export default class Sundial {
   }
 
   async applySettings(settings: object) {
+    if (!settings) {
+      return // no settings, nothing to do
+    }
     const workspaceSettings = workspace.getConfiguration()
     Object.keys(settings).forEach(k => {
-      workspaceSettings.update(k, settings[k], true)
+      if (k === 'workbench.colorTheme') {
+        return // do not override `workbench.colorTheme`
+      }
+      workspaceSettings.update(k, settings[k], true).then(undefined, (reason: string) => {
+        console.error(reason)
+        window.showErrorMessage(
+          `You tried to apply \`${k}: ${settings[k]}\` but this is not a valid VS Code settings
+          key/value pair. Please make sure all settings that you give to Sundial are valid
+          inside VS Code settings!`
+        )
+      })
     })
   }
 
