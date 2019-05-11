@@ -11,13 +11,16 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/52f93dc5f852410ef448/maintainability)](https://codeclimate.com/github/muuvmuuv/vscode-sundial/maintainability)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript)
-[![Greenkeeper](https://badges.greenkeeper.io/muuvmuuv/vscode-sundial.svg)](https://greenkeeper.io/)
 
-[Installation](#desert_island-installation) •
-[Extension Keybindings](#keyboard-extension-keybindings) •
-[Extension Commands](#bellhop_bell-extension-commands) •
-[Extension Settings](#gear-extension-settings) • [Automation](#automatically-get-sunrise-and-sunset)
-• [Development](#hammer_and_wrench-development)
+- [:desert_island: Installation](#desert_island-installation)
+- [:keyboard: Extension Keybindings](#keyboard-extension-keybindings)
+- [:bellhop_bell: Extension commands](#bellhop_bell-extension-commands)
+- [:gear: Extension Settings](#gear-extension-settings)
+  - [Automatically get sunrise and sunset](#automatically-get-sunrise-and-sunset)
+  - [Examples](#examples)
+- [:hammer_and_wrench: Development](#hammer_and_wrench-development)
+  - [Tools](#tools)
+  - [Tests](#tests)
 
 Sundial changes your theme and VS Code settings (if needed) based on your day and night cycle. It is
 inspired by the [OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and
@@ -29,20 +32,16 @@ Whenever you have ideas for this project, things you would like to add or you fo
 to create an issue or start contributing! 😇
 
 <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
-  <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee">
+  <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy me a Gluten-free Bread" style="margin-bottom:20px;">
 </a>
 
-## ![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
-
----
+![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
 
 ## :desert_island: Installation
 
 You can simply install any VS Code extension via the VS Code Marketplace:
 
 [![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
-
----
 
 ## :keyboard: Extension Keybindings
 
@@ -53,41 +52,40 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 | Windows  | <kbd>ctrl+alt+t</kbd> | `sundial.toggleDayNightTheme` |
 | Mac      | <kbd>ctrl+cmd+t</kbd> | `sundial.toggleDayNightTheme` |
 
----
+> Note that whenever you use one of this keybindings, Sundial will disable the automation process of
+> changing your theme on day night basis. To continue using that feature you need to reactivate it
+> with the command `sundial.continueAutomation`.
 
 ## :bellhop_bell: Extension commands
 
 **Sundial** contributes the following commands:
 
-| Command                                                     | Action                        | Description                                               |
-| ----------------------------------------------------------- | ----------------------------- | --------------------------------------------------------- |
-| _Sundial: Night Theme_                                      | `sundial.switchToNightTheme`  | Switch to your night theme.                               |
-| _Sundial: Day Theme_                                        | `sundial.switchToDayTheme`    | Switch to your day theme.                                 |
-| _Sundial: Toggle Day/Night Theme_                           | `sundial.toggleDayNightTheme` | Toggle between your day/night theme.                      |
-| _Sundial: Continue switching day/night theme automatically_ | `sundial.continueAutomation`  | Continue to use the sundial configured automation script. |
+| Command                                                     | Action                        | Description                          |
+| ----------------------------------------------------------- | ----------------------------- | ------------------------------------ |
+| _Sundial: Night Theme_                                      | `sundial.switchToNightTheme`  | Switch to your night theme.          |
+| _Sundial: Day Theme_                                        | `sundial.switchToDayTheme`    | Switch to your day theme.            |
+| _Sundial: Toggle Day/Night Theme_                           | `sundial.toggleDayNightTheme` | Toggle between your day/night theme. |
+| _Sundial: Continue switching day/night theme automatically_ | `sundial.continueAutomation`  | Continue automation.                 |
 
-> Note that whenever you use one of this commands Sundial will disable the automation process of
+> Note that whenever you use one of this commands, Sundial will disable the automation process of
 > changing your theme on day night basis. To continue using that feature you need to reactivate it
-> with `sundial.continueAutomation`. If you thing you know a better implementation please
-> contribute!
-
----
+> with `sundial.continueAutomation`.
 
 ## :gear: Extension Settings
 
 **Sundial** contributes the following settings:
 
-| Setting                 | Default  | Description                                                               |
-| ----------------------- | -------- | ------------------------------------------------------------------------- |
-| `sundial.dayTheme`      | _Light+_ | Name of the theme of choice for your day work.                            |
-| `sundial.nightTheme`    | _Dark+_  | Name of the theme of choice for your night work.                          |
-| `sundial.sunrise`       | _07:00_  | Set a time when your day starts in **24 hours format**.                   |
-| `sundial.sunset`        | _19:00_  | Set a time when your night starts in **24 hours format**.                 |
-| `sundial.dayVariable`   | _0_      | Set a variable to change the theme **X minutes** before or after sunrise. |
-| `sundial.nightVariable` | _0_      | Set a variable to change the theme **X minutes** before or after sunset.  |
-| `sundial.daySettings`   | _⊘_      | An **object** of VSCode settings applied on the day.                      |
-| `sundial.nightSettings` | _⊘_      | An **object** of VSCode settings applied on the night.                    |
-| `sundial.interval`      | _5_      | Set a interval in which sundial should check the time in **minutes**.     |
+| Setting                 | Default  | Description                                                               | Example                      |
+| ----------------------- | -------- | ------------------------------------------------------------------------- | ---------------------------- |
+| `sundial.dayTheme`      | _Light+_ | Name of the theme of choice for your day work.                            | [Cloudy Mountain][1]         |
+| `sundial.nightTheme`    | _Dark+_  | Name of the theme of choice for your night work.                          | [Atom One Dark][2]           |
+| `sundial.sunrise`       | _07:00_  | Set a time when your day starts in **24 hours format**.                   | `09:42`                      |
+| `sundial.sunset`        | _19:00_  | Set a time when your night starts in **24 hours format**.                 | `18:37`                      |
+| `sundial.dayVariable`   | _0_      | Set a variable to change the theme **X minutes** before or after sunrise. | `-40`                        |
+| `sundial.nightVariable` | _0_      | Set a variable to change the theme **X minutes** before or after sunset.  | `36`                         |
+| `sundial.daySettings`   | _⊘_      | An **object** of VSCode settings applied on the day.                      | `{ "editor.fontSize": 13, }` |
+| `sundial.nightSettings` | _⊘_      | An **object** of VSCode settings applied on the night.                    | `{ "editor.fontSize": 15, }` |
+| `sundial.interval`      | _5_      | Set a interval in which sundial should check the time in **minutes**.     | `2`                          |
 
 > If you set the interval to zero (0) sundial will not periodically check the time but still when VS
 > Code triggers the events `ChangeWindowState`, `ChangeActiveTextEditor` and
@@ -97,7 +95,7 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 > Please make sure both have the same properties otherwise they will not change since Sundial is not
 > remembering the settings you have set before!
 
-### Automatically get sunrise and sunset
+#### Automatically get sunrise and sunset
 
 To get your sunrise and sunset automatically you can either set latitude and longitude or set
 `autoLocale` to `true`.
@@ -106,13 +104,46 @@ If `autoLocale` is set to `true`, Sundial will get your geolocation from
 [https://freegeoip.app/](https://freegeoip.app/). You can get your latitude and longitude manually
 from the same page.
 
-| Setting              | Default | Description                                         |
-| -------------------- | ------- | --------------------------------------------------- |
-| `sundial.autoLocale` | _false_ | Only updates location when your geolocation changes |
-| `sundial.latitude`   | _⊘_     | e.g. _"50.110924"_                                  |
-| `sundial.longitude`  | _⊘_     | e.g. _"8.682127"_                                   |
+| Setting              | Default | Description                                      |
+| -------------------- | ------- | ------------------------------------------------ |
+| `sundial.autoLocale` | _false_ | Updates your location based on your geolocation. |
+| `sundial.latitude`   | _⊘_     | e.g. _"50.110924"_                               |
+| `sundial.longitude`  | _⊘_     | e.g. _"8.682127"_                                |
 
----
+### Examples
+
+```json
+{
+  "sundial.dayTheme": "Cloudy Mountain",
+  "sundial.nightTheme": "Atom One Dark",
+  "sundial.interval": 20,
+  "sundial.autoLocale": true
+}
+```
+
+```json
+{
+  "sundial.dayTheme": "Cloudy Mountain",
+  "sundial.nightTheme": "Atom One Dark",
+  "sundial.sunrise": "05:12"
+}
+```
+
+```json
+{
+  "sundial.dayTheme": "Cloudy Mountain",
+  "sundial.nightTheme": "Atom One Dark",
+  "sundial.dayVariable": 43,
+  "sundial.latitude": "50.110924",
+  "sundial.longitude": "8.682127",
+  "sundial.daySettings": {
+    "editor.fontSize": 13
+  },
+  "sundial.nightSettings": {
+    "editor.fontSize": 15
+  }
+}
+```
 
 ## :hammer_and_wrench: Development
 
@@ -125,17 +156,34 @@ size to increase the load time in VSCode.
 4.  Go into the _extensionHost_ and adjust settings to test
 5.  Change a file and save it, let _webpack_ compile
 6.  Reload the debugger (<kbd>⇧⌘F5</kbd>)
-
-> Please note that while `sundial.debug` is set to `true` Sundial will always pull your IP again.
+7.  Run tests with `npm test`
+8.  Create a new [version](#tools)
+9.  Add a detailed description to the [changelog](CHANGELOG.md)
+10. Create a pull request
 
 > ⚠️ Don't forget to change the [version](#tools) and include a detailed [changelog](CHANGELOG.md)
 > of the changes you've made!
 
 ### Tools
 
-To make it easier for you, I have added scripts to improve some processes:
+- `npm run version`: Interactively create a new version (based on [semver](https://semver.org/)).
+- `npm run tag`: Tag the current package.json version to the latest commit.
+- `npm run release`: Create a new GitHub release draft.
 
-- Run `npm run version` to interactively create a new version (based on
-  [semver](https://semver.org/)).
-- Run `npm run tag` to tag the current package.json version to your latest commit.
-- Run `npm run release` to create a new GitHub release draft.
+### Tests
+
+All tests that are running with `npm test`:
+
+1. [setContext](./tests/setContext.spec.ts)
+2. [updateConfig](./tests/updateConfig.spec.ts)
+3. [checkConfig](./tests/checkConfig.spec.ts)
+4. [useLatitudeLongitude](./tests/useLatitudeLongitude.spec.ts)
+5. [useAutoLocale](./tests/useAutoLocale.spec.ts)
+6. [setVariable](./tests/setVariable.spec.ts)
+7. [automater](./tests/automater.spec.ts)
+8. [applySettings](./tests/applySettings.spec.ts)
+9. [toggleTheme](./tests/toggleTheme.spec.ts)
+10. [disablePolos](./tests/disablePolos.spec.ts)
+
+[1]: https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-theme-cloudy-mountain
+[2]: https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark
