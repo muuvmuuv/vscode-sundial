@@ -119,6 +119,11 @@ Sundial provides a method to get the current operating system appearance prefere
 works on OSX only at the moment. To use this set `sundial.systemTheme` to `true` and Sundial will
 ignore all other options.
 
+This options works very good with [Night Owl for Mac](https://nightowl.kramser.xyz/) or
+[Starlight](https://github.com/pmkary/starlight).
+
+> Successfully tested on: MacBook Pro (15-inch, 2017) with macOS 10.14.5
+
 #### Automatically set dark mode based on ambient light
 
 > !!!WORK IN PROGRESS!!!
