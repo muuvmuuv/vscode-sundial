@@ -13,10 +13,9 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "exclude": ["node_modules", ".vscode-test", "test"],
   "include": [
-    "scripts/**/*.ts",
     "src/**/*.ts",
+    "test/**/*.ts",
     "webpack.config.ts",
     "./node_modules/vscode/vscode.d.ts",
     "./node_modules/vscode/lib/*"

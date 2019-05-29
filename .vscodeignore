@@ -1,11 +1,9 @@
 .vscode
-.vscode-test
-out
-src/**
+out/
+src/
 tsconfig.json
 tslint.json
 package-lock.json
 webpack.config.ts
 assets/*.afphoto
-globa.d.ts
 node_modules

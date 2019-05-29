@@ -2,7 +2,8 @@
 
 import { window, ExtensionContext, commands } from 'vscode'
 import Sundial from './sundial'
-import logger from './utils/logger'
+import { logger } from './logger'
+import * as editor from './editor'
 
 const sundial = new Sundial()
 
@@ -26,7 +27,6 @@ export function activate(context: ExtensionContext) {
     logger.info('Attaching the polos to the sundial again...')
     await sundial.updateConfig()
     sundial.polos = true
-    sundial.automater()
     sundial.check()
   })
 
@@ -41,5 +41,5 @@ function check() {
 async function toggleTheme(time?: string) {
   await sundial.updateConfig()
   sundial.disablePolos()
-  sundial.toggleTheme(time)
+  editor.toggleTheme(time)
 }

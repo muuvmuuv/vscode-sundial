@@ -3,7 +3,7 @@
   <b>☀️ Sundial ☀️</b>
 </h1>
 
-#### Change your [VS Code](https://code.visualstudio.com/) theme and settings based on your sunset and sunrise!
+#### Change your [VS Code](https://code.visualstudio.com/) theme and settings based on your sunset and sunrise with options!
 
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/installs-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
@@ -17,6 +17,9 @@
 - [:bellhop_bell: Extension commands](#bellhop_bell-extension-commands)
 - [:gear: Extension Settings](#gear-extension-settings)
   - [Automatically get sunrise and sunset](#automatically-get-sunrise-and-sunset)
+  - [Automatically get dark mode from macOS](#automatically-get-dark-mode-from-macos)
+  - [Automatically set dark mode based on ambient light](#automatically-set-dark-mode-based-on-ambient-light)
+  - [Order](#order)
   - [Examples](#examples)
 - [:hammer_and_wrench: Development](#hammer_and_wrench-development)
   - [Tools](#tools)
@@ -109,6 +112,30 @@ from the same page.
 | `sundial.autoLocale` | _false_ | Updates your location based on your geolocation. |
 | `sundial.latitude`   | _⊘_     | e.g. _"50.110924"_                               |
 | `sundial.longitude`  | _⊘_     | e.g. _"8.682127"_                                |
+
+#### Automatically get dark mode from macOS
+
+Sundial provides a method to get the current operating system appearance preference value. This
+works on OSX only at the moment. To use this set `sundial.systemTheme` to `true` and Sundial will
+ignore all other options.
+
+#### Automatically set dark mode based on ambient light
+
+> !!!WORK IN PROGRESS!!!
+
+Sundial will check access to your computers ambient light sensor and will use it to determine if
+dark mode is needed in your environment. To use this set `sundial.ambientLight` to `true` and
+Sundial will ignore all other options.
+
+### Order
+
+Settings will be applied in this order (first one overrides all after):
+
+1. `sundial.systemTheme`
+2. `sundial.ambientLight` (WIP)
+3. `sundial.latitude` and `sundial.longitude`
+4. `sundial.autoLocale`
+5. `sundial.sunrise` and `sundial.sunset`
 
 ### Examples
 

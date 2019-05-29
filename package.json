@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
   "description": "Change your VS Code theme based on your sunset and sunrise!",
@@ -34,17 +34,15 @@
     "pretty": "pretty-quick",
     "lint": "tslint src/*.ts",
     "vscode:prepublish": "webpack --mode production",
-    "release": "run-s lint tag release:create",
-    "release:create": "ts-node -T ./scripts/release.ts",
+    "release": "run-s lint test release-create",
+    "release-create": "ts-node -T ./scripts/release.ts",
     "prod": "webpack --mode production --progress",
     "dev": "webpack --mode development --progress",
     "watch": "webpack --mode development --watch",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "version": "ts-node -T ./scripts/version.ts",
-    "tag": "run-s tag:check tag:create tag:push",
-    "tag:check": "ts-node -T ./scripts/tag.ts",
-    "tag:create": "git tag -a v$npm_package_version -m \"New version: ${npm_package_version}\"",
-    "tag:push": "git push origin v${npm_package_version}"
+    "test": "npm run test-compile",
+    "test-compile": "tsc -p ./"
   },
   "engines": {
     "vscode": "^1.25.0"
@@ -55,11 +53,10 @@
     }
   },
   "dependencies": {
-    "fs-extra": "^7.0.1",
     "got": "^9.6.0",
     "loglevel": "^1.6.1",
-    "loglevel-plugin-prefix": "^0.8.4",
     "moment": "^2.24.0",
+    "run-jxa": "^2.0.0",
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
@@ -78,6 +75,7 @@
     "chalk": "^2.4.2",
     "clean-webpack-plugin": "^2.0.2",
     "execa": "^1.0.0",
+    "fs-extra": "^7.0.1",
     "husky": "^1.3.1",
     "inquirer": "^6.3.1",
     "npm-run-all": "^4.1.5",
@@ -161,6 +159,16 @@
           "type": "boolean",
           "default": false,
           "description": "Automatically set your sunset and sunrise based on your public ip location."
+        },
+        "sundial.systemTheme": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use your current operating system theme."
+        },
+        "sundial.ambientLight": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use your computers ambient light sensor to check if dark mode is needed."
         },
         "sundial.dayVariable": {
           "type": "number",

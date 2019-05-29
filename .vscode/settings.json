@@ -1,6 +1,10 @@
 {
-  "cSpell.words": ["execa", "ipapi", "lgtm"],
+  "cSpell.words": ["execa", "ipapi", "lgtm", "sindresorhus"],
   "editor.rulers": [100],
+  "files.watcherExclude": {
+    "**/dist/**": true
+  },
+  "cSpell.ignorePaths": ["dist/*"],
   "workbench.colorCustomizations": {
     "statusBar.background": "#ffe559",
     "statusBarItem.hoverBackground": "#ffdd26",

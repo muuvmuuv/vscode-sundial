@@ -1,29 +1,17 @@
-import { workspace, window, WorkspaceConfiguration, ExtensionContext } from 'vscode'
+import { window, WorkspaceConfiguration, ExtensionContext } from 'vscode'
 import moment from 'moment'
-import got from 'got'
-import { getTimes } from 'suncalc'
-import logger from './utils/logger'
+import dns from 'dns'
+import sensors from './sensors'
+import * as editor from './editor'
+import { logger, setGlobalLevel } from './logger'
+import { sleep, isMacOS } from './utils'
 
-interface ITides {
+export interface ITides {
   sunrise: moment.Moment
   sunset: moment.Moment
 }
 
-interface IResponse {
-  ip: string
-  country_code: string
-  country_name: string
-  region_code: string
-  region_name: string
-  city: string
-  zip_code: string
-  time_zone: string
-  latitude: number
-  longitude: number
-  metro_code: number
-}
-
-interface SundialConfiguration extends WorkspaceConfiguration {
+export interface SundialConfiguration extends WorkspaceConfiguration {
   dayTheme: string
   nightTheme: string
   sunrise: string
@@ -31,6 +19,8 @@ interface SundialConfiguration extends WorkspaceConfiguration {
   latitude: string
   longitude: string
   autoLocale: boolean
+  systemTheme: boolean
+  ambientLight: boolean
   dayVariable: number
   nightVariable: number
   daySettings: WorkspaceConfiguration
@@ -47,13 +37,12 @@ export default class Sundial {
   WorkbenchConfig!: WorkspaceConfiguration
   extensionContext!: ExtensionContext
 
-  readonly geoAPI: string = `https://freegeoip.app/json` // https://freegeoip.app/
-
   debug: boolean = false
   polos: boolean = true // mount/dismount the polos from the sundial
   interval!: NodeJS.Timer
   tides!: ITides
   isRunning: boolean = false
+  connected: boolean = true
 
   constructor() {
     this.updateConfig()
@@ -81,25 +70,55 @@ export default class Sundial {
     clearInterval(this.interval) // reset timer
     this.isRunning = true
 
+    this.connected = await this.checkConnection()
     await this.updateConfig()
     await this.checkConfig()
 
     const log = logger.getLogger('check')
     log.info('Sundial check initialized...')
 
-    let now = moment(moment.now())
+    if (this.SundialConfig.systemTheme && isMacOS) {
+      log.info('Sundial will use your sysmte theme')
+      const darkMode = await sensors.SystemTheme()
+      if (darkMode) {
+        log.info('Sundial applied your night theme! 🌑')
+        editor.changeToNight()
+      } else {
+        log.info('Sundial applied your day theme! 🌕')
+        editor.changeToDay()
+      }
+    } else {
+      // TODO: replace moment with native
+      let now = moment(moment.now())
 
-    if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
-      log.info('Sundial will try to use your configurated location')
-      this.tides = await this.useLatitudeLongitude(now)
-    } else if (this.SundialConfig.autoLocale) {
-      log.info('Sundial will try to detect your location automatically')
-      this.tides = await this.useAutoLocale(now)
+      if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
+        log.info('Sundial will use your latitude and longitude')
+        this.tides = await sensors.LatLong(now)
+      } else if (this.SundialConfig.autoLocale) {
+        if (!this.connected) {
+          log.info('You are not connected, so we will use your last location')
+        } else {
+          log.info('Sundial will now detect your location')
+          this.tides = await sensors.Sun(this.extensionContext, now)
+        }
+      } else {
+        log.info('Sundial will your saved time')
+        // use default `sundial.sunrise` and `sundial.sunset`
+      }
+
+      if (this.SundialConfig.dayVariable || this.SundialConfig.nightVariable) {
+        this.setTimeVariables()
+      }
+
+      await this.checkTides(now)
     }
 
-    if (this.SundialConfig.dayVariable || this.SundialConfig.nightVariable) {
-      this.setVariable()
-    }
+    this.isRunning = false
+    this.automater()
+  }
+
+  private async checkTides(now: moment.Moment) {
+    const log = logger.getLogger('checkTides')
 
     const nowIsBeforeSunrise = now.isBefore(this.tides.sunrise)
     const nowIsAfterSunrise = now.isAfter(this.tides.sunrise)
@@ -115,83 +134,46 @@ export default class Sundial {
 
     if (nowIsAfterSunrise && nowIsBeforeSunset) {
       log.info('Sundial applied your day theme! 🌕')
-      this.changeToDay()
+      editor.changeToDay()
     } else if (nowIsBeforeSunrise || nowIsAfterSunset) {
       log.info('Sundial applied your night theme! 🌑')
-      this.changeToNight()
+      editor.changeToNight()
     }
 
-    await this.timer(400) // Cool down 😴
-    this.isRunning = false
-    this.automater()
+    await sleep(400) // Short nap to prevent too fast calls 😴
   }
 
-  private async useLatitudeLongitude(now: moment.Moment): Promise<ITides> {
-    const log = logger.getLogger('useLatitudeLongitude')
-
-    if (!this.SundialConfig.latitude || !this.SundialConfig.longitude) {
-      throw window.showErrorMessage(
-        'Sundial needs both, latitude and longitude, to work with this configuration!'
-      )
-    }
-
-    log.debug('Latitude:', this.SundialConfig.latitude)
-    log.debug('Longitude:', this.SundialConfig.longitude)
-
-    const tides = await getTimes(
-      now.toDate(),
-      Number(this.SundialConfig.latitude),
-      Number(this.SundialConfig.longitude)
-    )
-
-    return {
-      sunrise: moment(tides.sunrise),
-      sunset: moment(tides.sunset),
-    }
-  }
-
-  private async useAutoLocale(now: moment.Moment): Promise<ITides> {
-    const log = logger.getLogger('useAutoLocale')
-    let latitude: number = 0
-    let longitude: number = 0
-
-    try {
-      const gotResponse = await got(this.geoAPI)
-      const response: IResponse = JSON.parse(gotResponse.body)
-      if ((!response.latitude && !response.longitude) || gotResponse.statusCode !== 200) {
-        throw new Error(`[${gotResponse.statusCode}]: ${gotResponse.statusMessage}`)
-      }
-      log.debug('Response:', response)
-      latitude = response.latitude
-      longitude = response.longitude
-      this.extensionContext.globalState.update('userLatitude', latitude)
-      this.extensionContext.globalState.update('userLongitude', longitude)
-    } catch (error) {
-      log.error(error)
-      window.showErrorMessage(
-        'Oops, something went wrong collecting your geolocation! Maybe it is a problem with the API. Please create an issue on GitHub should this problem persist.'
-      )
-    }
-
-    if (latitude === 0 || longitude === 0) {
-      return this.tides // fallback
-    }
-
-    const tides = await getTimes(now.toDate(), latitude, longitude)
-    return {
-      sunrise: moment(tides.sunrise),
-      sunset: moment(tides.sunset),
-    }
-  }
-
-  private setVariable() {
+  private setTimeVariables() {
     let { sunrise, sunset } = this.tides
     sunrise = sunrise.add(this.SundialConfig.dayVariable, 'minutes')
     sunset = sunset.add(this.SundialConfig.nightVariable, 'minutes')
     this.tides = { sunrise, sunset }
   }
 
-  timer = (ms: number): Promise<NodeJS.Timeout> => new Promise(r => setTimeout(r, ms))
+  disablePolos() {
+    const log = logger.getLogger('disablePolos')
+    log.info('Removing the polos from the sundial...')
+    this.polos = false
+    clearInterval(this.interval)
+  }
+
+  checkConnection(): Promise<boolean> {
+    // TODO: waiting for a better solution: https://github.com/microsoft/vscode/issues/73094
+    return new Promise(resolve => {
+      dns.resolve('code.visualstudio.com', (err: any) => {
+        if (err) {
+          // No connection
+          window.showInformationMessage(
+            'Sundial detected that you are offline but will still try to run.'
+          )
+          resolve(false)
+        } else {
+          // Connected
+          resolve(true)
+        }
+      })
+    })
+  }
 
   checkConfig() {
     const configSunrise = moment(this.SundialConfig.sunrise, 'H:m', true)
@@ -209,82 +191,22 @@ export default class Sundial {
   }
 
   updateConfig() {
-    this.SundialConfig = <SundialConfiguration>workspace.getConfiguration('sundial')
-    this.WorkbenchConfig = workspace.getConfiguration('workbench')
+    const { sundial, workbench } = editor.getConfig()
+    this.SundialConfig = sundial
+    this.WorkbenchConfig = workbench
     this.tides = {
       sunrise: moment(this.SundialConfig.sunrise, 'H:m', true),
       sunset: moment(this.SundialConfig.sunset, 'H:m', true),
     }
+    // TODO: waiting for: https://github.com/pimterry/loglevel/issues/134
     if (this.SundialConfig.debug) {
-      logger.setLevel(logger.levels.DEBUG)
+      setGlobalLevel(logger.levels.DEBUG)
     } else {
-      logger.setLevel(logger.levels.INFO)
+      setGlobalLevel(logger.levels.INFO)
     }
     const log = logger.getLogger('updateConfig')
     log.debug('SundialConfig:', this.SundialConfig)
     log.debug('SundialTides:', this.tides)
     log.debug('WorkbenchConfig:', this.WorkbenchConfig)
-  }
-
-  disablePolos() {
-    const log = logger.getLogger('disablePolos')
-    log.info('Removing the polos from the sundial...')
-    this.polos = false
-    clearInterval(this.interval)
-  }
-
-  async changeToDay() {
-    this.changeThemeTo(this.SundialConfig.dayTheme)
-    this.applySettings(this.SundialConfig.daySettings)
-  }
-
-  async changeToNight() {
-    this.changeThemeTo(this.SundialConfig.nightTheme)
-    this.applySettings(this.SundialConfig.nightSettings)
-  }
-
-  async changeThemeTo(theme: string) {
-    if (theme !== this.WorkbenchConfig.colorTheme) {
-      this.WorkbenchConfig.update('colorTheme', theme, true)
-    }
-  }
-
-  async applySettings(settings: object) {
-    if (!settings) {
-      return // no settings, nothing to do
-    }
-    const workspaceSettings = workspace.getConfiguration()
-    Object.keys(settings).forEach(k => {
-      if (k === 'workbench.colorTheme') {
-        return // do not override `workbench.colorTheme`
-      }
-      workspaceSettings.update(k, settings[k], true).then(undefined, (reason: string) => {
-        console.error(reason)
-        window.showErrorMessage(
-          `You tried to apply \`${k}: ${settings[k]}\` but this is not a valid VS Code settings
-          key/value pair. Please make sure all settings that you give to Sundial are valid
-          inside VS Code settings!`
-        )
-      })
-    })
-  }
-
-  toggleTheme(time?: string) {
-    switch (time) {
-      case 'day':
-        this.changeToDay()
-        break
-      case 'night':
-        this.changeToNight()
-        break
-      default:
-        const currentTheme = this.WorkbenchConfig.colorTheme
-        if (currentTheme === this.SundialConfig.dayTheme) {
-          this.changeToNight()
-        } else {
-          this.changeToDay()
-        }
-        break
-    }
   }
 }
