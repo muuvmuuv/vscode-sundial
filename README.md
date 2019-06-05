@@ -86,8 +86,8 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 | `sundial.sunset`        | _19:00_  | Set a time when your night starts in **24 hours format**.                 | `18:37`                      |
 | `sundial.dayVariable`   | _0_      | Set a variable to change the theme **X minutes** before or after sunrise. | `-40`                        |
 | `sundial.nightVariable` | _0_      | Set a variable to change the theme **X minutes** before or after sunset.  | `36`                         |
-| `sundial.daySettings`   | _⊘_      | An **object** of VSCode settings applied on the day.                      | `{ "editor.fontSize": 13, }` |
-| `sundial.nightSettings` | _⊘_      | An **object** of VSCode settings applied on the night.                    | `{ "editor.fontSize": 15, }` |
+| `sundial.daySettings`   | _{}_     | An **object** of VSCode settings applied on the day.                      | `{ "editor.fontSize": 13, }` |
+| `sundial.nightSettings` | _{}_     | An **object** of VSCode settings applied on the night.                    | `{ "editor.fontSize": 15, }` |
 | `sundial.interval`      | _5_      | Set a interval in which sundial should check the time in **minutes**.     | `2`                          |
 
 > If you set the interval to zero (0) sundial will not periodically check the time but still when VS

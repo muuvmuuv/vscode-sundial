@@ -6,20 +6,19 @@ import { getTimes } from 'suncalc'
 import { logger } from '../logger'
 
 interface IResponse {
-  ip: string
-  country_code: string
-  country_name: string
-  region_code: string
-  region_name: string
-  city: string
-  zip_code: string
-  time_zone: string
-  latitude: number
-  longitude: number
-  metro_code: number
+  geo: {
+    latitude: number
+    latitude_dec: string
+    longitude: number
+    longitude_dec: string
+    max_latitude: number
+    max_longitude: number
+    min_latitude: number
+    min_longitude: number
+  }
 }
 
-const geoAPI = `https://freegeoip.app/json` // https://freegeoip.app/
+const geoAPI = 'https://api.ipgeolocationapi.com/geolocate'
 
 async function Sun(ctx: ExtensionContext, now: moment.Moment): Promise<ITides> {
   const log = logger.getLogger('useAutoLocale')
@@ -29,12 +28,12 @@ async function Sun(ctx: ExtensionContext, now: moment.Moment): Promise<ITides> {
   try {
     const gotResponse = await got(geoAPI)
     const response: IResponse = JSON.parse(gotResponse.body)
-    if ((!response.latitude && !response.longitude) || gotResponse.statusCode !== 200) {
+    if ((!response.geo.latitude && !response.geo.longitude) || gotResponse.statusCode !== 200) {
       throw new Error(`[${gotResponse.statusCode}]: ${gotResponse.statusMessage}`)
     }
     log.debug('Response:', response)
-    latitude = response.latitude
-    longitude = response.longitude
+    latitude = response.geo.latitude
+    longitude = response.geo.longitude
     ctx.globalState.update('userLatitude', latitude)
     ctx.globalState.update('userLongitude', longitude)
   } catch (error) {

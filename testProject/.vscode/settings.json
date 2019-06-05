@@ -1,0 +1,17 @@
+{
+  "sundial.debug": true,
+  "sundial.dayTheme": "Default Light+",
+  "sundial.nightTheme": "Default Dark+",
+  "sundial.ambientLight": false,
+  "sundial.systemTheme": false,
+  "sundial.autoLocale": true,
+  "sundial.latitude": "",
+  "sundial.longitude": "",
+  "sundial.sunrise": "07:00",
+  "sundial.sunset": "19:00",
+  "sundial.dayVariable": 0,
+  "sundial.nightVariable": 0,
+  "sundial.daySettings": {},
+  "sundial.nightSettings": {},
+  "sundial.interval": 0
+}

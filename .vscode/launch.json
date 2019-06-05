@@ -10,8 +10,13 @@
       "type": "extensionHost",
       "request": "launch",
       "runtimeExecutable": "${execPath}",
-      "args": ["--disable-extensions", "--extensionDevelopmentPath=${workspaceFolder}"],
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "args": [
+        "--disable-extensions",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "${workspaceFolder}/testProject"
+      ],
+      "stopOnEntry": false,
+      "outFiles": ["${workspaceFolder}/dist/*.js"],
       "preLaunchTask": "npm: watch",
       "sourceMaps": true
     },

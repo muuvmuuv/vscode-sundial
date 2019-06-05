@@ -19,15 +19,9 @@ logger.methodFactory = (methodName, logLevel, loggerName) => {
 
 logger.setDefaultLevel(logger.levels.INFO)
 
-// TODO: update https://github.com/pimterry/loglevel/issues/134
 function setGlobalLevel(level: any) {
-  const loggerList = (logger as any).getLoggers()
-  if (loggerList.length <= 0) {
-    return
-  }
-  // console.log(loggerList)
-  Object.keys(loggerList).forEach((l: any) => {
-    loggerList[l].setLevel(level)
+  Object.values(logger.getLoggers()).forEach(logger => {
+    logger.setLevel(level)
   })
 }
 
