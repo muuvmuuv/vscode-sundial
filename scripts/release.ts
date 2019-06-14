@@ -1,62 +1,65 @@
-#!/usr/bin/env ts-node
-
-/**
- * Creates a new release from our CHANGELOG.md with GitHub's tool Hub.
- *
- * @package https://hub.github.com/
- */
-
 import fs from 'fs-extra'
 import path from 'path'
 import chalk from 'chalk'
-import execa from 'execa'
+import release from 'release-it'
 import pkg from '../package.json'
 
-const version = pkg.version
-const isDraft = true
-
-release()
-async function release() {
-  const changelog = await getChangelog()
-  await hubInstalled()
-
-  const hubFlags = ['release', 'create']
-  if (isDraft) {
-    hubFlags.push('--draft') // is a draft
-  }
-  hubFlags.push('--browse') // open in browser after finished
-  hubFlags.push(`--message="New release v${version}"`) // title
-  hubFlags.push(`--message="${changelog}"`) // message
-  hubFlags.push(`v${version}`) // tag
-
-  const { cmd } = await execa('hub', hubFlags, { shell: true })
-  console.log(chalk.dim(cmd), '\n')
-  console.log(chalk.green('Successfully created new release!\n'))
-  process.exit(0)
+/**
+ * Check if VSIX file is created for this version.
+ */
+const vsix = path.resolve(__dirname, `../vscode-sundial-${pkg.version}.vsix`)
+if (!fs.pathExistsSync(vsix)) {
+  console.log(chalk.red(`No .vsix file found for v${pkg.version}`))
+  process.exit(1)
 }
+console.log(`Found .vsix file for v${pkg.version}`)
 
-async function hubInstalled() {
-  const { stdout } = await execa('hub', ['version'])
-
-  if (stdout.includes('hub')) {
-    return true
-  }
-  throw new Error('Hub is not installed! Please visit `https://hub.github.com/` to install it.')
-}
-
-async function getChangelog(): Promise<string> {
-  const changelogPath = path.resolve(__dirname, '../CHANGELOG.md')
-  let changelog = await fs.readFile(changelogPath, 'UTF-8')
-
-  const RM_CHANGELOG = new RegExp(`(?:##\\s\\[${version}\]\\n+)([\\d\\D]*?)(?:\\n+##)`, 'gm')
-  const match = RM_CHANGELOG.exec(changelog)
-  console.log(chalk.dim(RM_CHANGELOG.toString()), '\n')
-
-  if (match) {
-    console.log(chalk.yellow(`Changelog for version ${version}`))
-    changelog = match[1]
-    console.log(changelog, '\n')
-    return changelog
-  }
-  return ''
-}
+/**
+ * Create a new release with release-it
+ */
+console.log('Initialize release...')
+release({
+  increment: pkg.version,
+  // verbose: true,
+  'non-interactive': true,
+  // 'dry-run': true,
+  git: {
+    requireCleanWorkingDir: false,
+    commit: false,
+    push: false,
+    tag: true,
+    tagName: 'v${version}',
+    tagAnnotation: 'Release v${version}',
+    changelog:
+      'npm run changelog -- --stdout --commit-limit false --unreleased --template scripts/release.hbs',
+  },
+  npm: {
+    publish: false,
+  },
+  github: {
+    release: true,
+    releaseName: 'Release v${version}',
+    // releaseNotes: 'git log --pretty=format:"* %s (%h)" HEAD',
+    // releaseNotes: changelogSectionVersion,
+    preRelease: false,
+    draft: true,
+    tokenRef: 'GITHUB_TOKEN',
+    assets: null,
+    host: null,
+    timeout: 0,
+    proxy: null,
+  },
+  scripts: {
+    beforeStart: ['npm run lint', 'npm test'],
+    afterRelease: 'echo Successfully released ${name} v${version}!',
+  },
+})
+  .then(({ version, latestVersion, name, releaseNote }) => {
+    console.log(version)
+    console.log(latestVersion)
+    console.log(name)
+    console.log(releaseNote)
+  })
+  .catch(e => {
+    throw new Error(e)
+  })
