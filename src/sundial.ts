@@ -78,7 +78,7 @@ export default class Sundial {
     log.info('Sundial check initialized...')
 
     if (this.SundialConfig.systemTheme && isMacOS) {
-      log.info('Sundial will use your sysmte theme')
+      log.info('Sundial will use your system theme')
       const darkMode = await sensors.SystemTheme()
       if (darkMode) {
         log.info('Sundial applied your night theme! 🌑')
@@ -88,7 +88,6 @@ export default class Sundial {
         editor.changeToDay()
       }
     } else {
-      // TODO: replace moment with native
       const now = moment(moment.now())
 
       if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
@@ -158,11 +157,13 @@ export default class Sundial {
   }
 
   public checkConnection(): Promise<boolean> {
+    const log = logger.getLogger('checkConnection')
     // TODO: waiting for a better solution: https://github.com/microsoft/vscode/issues/73094
     return new Promise(resolve => {
-      dns.resolve('code.visualstudio.com', (err: any) => {
+      dns.resolve('8.8.8.8', (err: any) => {
         if (err) {
           // No connection
+          log.debug(err)
           window.showInformationMessage(
             'Sundial detected that you are offline but will still try to run.'
           )
