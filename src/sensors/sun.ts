@@ -39,7 +39,9 @@ async function Sun(ctx: ExtensionContext, now: moment.Moment): Promise<ITides> {
   } catch (error) {
     log.error(error)
     window.showErrorMessage(
-      'Oops, something went wrong collecting your geolocation! Maybe it is a problem with the API. Please create an issue on GitHub should this problem persist.'
+      'Oops, something went wrong collecting your geolocation! ' +
+        'Maybe it is a problem with the API. Please create an issue ' +
+        'on GitHub should this problem persist.'
     )
   }
 

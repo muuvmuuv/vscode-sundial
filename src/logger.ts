@@ -1,4 +1,4 @@
-import logger, { LogLevel, Logger } from 'loglevel'
+import logger from 'loglevel'
 
 const color = {
   orange: 'color: #a06a00;',
@@ -20,8 +20,8 @@ logger.methodFactory = (methodName, logLevel, loggerName) => {
 logger.setDefaultLevel(logger.levels.INFO)
 
 function setGlobalLevel(level: any) {
-  Object.values(logger.getLoggers()).forEach(logger => {
-    logger.setLevel(level)
+  Object.values(logger.getLoggers()).forEach(lgr => {
+    lgr.setLevel(level)
   })
 }
 

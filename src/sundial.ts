@@ -30,19 +30,19 @@ export interface SundialConfiguration extends WorkspaceConfiguration {
 }
 
 export default class Sundial {
-  readonly extensionName: string = 'Sundial'
-  readonly extensionAlias: string = 'sundial'
+  public readonly extensionName: string = 'Sundial'
+  public readonly extensionAlias: string = 'sundial'
 
-  SundialConfig!: SundialConfiguration
-  WorkbenchConfig!: WorkspaceConfiguration
-  extensionContext!: ExtensionContext
+  public SundialConfig!: SundialConfiguration
+  public WorkbenchConfig!: WorkspaceConfiguration
+  public extensionContext!: ExtensionContext
 
-  debug: boolean = false
-  polos: boolean = true // mount/dismount the polos from the sundial
-  interval!: NodeJS.Timer
-  tides!: ITides
-  isRunning: boolean = false
-  connected: boolean = true
+  public debug: boolean = false
+  public polos: boolean = true // mount/dismount the polos from the sundial
+  public interval!: NodeJS.Timer
+  public tides!: ITides
+  public isRunning: boolean = false
+  public connected: boolean = true
 
   constructor() {
     this.updateConfig()
@@ -53,7 +53,7 @@ export default class Sundial {
     this.extensionContext = context
   }
 
-  automater() {
+  public automater() {
     if (this.SundialConfig.interval === 0) {
       return
     }
@@ -63,7 +63,7 @@ export default class Sundial {
     this.interval = setInterval(() => this.check(), 1000 * interval)
   }
 
-  async check() {
+  public async check() {
     if (!this.polos || this.isRunning) {
       return // Just mute it here, info would be disturbing
     }
@@ -89,7 +89,7 @@ export default class Sundial {
       }
     } else {
       // TODO: replace moment with native
-      let now = moment(moment.now())
+      const now = moment(moment.now())
 
       if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
         log.info('Sundial will use your latitude and longitude')
@@ -150,14 +150,14 @@ export default class Sundial {
     this.tides = { sunrise, sunset }
   }
 
-  disablePolos() {
+  public disablePolos() {
     const log = logger.getLogger('disablePolos')
     log.info('Removing the polos from the sundial...')
     this.polos = false
     clearInterval(this.interval)
   }
 
-  checkConnection(): Promise<boolean> {
+  public checkConnection(): Promise<boolean> {
     // TODO: waiting for a better solution: https://github.com/microsoft/vscode/issues/73094
     return new Promise(resolve => {
       dns.resolve('code.visualstudio.com', (err: any) => {
@@ -175,7 +175,7 @@ export default class Sundial {
     })
   }
 
-  checkConfig() {
+  public checkConfig() {
     const configSunrise = moment(this.SundialConfig.sunrise, 'H:m', true)
     const configSunset = moment(this.SundialConfig.sunset, 'H:m', true)
     if (
@@ -185,12 +185,15 @@ export default class Sundial {
         !this.SundialConfig.autoLocale)
     ) {
       window.showErrorMessage(
-        'It looks like sundial.sunrise or sundial.sunset are no real dates and you have not set any other specifications to determine your sunset and sunrise. Please correct this by following the documentation.'
+        'It looks like sundial.sunrise or sundial.sunset are ' +
+          'no real dates and you have not set any other specifications ' +
+          'to determine your sunset and sunrise. Please correct this ' +
+          'by following the documentation.'
       )
     }
   }
 
-  updateConfig() {
+  public updateConfig() {
     const { sundial, workbench } = editor.getConfig()
     this.SundialConfig = sundial
     this.WorkbenchConfig = workbench

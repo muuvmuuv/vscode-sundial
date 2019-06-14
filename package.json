@@ -1,10 +1,11 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
   "description": "Change your VS Code theme based on your sunset and sunrise!",
+  "enableProposedApi": false,
   "keywords": [
     "theme",
     "switch",
@@ -34,18 +35,24 @@
     "pretty": "pretty-quick",
     "lint": "tslint src/*.ts",
     "vscode:prepublish": "webpack --mode production",
-    "release": "run-s lint test release-create",
-    "release-create": "ts-node -T ./scripts/release.ts",
     "prod": "webpack --mode production --progress",
     "dev": "webpack --mode development --progress",
     "watch": "webpack --mode development --watch",
     "postinstall": "node ./node_modules/vscode/bin/install",
+    "changelog": "auto-changelog",
+    "release": "ts-node -T ./scripts/release.ts",
     "version": "ts-node -T ./scripts/version.ts",
     "test": "npm run test-compile",
     "test-compile": "tsc -p ./"
   },
   "engines": {
     "vscode": "^1.25.0"
+  },
+  "auto-changelog": {
+    "output": "CHANGELOG.md",
+    "template": "keepachangelog",
+    "unreleased": false,
+    "commitLimit": false
   },
   "husky": {
     "hooks": {
@@ -54,42 +61,44 @@
   },
   "dependencies": {
     "got": "^9.6.0",
-    "loglevel": "^1.6.2",
+    "loglevel": "^1.6.3",
     "moment": "^2.24.0",
     "run-jxa": "^2.0.0",
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
     "@types/execa": "^0.9.0",
-    "@types/fs-extra": "^5.1.0",
+    "@types/fs-extra": "^7.0.0",
     "@types/got": "^9.4.4",
     "@types/inquirer": "^6.0.3",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^11.13.13",
+    "@types/node": "^12.0.8",
     "@types/public-ip": "^2.4.0",
     "@types/semver": "^6.0.0",
     "@types/suncalc": "^1.8.0",
     "@types/terser-webpack-plugin": "^1.2.1",
     "@types/webpack": "^4.4.32",
+    "auto-changelog": "^1.13.0",
     "chalk": "^2.4.2",
-    "clean-webpack-plugin": "^2.0.2",
+    "clean-webpack-plugin": "^3.0.0",
     "execa": "^1.0.0",
-    "fs-extra": "^7.0.1",
-    "husky": "^1.3.1",
+    "fs-extra": "^8.0.1",
+    "husky": "^2.4.1",
     "inquirer": "^6.3.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^1.17.1",
+    "prettier": "^1.18.2",
     "pretty-quick": "^1.11.0",
+    "release-it": "^12.3.0",
     "semver": "^6.1.1",
     "terser-webpack-plugin": "^1.3.0",
-    "ts-loader": "^5.4.5",
+    "ts-loader": "^6.0.2",
     "ts-node": "^8.2.0",
     "tslint": "^5.17.0",
-    "typescript": "^3.5.1",
+    "typescript": "^3.5.2",
     "vscode": "^1.1.34",
-    "webpack": "^4.32.2",
-    "webpack-build-notifier": "^1.0.2",
-    "webpack-cli": "^3.3.2"
+    "webpack": "^4.34.0",
+    "webpack-build-notifier": "^1.0.3",
+    "webpack-cli": "^3.3.4"
   },
   "activationEvents": [
     "*"

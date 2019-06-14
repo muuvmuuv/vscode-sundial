@@ -9,7 +9,7 @@
 
 import { valid, inc, ReleaseType, SemVer, lte } from 'semver'
 import chalk from 'chalk'
-import { prompt } from 'inquirer'
+import { prompt, Questions } from 'inquirer'
 import fs from 'fs'
 import path from 'path'
 import pkg from '../package.json'
@@ -51,16 +51,16 @@ const isLowerThanOrEqualTo = otherVersion => {
 }
 
 async function createNewVersion() {
-  const prompts = [
+  const prompts: Questions = [
     {
       type: 'list',
       name: 'version',
       message: 'Select semver increment or specify new version',
       pageSize: SEMVER_INCREMENTS.length + 1,
-      filter: input => (isValidInput(input) ? getNewVersionFrom(input) : input),
-      choices: SEMVER_INCREMENTS.map(inc => ({
-        name: `${inc} \t${chalk.reset.dim(getNewVersionFrom(inc))}`,
-        value: inc,
+      filter: (input: ReleaseType) => (isValidInput(input) ? getNewVersionFrom(input) : input),
+      choices: SEMVER_INCREMENTS.map(seminc => ({
+        name: `${seminc} \t${chalk.reset.dim(getNewVersionFrom(seminc))}`,
+        value: seminc,
       })).concat([
         {
           name: 'Other (specify)',
@@ -73,7 +73,7 @@ async function createNewVersion() {
       name: 'version',
       message: 'Version',
       when: answers => !answers.version,
-      filter: input => (isValidInput(input) ? getNewVersionFrom(input) : input),
+      filter: (input: ReleaseType) => (isValidInput(input) ? getNewVersionFrom(input) : input),
       validate: input => {
         if (!isValidInput(input)) {
           return 'Please specify a valid semver, for example, `1.2.3`. See http://semver.org'
