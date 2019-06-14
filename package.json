@@ -158,7 +158,7 @@
           "description": "Latitude of your location to get sunset and sunrise."
         },
         "sundial.longitude": {
-          "type": "number",
+          "type": "string",
           "description": "Latitude of your location to get sunset and sunrise."
         },
         "sundial.autoLocale": {
