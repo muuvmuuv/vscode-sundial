@@ -24,8 +24,8 @@ release({
   'non-interactive': true,
   // 'dry-run': true,
   git: {
-    requireCleanWorkingDir: false,
     commit: false,
+    requireCleanWorkingDir: false,
     push: false,
     tag: true,
     tagName: 'v${version}',
@@ -44,7 +44,7 @@ release({
     preRelease: false,
     draft: true,
     tokenRef: 'GITHUB_TOKEN',
-    assets: null,
+    assets: path.resolve(`vscode-sundial-${pkg.version}.vsix`),
     host: null,
     timeout: 0,
     proxy: null,

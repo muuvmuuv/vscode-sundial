@@ -30,7 +30,7 @@
   "qna": false,
   "repository": "https://github.com/muuvmuuv/vscode-sundial",
   "license": "MIT",
-  "main": "./dist/extension",
+  "main": "./dist/extension.js",
   "scripts": {
     "pretty": "pretty-quick",
     "lint": "tslint src/*.ts",

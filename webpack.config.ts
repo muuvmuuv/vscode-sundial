@@ -8,7 +8,7 @@ import WebpackBuildNotifierPlugin from 'webpack-build-notifier'
 import pkg from './package.json'
 
 /**
- * Console warnings:
+ * Known console warnings:
  *
  * WARNING in ./node_modules/keyv/src/index.js 18:14-40
  * Critical dependency: the request of a dependency is an expression
@@ -31,8 +31,7 @@ ${pkg.description}
 @pkg ${pkg.repository}
 ${'┄'.repeat(46)}`
 
-// @ts-ignore
-export default (env: any, argv: Configuration): Configuration => {
+export default (_, argv: Configuration): Configuration => {
   const platformName = platform()
   const developerName = userInfo().username
   const mode = argv.mode ? argv.mode : 'none'
@@ -55,7 +54,9 @@ export default (env: any, argv: Configuration): Configuration => {
     },
     devtool: isDev ? 'cheap-module-source-map' : 'source-map',
     externals: {
-      vscode: 'commonjs vscode', // the vscode-module is created on-the-fly and must be excluded. 📖 -> https://webpack.js.org/configuration/externals/
+      // the vscode-module is created on-the-fly and must be excluded.
+      // See: https://webpack.js.org/configuration/externals/
+      vscode: 'commonjs vscode',
     },
     resolve: {
       extensions: ['.ts', '.js'],
@@ -71,7 +72,9 @@ export default (env: any, argv: Configuration): Configuration => {
         title: 'Sundial',
         logo: resolve(__dirname, 'assets', 'icon.jpg'),
       }),
-      new CleanPlugin(),
+      // new CleanPlugin({
+      //   cleanOnceBeforeBuildPatterns: ['dist'],
+      // }),
       new BannerPlugin(Banner),
     ],
     module: {
