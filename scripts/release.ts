@@ -26,7 +26,7 @@ release({
   git: {
     commit: false,
     requireCleanWorkingDir: false,
-    push: false,
+    push: true,
     tag: true,
     tagName: 'v${version}',
     tagAnnotation: 'Release v${version}',
