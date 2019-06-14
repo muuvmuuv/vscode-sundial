@@ -49,9 +49,9 @@ release({
     timeout: 0,
     proxy: null,
   },
-  scripts: {
-    beforeStart: ['npm run lint', 'npm test'],
-    afterRelease: 'echo Successfully released ${name} v${version}!',
+  hooks: {
+    'before:init': ['npm run lint', 'npm test'],
+    'after:release': 'echo Successfully released ${name} v${version}!',
   },
 })
   .then(({ version, latestVersion, name, releaseNote }) => {
