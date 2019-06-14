@@ -12,21 +12,22 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript)
 
-- [:desert_island: Installation](#desert_island-installation)
-- [:keyboard: Extension Keybindings](#keyboard-extension-keybindings)
-- [:bellhop_bell: Extension commands](#bellhop_bell-extension-commands)
-- [:gear: Extension Settings](#gear-extension-settings)
+- [Installation](#installation)
+- [Extension Keybindings](#extension-keybindings)
+- [Extension commands](#extension-commands)
+- [Extension Settings](#extension-settings)
   - [Automatically get sunrise and sunset](#automatically-get-sunrise-and-sunset)
   - [Automatically get dark mode from macOS](#automatically-get-dark-mode-from-macos)
   - [Automatically set dark mode based on ambient light](#automatically-set-dark-mode-based-on-ambient-light)
   - [Order](#order)
   - [Examples](#examples)
-- [:hammer_and_wrench: Development](#hammer_and_wrench-development)
+- [Development](#development)
   - [Tools](#tools)
   - [Tests](#tests)
 
-Sundial changes your theme and VS Code settings (if needed) based on your day and night cycle. It is
-inspired by the [OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and
+Sundial changes your theme and VS Code settings (if needed) based on your day and night cycle or
+other options, you choose. It is inspired by the
+[OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and
 [Night Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_ when working in the
 night or on the day. Humans should not strain their eyes too much, it's **not recommended** to have
 a light theme in the night and vice versa.
@@ -40,13 +41,22 @@ to create an issue or start contributing! 😇
 
 ![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
 
-## :desert_island: Installation
+## Installation
 
-You can simply install any VS Code extension via the VS Code Marketplace:
+You can simply install any VS Code extension via the VS Code Marketplace or download the VSIX file
+and
+[install it manually](https://stackoverflow.com/questions/37071388/how-to-install-vscode-extensions-offline).
 
-[![Install Sundial Extension](https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+<div>
+  <a href="https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial">
+    <img src="https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge" alt="Install VS Code extension Sundial" style="margin-right:10px;">
+  </a>
+  <a href="https://github.com/muuvmuuv/vscode-sundial/releases/latest">
+    <img src="https://img.shields.io/badge/download-vscode_extension-blue.svg?style=for-the-badge" alt="Download VS Code extension Sundial">
+  </a>
+</div>
 
-## :keyboard: Extension Keybindings
+## Extension Keybindings
 
 **Sundial** contributes the following keybindings:
 
@@ -59,7 +69,7 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 > changing your theme on day night basis. To continue using that feature you need to reactivate it
 > with the command `sundial.continueAutomation`.
 
-## :bellhop_bell: Extension commands
+## Extension commands
 
 **Sundial** contributes the following commands:
 
@@ -74,7 +84,7 @@ You can simply install any VS Code extension via the VS Code Marketplace:
 > changing your theme on day night basis. To continue using that feature you need to reactivate it
 > with `sundial.continueAutomation`.
 
-## :gear: Extension Settings
+## Extension Settings
 
 **Sundial** contributes the following settings:
 
@@ -177,7 +187,7 @@ Settings will be applied in this order (first one overrides all after):
 }
 ```
 
-## :hammer_and_wrench: Development
+## Development
 
 We are working with [webpack](https://webpack.js.org/) to bundle Sundial to the smallest possible
 size to increase the load time in VSCode.
