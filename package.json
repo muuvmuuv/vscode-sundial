@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
   "description": "Change your VS Code theme based on your sunset and sunrise!",
@@ -40,6 +40,7 @@
     "watch": "webpack --mode development --watch",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "changelog": "auto-changelog",
+    "package": "vsce package",
     "release": "ts-node -T ./scripts/release.ts",
     "version": "ts-node -T ./scripts/version.ts",
     "test": "npm run test-compile",
