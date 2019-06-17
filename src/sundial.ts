@@ -26,6 +26,8 @@ export interface SundialConfiguration extends WorkspaceConfiguration {
   nightSettings: WorkspaceConfiguration
   interval: number
   debug: boolean
+  windowEvents: string[]
+  workspaceEvents: string[]
 }
 
 export default class Sundial {
@@ -62,7 +64,7 @@ export default class Sundial {
 
   public async check() {
     if (!this.polos || this.isRunning) {
-      return // Just mute it here, info would be disturbing
+      return // just mute it here, info would be disturbing
     }
     clearInterval(this.interval) // reset timer
     this.isRunning = true

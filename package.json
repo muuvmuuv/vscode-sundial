@@ -205,6 +205,23 @@
           "type": "boolean",
           "default": false,
           "description": "More verbose console logs."
+        },
+        "sundial.windowEvents": {
+          "type": "array",
+          "default": [
+            "onDidChangeWindowState",
+            "onDidChangeActiveTextEditor",
+            "onDidChangeTextEditorViewColumn"
+          ],
+          "description": "Specify on which VS Code window events you want Sundial to check."
+        },
+        "sundial.workspaceEvents": {
+          "type": "array",
+          "default": [
+            "onDidChangeConfiguration",
+            "onDidChangeTextDocument"
+          ],
+          "description": "Specify on which VS Code workspace events you want Sundial to check."
         }
       }
     }

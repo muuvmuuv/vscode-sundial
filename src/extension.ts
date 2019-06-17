@@ -1,11 +1,11 @@
 'use strict'
 
-import { window, ExtensionContext, commands } from 'vscode'
+import { window, ExtensionContext, commands, workspace } from 'vscode'
 import Sundial from './sundial'
 import { logger } from './logger'
 import * as editor from './editor'
 
-const sundial = new Sundial()
+const sundial = new Sundial() // hi!
 
 /**
  * Activate extension.
@@ -16,9 +16,13 @@ export function activate(context: ExtensionContext) {
   sundial.context = context
   sundial.check() // first check
 
-  context.subscriptions.push(window.onDidChangeWindowState(check))
-  context.subscriptions.push(window.onDidChangeActiveTextEditor(check))
-  context.subscriptions.push(window.onDidChangeTextEditorViewColumn(check))
+  sundial.SundialConfig.windowEvents.forEach(event => {
+    context.subscriptions.push(window[event](check))
+  })
+
+  sundial.SundialConfig.workspaceEvents.forEach(event => {
+    context.subscriptions.push(workspace[event](check))
+  })
 
   commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme('night'))
   commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme('day'))

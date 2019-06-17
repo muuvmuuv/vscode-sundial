@@ -12,18 +12,19 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript)
 
-- [Installation](#installation)
-- [Extension Keybindings](#extension-keybindings)
-- [Extension commands](#extension-commands)
-- [Extension Settings](#extension-settings)
-  - [Automatically get sunrise and sunset](#automatically-get-sunrise-and-sunset)
-  - [Automatically get dark mode from macOS](#automatically-get-dark-mode-from-macos)
-  - [Automatically set dark mode based on ambient light](#automatically-set-dark-mode-based-on-ambient-light)
-  - [Order](#order)
-  - [Examples](#examples)
-- [Development](#development)
-  - [Tools](#tools)
-  - [Tests](#tests)
+- [Installation](#Installation)
+- [Keybindings](#Keybindings)
+- [Commands](#Commands)
+- [Settings](#Settings)
+  - [Automatically get sunrise and sunset](#Automatically-get-sunrise-and-sunset)
+  - [Automatically get dark mode from macOS](#Automatically-get-dark-mode-from-macOS)
+  - [Automatically set dark mode based on ambient light](#Automatically-set-dark-mode-based-on-ambient-light)
+  - [Order](#Order)
+  - [Examples](#Examples)
+- [Events](#Events)
+- [Development](#Development)
+  - [Tools](#Tools)
+  - [Tests](#Tests)
 
 Sundial changes your theme and VS Code settings (if needed) based on your day and night cycle or
 other options, you choose. It is inspired by the
@@ -56,7 +57,7 @@ and
   </a>
 </div>
 
-## Extension Keybindings
+## Keybindings
 
 **Sundial** contributes the following keybindings:
 
@@ -69,7 +70,7 @@ and
 > changing your theme on day night basis. To continue using that feature you need to reactivate it
 > with the command `sundial.continueAutomation`.
 
-## Extension commands
+## Commands
 
 **Sundial** contributes the following commands:
 
@@ -84,7 +85,7 @@ and
 > changing your theme on day night basis. To continue using that feature you need to reactivate it
 > with `sundial.continueAutomation`.
 
-## Extension Settings
+## Settings
 
 **Sundial** contributes the following settings:
 
@@ -139,8 +140,13 @@ This options works very good with [Night Owl for Mac](https://nightowl.kramser.x
 > !!!WORK IN PROGRESS!!!
 
 Sundial will check access to your computers ambient light sensor and will use it to determine if
-dark mode is needed in your environment. To use this set `sundial.ambientLight` to `true` and
-Sundial will ignore all other options.
+dark mode is needed in your environment. To use this set `sundial.ambientLight` to `true`.
+
+If you don't know what the ambient light sensor is, you might know it from your smartphone where the
+display gets brighter or darken depending on the light around it. Most Laptops have this nowdays so
+we can take use of it.
+
+> Sundial will ignore all other options.
 
 ### Order
 
@@ -186,6 +192,36 @@ Settings will be applied in this order (first one overrides all after):
   }
 }
 ```
+
+## Events
+
+Sundial performs checks for a few VS Code events to check in certain situations if it should change
+your theme. Here is a list of events which will Sundial perform by default.
+
+- `window.onDidChangeWindowState`
+- `window.onDidChangeActiveTextEditor`
+- `window.onDidChangeTextEditorViewColumn`
+- `workspace.onDidChangeConfiguration`
+- `workspace.onDidChangeTextDocument`
+- `Sundial.automater`
+
+If you want to customize those, you just need to add these configs:
+
+```json
+{
+  "sundial.windowEvents": [
+    "onDidChangeWindowState",
+    "onDidChangeActiveTextEditor",
+    "onDidChangeTextEditorViewColumn"
+  ],
+  "sundial.workspaceEvents": ["onDidChangeConfiguration", "onDidChangeTextDocument"]
+}
+```
+
+You can find a full list of available events here:
+
+- Workspace: https://code.visualstudio.com/api/references/vscode-api#workspace
+- Window: https://code.visualstudio.com/api/references/vscode-api#window
 
 ## Development
 
