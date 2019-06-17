@@ -1,11 +1,12 @@
-// https://github.com/sindresorhus/node-dark-mode/blob/master/index.js
+// https://github.com/sindresorhus/node-dark-mode
 
-import runJxa from 'run-jxa'
+import darkMode from 'dark-mode'
+import { logger } from '../logger'
 
 async function SystemTheme() {
-  const result = await runJxa(
-    `return Application('System Events').appearancePreferences.darkMode()`
-  )
+  const log = logger.getLogger('SystemTheme')
+  const result = await darkMode.isDark()
+  log.debug('darkMode', result)
   return result
 }
 

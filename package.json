@@ -60,10 +60,10 @@
     }
   },
   "dependencies": {
+    "dark-mode": "^3.0.0",
     "got": "^9.6.0",
     "loglevel": "^1.6.3",
     "moment": "^2.24.0",
-    "run-jxa": "^2.0.0",
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
