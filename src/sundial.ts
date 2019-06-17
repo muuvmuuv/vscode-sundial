@@ -1,10 +1,9 @@
 import { window, WorkspaceConfiguration, ExtensionContext } from 'vscode'
 import moment from 'moment'
-import dns from 'dns'
 import sensors from './sensors'
 import * as editor from './editor'
 import { logger, setGlobalLevel } from './logger'
-import { sleep, isMacOS } from './utils'
+import { sleep, isMacOS, checkConnection } from './utils'
 
 export interface ITides {
   sunrise: moment.Moment
@@ -57,10 +56,8 @@ export default class Sundial {
     if (this.SundialConfig.interval === 0) {
       return
     }
-    const interval = this.SundialConfig.debug
-      ? this.SundialConfig.interval // while debugging do seconds
-      : 60 * this.SundialConfig.interval
-    this.interval = setInterval(() => this.check(), 1000 * interval)
+    const interval = 1000 * 60 * this.SundialConfig.interval
+    this.interval = setInterval(() => this.check(), interval)
   }
 
   public async check() {
@@ -70,7 +67,7 @@ export default class Sundial {
     clearInterval(this.interval) // reset timer
     this.isRunning = true
 
-    this.connected = await this.checkConnection()
+    this.connected = await checkConnection()
     await this.updateConfig()
     await this.checkConfig()
 
@@ -124,6 +121,7 @@ export default class Sundial {
     const nowIsBeforeSunset = now.isBefore(this.tides.sunset)
     const nowIsAfterSunset = now.isAfter(this.tides.sunset)
 
+    log.debug('Now:', now)
     log.debug('Sunrise:', this.tides.sunrise)
     log.debug('Sunset:', this.tides.sunset)
     log.debug('nowIsBeforeSunrise:', nowIsBeforeSunrise)
@@ -154,26 +152,6 @@ export default class Sundial {
     log.info('Removing the polos from the sundial...')
     this.polos = false
     clearInterval(this.interval)
-  }
-
-  public checkConnection(): Promise<boolean> {
-    const log = logger.getLogger('checkConnection')
-    // TODO: waiting for a better solution: https://github.com/microsoft/vscode/issues/73094
-    return new Promise(resolve => {
-      dns.resolve('8.8.8.8', (err: any) => {
-        if (err) {
-          // No connection
-          log.debug(err)
-          window.showInformationMessage(
-            'Sundial detected that you are offline but will still try to run.'
-          )
-          resolve(false)
-        } else {
-          // Connected
-          resolve(true)
-        }
-      })
-    })
   }
 
   public checkConfig() {
