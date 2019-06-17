@@ -2,16 +2,16 @@
   "sundial.debug": true,
   "sundial.dayTheme": "Default Light+",
   "sundial.nightTheme": "Default Dark+",
-  "sundial.ambientLight": false,
-  "sundial.systemTheme": false,
+  // "sundial.ambientLight": false,
+  // "sundial.systemTheme": true,
   "sundial.autoLocale": true,
-  "sundial.latitude": "",
-  "sundial.longitude": "",
-  "sundial.sunrise": "07:00",
+  "sundial.latitude": "50.121301",
+  "sundial.longitude": "8.5665248",
+  "sundial.sunrise": "11:00",
   "sundial.sunset": "19:00",
   "sundial.dayVariable": 0,
   "sundial.nightVariable": 0,
   "sundial.daySettings": {},
   "sundial.nightSettings": {},
-  "sundial.interval": 0
+  "sundial.interval": 1
 }

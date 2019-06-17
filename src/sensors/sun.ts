@@ -1,4 +1,4 @@
-import moment = require('moment')
+import moment from 'moment'
 import { ITides } from '../sundial'
 import got from 'got'
 import { window, ExtensionContext } from 'vscode'

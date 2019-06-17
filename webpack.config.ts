@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import chalk from 'chalk'
 import { Configuration, BannerPlugin } from 'webpack'
 import TerserPlugin from 'terser-webpack-plugin'
-import CleanPlugin from 'clean-webpack-plugin'
+import { CleanWebpackPlugin as CleanPlugin } from 'clean-webpack-plugin'
 import WebpackBuildNotifierPlugin from 'webpack-build-notifier'
 import pkg from './package.json'
 
@@ -72,9 +72,9 @@ export default (_, argv: Configuration): Configuration => {
         title: 'Sundial',
         logo: resolve(__dirname, 'assets', 'icon.jpg'),
       }),
-      // new CleanPlugin({
-      //   cleanOnceBeforeBuildPatterns: ['dist'],
-      // }),
+      new CleanPlugin({
+        cleanOnceBeforeBuildPatterns: ['dist'],
+      }),
       new BannerPlugin(Banner),
     ],
     module: {
