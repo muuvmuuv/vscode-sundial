@@ -1,23 +1,47 @@
 {
   "defaultSeverity": "error",
-  "extends": ["tslint:recommended"],
+  "extends": [
+    "tslint:recommended"
+  ],
   "jsRules": {},
   "rules": {
     "class-name": true,
-    "comment-format": [true, "check-space"],
+    "comment-format": [
+      true,
+      "check-space"
+    ],
     "object-literal-sort-keys": false,
-    "array-type": [true, "array"],
-    "indent": [true, "spaces", 2],
-    "object-literal-key-quotes": [true, "as-needed"],
+    "array-type": [
+      true,
+      "array"
+    ],
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
+    "object-literal-key-quotes": [
+      true,
+      "as-needed"
+    ],
     "no-duplicate-variable": true,
     "no-eval": true,
     "no-internal-module": true,
     "no-trailing-whitespace": true,
     "no-unsafe-finally": true,
     "no-var-keyword": true,
-    "quotemark": [true, "single", "avoid-escape"],
-    "semicolon": [true, "never"],
-    "ordered-imports": [false],
+    "quotemark": [
+      true,
+      "single",
+      "avoid-escape"
+    ],
+    "semicolon": [
+      true,
+      "never"
+    ],
+    "ordered-imports": [
+      false
+    ],
     "whitespace": [
       true,
       "check-branch",
@@ -26,8 +50,18 @@
       "check-separator",
       "check-type"
     ],
-    "interface-name": [false],
-    "no-console": [false, "debug", "info", "log", "time", "timeEnd", "trace"],
+    "interface-name": [
+      false
+    ],
+    "no-console": [
+      false,
+      "debug",
+      "info",
+      "log",
+      "time",
+      "timeEnd",
+      "trace"
+    ],
     "typedef-whitespace": [
       true,
       {
@@ -38,10 +72,18 @@
         "variable-declaration": "nospace"
       }
     ],
-    "variable-name": [true, "ban-keywords"],
+    "variable-name": [
+      true,
+      "ban-keywords"
+    ],
     "no-angle-bracket-type-assertion": false,
-    "triple-equals": [true, "allow-null-check"],
-    "member-ordering": [false],
+    "triple-equals": [
+      true,
+      "allow-null-check"
+    ],
+    "member-ordering": [
+      false
+    ],
     "arrow-parens": false,
     "trailing-comma": [
       true,

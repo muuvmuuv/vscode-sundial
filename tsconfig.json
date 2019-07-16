@@ -16,7 +16,11 @@
     "src/**/*.ts",
     "test/**/*.ts",
     "webpack.config.ts",
-    "./node_modules/vscode/vscode.d.ts",
-    "./node_modules/vscode/lib/*"
+    "node_modules/vscode/vscode.d.ts",
+    "node_modules/vscode/lib/*"
+  ],
+  "exclude": [
+    "node_modules",
+    ".vscode-test"
   ]
 }

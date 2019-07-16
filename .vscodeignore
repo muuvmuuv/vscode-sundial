@@ -1,9 +1,10 @@
-.vscode
-out/
-src/
+.vscode/**
+.vscode-test/**
+out/**
+src/**
 tsconfig.json
 tslint.json
 package-lock.json
-webpack.config.ts
 assets/*.afphoto
-node_modules
+**/*.ts
+.*
