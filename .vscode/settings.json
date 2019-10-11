@@ -1,23 +1,19 @@
 {
   "cSpell.words": [
+    "dayjs",
     "execa",
-    "ipapi",
-    "lgtm",
-    "sindresorhus",
     "vsix"
   ],
   "editor.rulers": [
-    120
+    82
   ],
   "files.watcherExclude": {
     "**/dist/**": true
   },
-  "cSpell.ignorePaths": [
-    "dist/*"
-  ],
   "workbench.colorCustomizations": {
     "statusBar.background": "#ffe559",
     "statusBarItem.hoverBackground": "#ffdd26",
     "statusBar.foreground": "#15202b"
-  }
+  },
+  "peacock.color": "#ffe559"
 }

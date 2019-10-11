@@ -1,11 +1,11 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { ITides } from '../sundial'
 import { getConfig } from '../editor'
 import { window } from 'vscode'
 import { getTimes } from 'suncalc'
 import { logger } from '../logger'
 
-async function LatLong(now: moment.Moment): Promise<ITides> {
+async function LatLong(now: dayjs.Dayjs): Promise<ITides> {
   const log = logger.getLogger('useLatitudeLongitude')
   const config = await getConfig()
 
@@ -25,8 +25,8 @@ async function LatLong(now: moment.Moment): Promise<ITides> {
   )
 
   return {
-    sunrise: moment(tides.sunrise),
-    sunset: moment(tides.sunset),
+    sunrise: dayjs(tides.sunrise),
+    sunset: dayjs(tides.sunset),
   }
 }
 

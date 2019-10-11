@@ -27,9 +27,9 @@ export function activate(context: ExtensionContext) {
   commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme('night'))
   commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme('day'))
   commands.registerCommand('sundial.toggleDayNightTheme', () => toggleTheme())
-  commands.registerCommand('sundial.continueAutomation', async () => {
-    logger.info('Attaching the polos to the sundial again...')
-    await sundial.updateConfig()
+  commands.registerCommand('sundial.continueAutomation', () => {
+    logger.info('Attaching the polos to the sundial...')
+    sundial.updateConfig()
     sundial.polos = true
     sundial.check()
   })
@@ -43,7 +43,7 @@ function check() {
 }
 
 async function toggleTheme(time?: string) {
-  await sundial.updateConfig()
+  sundial.updateConfig()
   sundial.disablePolos()
   editor.toggleTheme(time)
 }

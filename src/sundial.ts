@@ -1,13 +1,13 @@
 import { window, WorkspaceConfiguration, ExtensionContext } from 'vscode'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import sensors from './sensors'
 import * as editor from './editor'
 import { logger, setGlobalLevel } from './logger'
 import { sleep, isMacOS, checkConnection } from './utils'
 
 export interface ITides {
-  sunrise: moment.Moment
-  sunset: moment.Moment
+  sunrise: dayjs.Dayjs
+  sunset: dayjs.Dayjs
 }
 
 export interface SundialConfiguration extends WorkspaceConfiguration {
@@ -70,8 +70,8 @@ export default class Sundial {
     this.isRunning = true
 
     this.connected = await checkConnection()
-    await this.updateConfig()
-    await this.checkConfig()
+    this.updateConfig()
+    this.checkConfig()
 
     const log = logger.getLogger('check')
     log.info('Sundial check initialized...')
@@ -87,7 +87,7 @@ export default class Sundial {
         editor.changeToDay()
       }
     } else {
-      const now = moment(moment.now())
+      const now = dayjs()
 
       if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
         log.info('Sundial will use your latitude and longitude')
@@ -115,7 +115,7 @@ export default class Sundial {
     this.automater()
   }
 
-  private async checkTides(now: moment.Moment) {
+  private async checkTides(now: dayjs.Dayjs) {
     const log = logger.getLogger('checkTides')
 
     const nowIsBeforeSunrise = now.isBefore(this.tides.sunrise)
@@ -144,8 +144,8 @@ export default class Sundial {
 
   private setTimeVariables() {
     let { sunrise, sunset } = this.tides
-    sunrise = sunrise.add(this.SundialConfig.dayVariable, 'minutes')
-    sunset = sunset.add(this.SundialConfig.nightVariable, 'minutes')
+    sunrise = sunrise.add(this.SundialConfig.dayVariable, 'minute')
+    sunset = sunset.add(this.SundialConfig.nightVariable, 'minute')
     this.tides = { sunrise, sunset }
   }
 
@@ -157,10 +157,8 @@ export default class Sundial {
   }
 
   public checkConfig() {
-    const configSunrise = moment(this.SundialConfig.sunrise, 'H:m', true)
-    const configSunset = moment(this.SundialConfig.sunset, 'H:m', true)
     if (
-      (!configSunrise.isValid() || !configSunset.isValid()) &&
+      (!this.tides.sunrise.isValid() || !this.tides.sunset.isValid()) &&
       (!this.SundialConfig.latitude ||
         !this.SundialConfig.longitude ||
         !this.SundialConfig.autoLocale)
@@ -179,8 +177,8 @@ export default class Sundial {
     this.SundialConfig = sundial
     this.WorkbenchConfig = workbench
     this.tides = {
-      sunrise: moment(this.SundialConfig.sunrise, 'H:m', true),
-      sunset: moment(this.SundialConfig.sunset, 'H:m', true),
+      sunrise: dayjs(this.SundialConfig.sunrise, { format: 'H:m' }),
+      sunset: dayjs(this.SundialConfig.sunset, { format: 'H:m' }),
     }
     // TODO: waiting for: https://github.com/pimterry/loglevel/issues/134
     if (this.SundialConfig.debug) {

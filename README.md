@@ -3,7 +3,7 @@
   <b>☀️ Sundial ☀️</b>
 </h1>
 
-#### Change your [VS Code](https://code.visualstudio.com/) theme and settings based on your sunset and sunrise with options!
+#### Change your VS Code theme/settings based on your sunset, sunrise or preferences!
 
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/installs-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
@@ -12,19 +12,19 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript)
 
-- [Installation](#Installation)
-- [Keybindings](#Keybindings)
-- [Commands](#Commands)
-- [Settings](#Settings)
-  - [Automatically get sunrise and sunset](#Automatically-get-sunrise-and-sunset)
-  - [Automatically get dark mode from macOS](#Automatically-get-dark-mode-from-macOS)
-  - [Automatically set dark mode based on ambient light](#Automatically-set-dark-mode-based-on-ambient-light)
-  - [Order](#Order)
-  - [Examples](#Examples)
-- [Events](#Events)
-- [Development](#Development)
-  - [Tools](#Tools)
-  - [Tests](#Tests)
+- [Installation](#installation)
+- [Keybindings](#keybindings)
+- [Commands](#commands)
+- [Settings](#settings)
+  - [Automatically get sunrise and sunset](#automatically-get-sunrise-and-sunset)
+  - [Automatically get dark mode from macOS](#automatically-get-dark-mode-from-macos)
+  - [Automatically set dark mode based on ambient light](#automatically-set-dark-mode-based-on-ambient-light)
+  - [Order](#order)
+  - [Examples](#examples)
+- [Events](#events)
+- [Development](#development)
+  - [Tools](#tools)
+  - [Tests](#tests)
 
 Sundial changes your theme and VS Code settings (if needed) based on your day and night cycle or
 other options, you choose. It is inspired by the

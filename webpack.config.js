@@ -1,24 +1,12 @@
-import { platform, userInfo } from 'os'
-import { resolve } from 'path'
-import chalk from 'chalk'
-import { Configuration, BannerPlugin } from 'webpack'
-import TerserPlugin from 'terser-webpack-plugin'
-import { CleanWebpackPlugin as CleanPlugin } from 'clean-webpack-plugin'
-import WebpackBuildNotifierPlugin from 'webpack-build-notifier'
-import pkg from './package.json'
+const { platform, userInfo } = require('os')
+const { resolve } = require('path')
+const { white, green, red } = require('kleur')
+const { BannerPlugin } = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-/**
- * Known console warnings:
- *
- * WARNING in ./node_modules/keyv/src/index.js 18:14-40
- * Critical dependency: the request of a dependency is an expression
- * https://github.com/lukechilds/keyv/issues/45
- *
- * WARNING in ./node_modules/got/source/request-as-event-emitter.js 72:18-25
- * Critical dependency: require function is used in a way in which dependencies
- * cannot be statically extracted
- * https://github.com/sindresorhus/got/issues/742
- */
+const pkg = require('./package.json')
 
 const Banner = `${'┄'.repeat(46)}
 ${pkg.displayName} (${pkg.name})
@@ -31,7 +19,7 @@ ${pkg.description}
 @pkg ${pkg.repository}
 ${'┄'.repeat(46)}`
 
-export default (_, argv: Configuration): Configuration => {
+module.exports = (_, argv) => {
   const platformName = platform()
   const developerName = userInfo().username
   const mode = argv.mode ? argv.mode : 'none'
@@ -39,9 +27,9 @@ export default (_, argv: Configuration): Configuration => {
   const isDev = mode === 'development'
 
   // Show general information
-  console.log('whoIsMe:', chalk.whiteBright(developerName))
-  console.log('whichOs:', chalk.whiteBright(platformName))
-  console.log('devMode:', isDev ? chalk.green('true') : chalk.red('false'), '\n')
+  console.log('whoIsMe:', white(developerName))
+  console.log('whichOs:', white(platformName))
+  console.log('devMode:', isDev ? green('true') : red('false'), '\n')
 
   return {
     target: 'node',
@@ -68,14 +56,13 @@ export default (_, argv: Configuration): Configuration => {
       minimizer: [new TerserPlugin()],
     },
     plugins: [
-      new WebpackBuildNotifierPlugin({
-        title: 'Sundial',
-        logo: resolve(__dirname, 'assets', 'icon.jpg'),
-      }),
-      new CleanPlugin({
+      new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: ['dist'],
       }),
       new BannerPlugin(Banner),
+      new BundleAnalyzerPlugin({
+        analyzerMode: argv.watch || isDev ? 'disabled' : 'server',
+      }),
     ],
     module: {
       rules: [
@@ -89,6 +76,12 @@ export default (_, argv: Configuration): Configuration => {
           ],
         },
       ],
+    },
+    stats: {
+      performance: true,
+      providedExports: true,
+      reasons: true,
+      timings: true,
     },
   }
 }

@@ -1,4 +1,4 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { ITides } from '../sundial'
 import got from 'got'
 import { window, ExtensionContext } from 'vscode'
@@ -20,7 +20,7 @@ interface IResponse {
 
 const geoAPI = 'https://api.ipgeolocationapi.com/geolocate'
 
-async function Sun(ctx: ExtensionContext, now: moment.Moment): Promise<ITides> {
+async function Sun(ctx: ExtensionContext, now: dayjs.Dayjs): Promise<ITides> {
   const log = logger.getLogger('useAutoLocale')
   let latitude: number = 0
   let longitude: number = 0
@@ -47,8 +47,8 @@ async function Sun(ctx: ExtensionContext, now: moment.Moment): Promise<ITides> {
 
   const tides = await getTimes(now.toDate(), latitude, longitude)
   return {
-    sunrise: moment(tides.sunrise),
-    sunset: moment(tides.sunset),
+    sunrise: dayjs(tides.sunrise),
+    sunset: dayjs(tides.sunset),
   }
 }
 

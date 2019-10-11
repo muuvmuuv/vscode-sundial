@@ -11,12 +11,15 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "--disable-extensions",
+        "--disable-extensions=true",
+        // "--user-data-dir=/tmp/sundial",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "${workspaceFolder}/testProject"
       ],
       "stopOnEntry": false,
-      "outFiles": ["${workspaceFolder}/dist/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/dist/*.js"
+      ],
       "preLaunchTask": "npm: watch",
       "sourceMaps": true
     },
@@ -26,11 +29,14 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "--disable-extensions",
+        "--disable-extensions=true",
+        // "--user-data-dir=/tmp/sundial",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test"
       ],
-      "outFiles": ["${workspaceFolder}/out/test/**/*.js"],
+      "outFiles": [
+        "${workspaceFolder}/out/test/**/*.js"
+      ],
       "preLaunchTask": "npm: test-compile"
     }
   ]

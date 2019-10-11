@@ -1,4 +1,3 @@
-import { window } from 'vscode'
 import os from 'os'
 import dns from 'dns'
 import { logger } from './logger'
@@ -19,9 +18,6 @@ export function checkConnection(): Promise<boolean> {
       if (err) {
         // No connection
         log.debug(err)
-        window.showInformationMessage(
-          'Sundial detected that you are offline but will still try to run.'
-        )
         resolve(false)
       } else {
         // Connected

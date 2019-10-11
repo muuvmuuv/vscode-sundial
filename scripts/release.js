@@ -1,15 +1,15 @@
-import fs from 'fs-extra'
-import path from 'path'
-import chalk from 'chalk'
-import release from 'release-it'
-import pkg from '../package.json'
+const fs = require('fs')
+const path = require('path')
+const { red } = require('kleur')
+const release = require('release-it')
+const pkg = require('../package.json')
 
 /**
  * Check if VSIX file is created for this version.
  */
 const vsix = path.resolve(__dirname, `../vscode-sundial-${pkg.version}.vsix`)
-if (!fs.pathExistsSync(vsix)) {
-  console.log(chalk.red(`No .vsix file found for v${pkg.version}`))
+if (!fs.existsSync(vsix)) {
+  console.log(red(`No .vsix file found for v${pkg.version}`))
   process.exit(1)
 }
 console.log(`Found .vsix file for v${pkg.version}`)
@@ -22,7 +22,7 @@ release({
   increment: pkg.version,
   // verbose: true,
   'non-interactive': true,
-  // 'dry-run': true,
+  'dry-run': true,
   git: {
     commit: false,
     requireCleanWorkingDir: false,
