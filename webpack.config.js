@@ -61,7 +61,7 @@ module.exports = (_, argv) => {
       }),
       new BannerPlugin(Banner),
       new BundleAnalyzerPlugin({
-        analyzerMode: argv.watch || isDev ? 'disabled' : 'server',
+        analyzerMode: argv.env && argv.env.analyze ? 'server' : 'disabled',
       }),
     ],
     module: {

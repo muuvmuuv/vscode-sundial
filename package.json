@@ -34,7 +34,7 @@
     "pretty": "pretty-quick",
     "lint": "tslint src/*.ts",
     "vscode:prepublish": "webpack --mode production",
-    "prod": "webpack --mode production --progress",
+    "prod": "webpack --mode production --progress --env.analyze",
     "dev": "webpack --mode development --progress",
     "watch": "webpack --mode development --watch",
     "postinstall": "node ./node_modules/vscode/bin/install",
