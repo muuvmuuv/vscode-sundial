@@ -20,7 +20,7 @@ logger.methodFactory = (methodName, logLevel, loggerName) => {
 logger.setDefaultLevel(logger.levels.INFO)
 
 function setGlobalLevel(level: any) {
-  Object.values(logger.getLoggers()).forEach(lgr => {
+  Object.values(logger.getLoggers()).forEach((lgr) => {
     lgr.setLevel(level)
   })
 }

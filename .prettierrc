@@ -4,5 +4,6 @@
   "singleQuote": true,
   "proseWrap": "always",
   "endOfLine": "lf",
+  "arrowParens": "always",
   "printWidth": 100
 }

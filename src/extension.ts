@@ -16,11 +16,11 @@ export function activate(context: ExtensionContext) {
   sundial.context = context
   sundial.check() // first check
 
-  sundial.SundialConfig.windowEvents.forEach(event => {
+  sundial.SundialConfig.windowEvents.forEach((event) => {
     context.subscriptions.push(window[event](check))
   })
 
-  sundial.SundialConfig.workspaceEvents.forEach(event => {
+  sundial.SundialConfig.workspaceEvents.forEach((event) => {
     context.subscriptions.push(workspace[event](check))
   })
 

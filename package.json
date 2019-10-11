@@ -67,6 +67,7 @@
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
+    "@types/got": "^9.6.7",
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.12",
     "@types/public-ip": "^2.4.0",

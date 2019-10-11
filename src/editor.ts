@@ -39,7 +39,7 @@ export async function applySettings(settings: object) {
     return // no settings, nothing to do
   }
   const workspaceSettings = workspace.getConfiguration()
-  Object.keys(settings).forEach(k => {
+  Object.keys(settings).forEach((k) => {
     if (k === 'workbench.colorTheme') {
       return // do not override `workbench.colorTheme`
     }
@@ -64,7 +64,7 @@ export function toggleTheme(time?: string) {
       changeToNight()
       break
     default:
-      if (config.sundial.nightTheme === config.workbench.colorTheme) {
+      if (config.sundial.nightTheme !== config.workbench.colorTheme) {
         changeToNight()
       } else {
         changeToDay()
