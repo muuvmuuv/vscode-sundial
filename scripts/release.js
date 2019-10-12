@@ -22,7 +22,7 @@ release({
   increment: pkg.version,
   // verbose: true,
   'non-interactive': true,
-  'dry-run': true,
+  // 'dry-run': true,
   git: {
     commit: false,
     requireCleanWorkingDir: false,
@@ -59,7 +59,9 @@ release({
     console.log(latestVersion)
     console.log(name)
     console.log(releaseNote)
+    // TODO: show release notes
+    // TODO: open draft in browser
   })
-  .catch(e => {
+  .catch((e) => {
     throw new Error(e)
   })

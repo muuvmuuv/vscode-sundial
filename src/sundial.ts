@@ -4,6 +4,7 @@ import sensors from './sensors'
 import * as editor from './editor'
 import { logger, setGlobalLevel } from './logger'
 import { sleep, isMacOS, checkConnection } from './utils'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 export interface ITides {
   sunrise: dayjs.Dayjs
@@ -46,6 +47,8 @@ export default class Sundial {
   public connected: boolean = true
 
   constructor() {
+    dayjs.extend(customParseFormat)
+
     this.updateConfig()
     this.checkConfig()
   }
@@ -100,7 +103,7 @@ export default class Sundial {
           this.tides = await sensors.Sun(this.extensionContext, now)
         }
       } else {
-        log.info('Sundial will your saved time')
+        log.info('Sundial will use your saved time')
         // use default `sundial.sunrise` and `sundial.sunset`
       }
 
@@ -177,8 +180,8 @@ export default class Sundial {
     this.SundialConfig = sundial
     this.WorkbenchConfig = workbench
     this.tides = {
-      sunrise: dayjs(this.SundialConfig.sunrise, { format: 'H:m' }),
-      sunset: dayjs(this.SundialConfig.sunset, { format: 'H:m' }),
+      sunrise: dayjs(this.SundialConfig.sunrise, 'HH:mm'),
+      sunset: dayjs(this.SundialConfig.sunset, 'HH:mm'),
     }
     // TODO: waiting for: https://github.com/pimterry/loglevel/issues/134
     if (this.SundialConfig.debug) {

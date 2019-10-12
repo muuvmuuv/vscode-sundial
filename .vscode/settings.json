@@ -5,7 +5,7 @@
     "vsix"
   ],
   "editor.rulers": [
-    82
+    100
   ],
   "files.watcherExclude": {
     "**/dist/**": true

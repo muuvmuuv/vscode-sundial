@@ -89,17 +89,17 @@ and
 
 **Sundial** contributes the following settings:
 
-| Setting                 | Default  | Description                                                               | Example                      |
-| ----------------------- | -------- | ------------------------------------------------------------------------- | ---------------------------- |
-| `sundial.dayTheme`      | _Light+_ | Name of the theme of choice for your day work.                            | [Cloudy Mountain][1]         |
-| `sundial.nightTheme`    | _Dark+_  | Name of the theme of choice for your night work.                          | [Atom One Dark][2]           |
-| `sundial.sunrise`       | _07:00_  | Set a time when your day starts in **24 hours format**.                   | `09:42`                      |
-| `sundial.sunset`        | _19:00_  | Set a time when your night starts in **24 hours format**.                 | `18:37`                      |
-| `sundial.dayVariable`   | _0_      | Set a variable to change the theme **X minutes** before or after sunrise. | `-40`                        |
-| `sundial.nightVariable` | _0_      | Set a variable to change the theme **X minutes** before or after sunset.  | `36`                         |
-| `sundial.daySettings`   | _{}_     | An **object** of VSCode settings applied on the day.                      | `{ "editor.fontSize": 13, }` |
-| `sundial.nightSettings` | _{}_     | An **object** of VSCode settings applied on the night.                    | `{ "editor.fontSize": 15, }` |
-| `sundial.interval`      | _5_      | Set a interval in which sundial should check the time in **minutes**.     | `2`                          |
+| Setting                 | Default  | Description                                                               |
+| ----------------------- | -------- | ------------------------------------------------------------------------- |
+| `sundial.dayTheme`      | _Light+_ | Name of the theme of choice for your day work.                            |
+| `sundial.nightTheme`    | _Dark+_  | Name of the theme of choice for your night work.                          |
+| `sundial.sunrise`       | _07:00_  | Set a time when your day starts in **24 hours format**.                   |
+| `sundial.sunset`        | _19:00_  | Set a time when your night starts in **24 hours format**.                 |
+| `sundial.dayVariable`   | _0_      | Set a variable to change the theme **X minutes** before or after sunrise. |
+| `sundial.nightVariable` | _0_      | Set a variable to change the theme **X minutes** before or after sunset.  |
+| `sundial.daySettings`   | _{}_     | An **object** of VSCode settings applied on the day.                      |
+| `sundial.nightSettings` | _{}_     | An **object** of VSCode settings applied on the night.                    |
+| `sundial.interval`      | _5_      | Set a interval in which sundial should check the time in **minutes**.     |
 
 > If you set the interval to zero (0) sundial will not periodically check the time but still when VS
 > Code triggers the events `ChangeWindowState`, `ChangeActiveTextEditor` and
@@ -126,18 +126,15 @@ from the same page.
 
 #### Automatically get dark mode from macOS
 
-Sundial provides a method to get the current operating system appearance preference value. This
-works on OSX only at the moment. To use this set `sundial.systemTheme` to `true` and Sundial will
-ignore all other options.
+Sundial provides a method to get the current operating system appearance preference. This works only
+on macOS at the moment. To use this set `sundial.systemTheme` to `true` and Sundial will ignore all
+other options.
 
-This options works very good with [Night Owl for Mac](https://nightowl.kramser.xyz/) or
-[Starlight](https://github.com/pmkary/starlight).
-
-> Successfully tested on: MacBook Pro (15-inch, 2017) with macOS 10.14.5
+> Successfully tested on: MacBook Pro (15-inch, 2017) with macOS >10.14.5.
 
 #### Automatically set dark mode based on ambient light
 
-> !!!WORK IN PROGRESS!!!
+> !!! WORK IN PROGRESS !!!
 
 Sundial will check access to your computers ambient light sensor and will use it to determine if
 dark mode is needed in your environment. To use this set `sundial.ambientLight` to `true`.
@@ -146,14 +143,12 @@ If you don't know what the ambient light sensor is, you might know it from your 
 display gets brighter or darken depending on the light around it. Most Laptops have this nowdays so
 we can take use of it.
 
-> Sundial will ignore all other options.
-
 ### Order
 
-Settings will be applied in this order (first one overrides all after):
+Sundial will be activated by this order:
 
-1. `sundial.systemTheme`
-2. `sundial.ambientLight` (WIP)
+1. `sundial.ambientLight` (WIP)
+2. `sundial.systemTheme`
 3. `sundial.latitude` and `sundial.longitude`
 4. `sundial.autoLocale`
 5. `sundial.sunrise` and `sundial.sunset`

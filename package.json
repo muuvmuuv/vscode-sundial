@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
   "description": "Change your VS Code theme/settings based on your sunset, sunrise or preferences!",
@@ -13,7 +13,6 @@
     "sunrise",
     "sunset",
     "sundial",
-    "moment",
     "vscode"
   ],
   "categories": [
