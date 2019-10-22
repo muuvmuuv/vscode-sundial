@@ -42,7 +42,8 @@
     "============== Tests =============": "",
     "lint": "tslint -p ./",
     "pretest": "npm run compile",
-    "test": "node ./out/test/runTest.js",
+    "test": "echo \"Currently not supported\"",
+    "test-off": "node ./out/test/runTest.js",
     "compile": "tsc -p ./",
     "": ""
   },
