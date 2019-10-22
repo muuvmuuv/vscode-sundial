@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial – Day/Night Appearance",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "Change your VS Code theme/settings based on your sunset, sunrise, system appearance or other preferences!",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
@@ -100,19 +100,19 @@
     "commands": [
       {
         "command": "sundial.switchToNightTheme",
-        "title": "Sundial: Night Theme"
+        "title": "Night Theme 🌑"
       },
       {
         "command": "sundial.switchToDayTheme",
-        "title": "Sundial: Day Theme"
+        "title": "Day Theme 🌕"
       },
       {
         "command": "sundial.toggleDayNightTheme",
-        "title": "Sundial: Toggle Day/Night Theme"
+        "title": "Toggle Day/Night Theme"
       },
       {
         "command": "sundial.continueAutomation",
-        "title": "Sundial: Continue switching day/night theme automatically"
+        "title": "Continue switching day/night theme automatically"
       }
     ],
     "keybindings": [
@@ -122,6 +122,18 @@
         "mac": "ctrl+cmd+t"
       }
     ],
+    "menus": {
+      "touchBar": [
+        {
+          "command": "sundial.switchToNightTheme",
+          "group": "editing"
+        },
+        {
+          "command": "sundial.switchToDayTheme",
+          "group": "editing"
+        }
+      ]
+    },
     "configuration": {
       "type": "object",
       "title": "Sundial Configurations",

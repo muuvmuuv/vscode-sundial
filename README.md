@@ -15,6 +15,7 @@
 - [Installation](#installation)
 - [Keybindings](#keybindings)
 - [Commands](#commands)
+- [Menus](#menus)
 - [Settings](#settings)
     - [Automatically get sunrise and sunset](#automatically-get-sunrise-and-sunset)
     - [Automatically get dark mode from macOS](#automatically-get-dark-mode-from-macos)
@@ -24,7 +25,6 @@
 - [Events](#events)
 - [Development](#development)
   - [Tools](#tools)
-  - [Tests](#tests)
 
 Sundial changes your theme and VS Code settings (if needed) based on your day and night cycle or
 other options, you choose. It is inspired by the
@@ -74,16 +74,25 @@ and
 
 **Sundial** contributes the following commands:
 
-| Command                                                     | Action                        | Description                          |
-| ----------------------------------------------------------- | ----------------------------- | ------------------------------------ |
-| _Sundial: Night Theme_                                      | `sundial.switchToNightTheme`  | Switch to your night theme.          |
-| _Sundial: Day Theme_                                        | `sundial.switchToDayTheme`    | Switch to your day theme.            |
-| _Sundial: Toggle Day/Night Theme_                           | `sundial.toggleDayNightTheme` | Toggle between your day/night theme. |
-| _Sundial: Continue switching day/night theme automatically_ | `sundial.continueAutomation`  | Continue automation.                 |
+| Command                                            | Action                        | Description                           |
+| -------------------------------------------------- | ----------------------------- | ------------------------------------- |
+| _Night Theme 🌑_                                   | `sundial.switchToNightTheme`  | Switches to your night theme.         |
+| _Day Theme 🌕_                                     | `sundial.switchToDayTheme`    | Switches to your day theme.           |
+| _Toggle Day/Night Theme_                           | `sundial.toggleDayNightTheme` | Toggles between your day/night theme. |
+| _Continue switching day/night theme automatically_ | `sundial.continueAutomation`  | Continues automation.                 |
 
 > Note that whenever you use one of this commands, Sundial will disable the automation process of
 > changing your theme on day night basis. To continue using that feature you need to reactivate it
 > with `sundial.continueAutomation`.
+
+## Menus
+
+**Sundial** contributes the following menu bindings:
+
+| Menu     | Text             | Command                      | Description                   |
+| -------- | ---------------- | ---------------------------- | ----------------------------- |
+| TouchBar | _Night Theme 🌑_ | `sundial.switchToNightTheme` | Switches to your night theme. |
+| TouchBar | _Day Theme 🌕_   | `sundial.switchToDayTheme`   | Switches to your day theme.   |
 
 ## Settings
 
@@ -115,8 +124,9 @@ To get your sunrise and sunset automatically you can either set latitude and lon
 `autoLocale` to `true`.
 
 If `autoLocale` is set to `true`, Sundial will get your geolocation from
-[https://freegeoip.app/](https://freegeoip.app/). You can get your latitude and longitude manually
-from the same page.
+[Free IP Geolocation API](https://freegeoip.app/) and check your internet connection via
+[Cloudflares 1.1.1.1 DNS-Server](https://1.1.1.1/). You can get your latitude and longitude manually
+from _Free IP Geolocation API_.
 
 | Setting              | Default | Description                                      |
 | -------------------- | ------- | ------------------------------------------------ |
@@ -130,7 +140,7 @@ Sundial provides a method to get the current operating system appearance prefere
 on macOS at the moment. To use this set `sundial.systemTheme` to `true` and Sundial will ignore all
 other options.
 
-> Successfully tested on: MacBook Pro (15-inch, 2017) with macOS >10.14.5.
+> Successfully tested on: MacBook Pro (15-inch, 2017) with macOS >=10.14.5.
 
 #### Automatically set dark mode based on ambient light
 
@@ -197,10 +207,9 @@ your theme. Here is a list of events which will Sundial perform by default.
 - `window.onDidChangeActiveTextEditor`
 - `window.onDidChangeTextEditorViewColumn`
 - `workspace.onDidChangeConfiguration`
-- `workspace.onDidChangeTextDocument`
 - `Sundial.automater`
 
-If you want to customize those, you just need to add these configs:
+If you want to customize those, you need to add an event to one of these config keys:
 
 ```json
 {
@@ -209,7 +218,7 @@ If you want to customize those, you just need to add these configs:
     "onDidChangeActiveTextEditor",
     "onDidChangeTextEditorViewColumn"
   ],
-  "sundial.workspaceEvents": ["onDidChangeConfiguration", "onDidChangeTextDocument"]
+  "sundial.workspaceEvents": ["onDidChangeConfiguration"]
 }
 ```
 
@@ -225,38 +234,17 @@ size to increase the load time in VSCode.
 
 1.  Install packages via `npm install`
 2.  Set `sundial.debug` to `true` (not necessary but recommended)
-3.  Run debugger => `Extension`
-4.  Go into the _extensionHost_ and adjust settings to test
-5.  Change a file and save it, let _webpack_ compile
-6.  Reload the debugger (<kbd>⇧⌘F5</kbd>)
-7.  Run tests with `npm test`
-8.  Create a new [version](#tools)
-9.  Add a detailed description to the [changelog](CHANGELOG.md)
-10. Create a pull request
-
-> ⚠️ Don't forget to change the [version](#tools) and include a detailed [changelog](CHANGELOG.md)
-> of the changes you've made!
+3.  Run debugger => `Launch Extension`
+    - View the _Extension Host_ and adjust settings to test **or**
+    - Change a file and save it, let _webpack_ compile
+4.  Reload the debugger (<kbd>⇧⌘F5</kbd>)
+5.  ~~Run tests with `npm test`~~ (WIP!!!)
+6.  Create a new [version](#tools): `npm run version`
+7.  Commit your changes with a detailed explanation
+8.  Create changelogs: `npm run changelog`
+9.  Create a pull request
 
 ### Tools
 
 - `npm run version`: Interactively create a new version (based on [semver](https://semver.org/)).
-- `npm run tag`: Tag the current package.json version to the latest commit.
 - `npm run release`: Create a new GitHub release draft.
-
-### Tests
-
-All tests that are running with `npm test`:
-
-1. [setContext](./tests/setContext.spec.ts)
-2. [updateConfig](./tests/updateConfig.spec.ts)
-3. [checkConfig](./tests/checkConfig.spec.ts)
-4. [useLatitudeLongitude](./tests/useLatitudeLongitude.spec.ts)
-5. [useAutoLocale](./tests/useAutoLocale.spec.ts)
-6. [setVariable](./tests/setVariable.spec.ts)
-7. [automater](./tests/automater.spec.ts)
-8. [applySettings](./tests/applySettings.spec.ts)
-9. [toggleTheme](./tests/toggleTheme.spec.ts)
-10. [disablePolos](./tests/disablePolos.spec.ts)
-
-[1]: https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-theme-cloudy-mountain
-[2]: https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark
