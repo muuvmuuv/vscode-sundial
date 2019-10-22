@@ -6,18 +6,37 @@
       "name": "Launch Extension",
       "type": "extensionHost",
       "request": "launch",
+      "runtimeExecutable": "${execPath}",
       "stopOnEntry": false,
       "sourceMaps": true,
       "preLaunchTask": "npm: dev",
-      "runtimeExecutable": "${execPath}",
       "args": [
         "--user-data-dir=${workspaceFolder}/tmp",
-        "--disable-extensions=true",
+        // "--disable-extensions=true",
         "--extensionDevelopmentPath=${workspaceFolder}",
+        "--enable-proposed-api=muuvmuuv.vscode-sundial",
         "${workspaceFolder}/testProject"
       ],
       "outFiles": [
         "${workspaceFolder}/dist/*.js"
+      ]
+    },
+    {
+      "name": "Extension Tests",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "stopOnEntry": false,
+      "sourceMaps": true,
+      "preLaunchTask": "npm: test",
+      "args": [
+        "--user-data-dir=${workspaceFolder}/tmp",
+        "--disable-extensions=true",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/out/test/**/*.js"
       ]
     }
   ]

@@ -13,6 +13,7 @@ const sundial = new Sundial() // hi!
  * @param context Extension utilities
  */
 export function activate(context: ExtensionContext) {
+  sundial.polos = true
   sundial.context = context
   sundial.check() // first check
 
@@ -36,6 +37,10 @@ export function activate(context: ExtensionContext) {
 
   sundial.automater()
   logger.info('Sundial is now active! ☀️')
+}
+
+export function deactivate() {
+  sundial.polos = false
 }
 
 function check() {

@@ -3,7 +3,7 @@
   <b>☀️ Sundial ☀️</b>
 </h1>
 
-#### Change your VS Code theme/settings based on your sunset, sunrise or preferences!
+#### Change your VS Code theme/settings based on your sunset, sunrise, system appearance or other preferences!
 
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/installs-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
@@ -16,9 +16,9 @@
 - [Keybindings](#keybindings)
 - [Commands](#commands)
 - [Settings](#settings)
-  - [Automatically get sunrise and sunset](#automatically-get-sunrise-and-sunset)
-  - [Automatically get dark mode from macOS](#automatically-get-dark-mode-from-macos)
-  - [Automatically set dark mode based on ambient light](#automatically-set-dark-mode-based-on-ambient-light)
+    - [Automatically get sunrise and sunset](#automatically-get-sunrise-and-sunset)
+    - [Automatically get dark mode from macOS](#automatically-get-dark-mode-from-macos)
+    - [Automatically set dark mode based on ambient light](#automatically-set-dark-mode-based-on-ambient-light)
   - [Order](#order)
   - [Examples](#examples)
 - [Events](#events)

@@ -5,19 +5,12 @@
     "outDir": "out",
     "sourceMap": true,
     "strict": true,
-    "rootDir": ".",
     "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "src/**/*.ts",
-    "test/**/*.ts",
-    "node_modules/vscode/vscode.d.ts",
-    "node_modules/vscode/lib/*"
-  ],
   "exclude": [
     "node_modules",
     ".vscode-test"
