@@ -60,7 +60,7 @@
     "@types/node": "^12.11.2",
     "@types/semver": "^6.0.2",
     "@types/suncalc": "^1.8.0",
-    "@types/vscode": "^1.32.0",
+    "@types/vscode": "1.25.0",
     "auto-changelog": "^1.16.1",
     "clean-webpack-plugin": "^3.0.0",
     "execa": "^3.2.0",
