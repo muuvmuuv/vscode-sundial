@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial",
-  "version": "1.12.1",
+  "version": "1.12.2",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
   "description": "Change your VS Code theme/settings based on your sunset, sunrise or preferences!",
@@ -210,8 +210,7 @@
         "sundial.workspaceEvents": {
           "type": "array",
           "default": [
-            "onDidChangeConfiguration",
-            "onDidChangeTextDocument"
+            "onDidChangeConfiguration"
           ],
           "description": "Specify on which VS Code workspace events you want Sundial to check."
         }
