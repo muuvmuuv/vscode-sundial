@@ -40,7 +40,7 @@ export default class Sundial {
   public extensionContext!: ExtensionContext
 
   public debug: boolean = false
-  public polos: boolean = true // mount/dismount the polos from the sundial
+  public enabled: boolean = true // mount/dismount the enabled from the sundial
   public interval!: NodeJS.Timer
   public tides!: ITides
   public isRunning: boolean = false
@@ -57,6 +57,23 @@ export default class Sundial {
     this.extensionContext = context
   }
 
+  public disableExtension() {
+    this.updateConfig()
+    const log = logger.getLogger('disableExtension')
+    log.info('Disabling Sundial...')
+    this.enabled = false
+    clearInterval(this.interval)
+  }
+
+  public enableExtension() {
+    this.updateConfig()
+    const log = logger.getLogger('enableExtension')
+    log.info('Enabling Sundial...')
+    this.enabled = true
+    this.automater()
+    this.check()
+  }
+
   public automater() {
     if (this.SundialConfig.interval === 0) {
       return
@@ -66,7 +83,7 @@ export default class Sundial {
   }
 
   public async check() {
-    if (!this.polos || this.isRunning) {
+    if (!this.enabled || this.isRunning) {
       return // just mute it here, info would be disturbing
     }
     clearInterval(this.interval) // reset timer
@@ -103,7 +120,7 @@ export default class Sundial {
           this.tides = await sensors.Sun(this.extensionContext, now)
         }
       } else {
-        log.info('Sundial will use your saved time')
+        log.info('Sundial will use your saved time settings')
         // use default `sundial.sunrise` and `sundial.sunset`
       }
 
@@ -150,13 +167,6 @@ export default class Sundial {
     sunrise = sunrise.add(this.SundialConfig.dayVariable, 'minute')
     sunset = sunset.add(this.SundialConfig.nightVariable, 'minute')
     this.tides = { sunrise, sunset }
-  }
-
-  public disablePolos() {
-    const log = logger.getLogger('disablePolos')
-    log.info('Removing the polos from the sundial...')
-    this.polos = false
-    clearInterval(this.interval)
   }
 
   public checkConfig() {

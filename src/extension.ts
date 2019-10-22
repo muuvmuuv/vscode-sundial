@@ -13,9 +13,8 @@ const sundial = new Sundial() // hi!
  * @param context Extension utilities
  */
 export function activate(context: ExtensionContext) {
-  sundial.polos = true
   sundial.context = context
-  sundial.check() // first check
+  sundial.enableExtension()
 
   sundial.SundialConfig.windowEvents.forEach((event) => {
     context.subscriptions.push(window[event](check))
@@ -28,19 +27,13 @@ export function activate(context: ExtensionContext) {
   commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme('night'))
   commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme('day'))
   commands.registerCommand('sundial.toggleDayNightTheme', () => toggleTheme())
-  commands.registerCommand('sundial.continueAutomation', () => {
-    logger.info('Attaching the polos to the sundial...')
-    sundial.updateConfig()
-    sundial.polos = true
-    sundial.check()
-  })
+  commands.registerCommand('sundial.continueAutomation', () => sundial.enableExtension())
 
-  sundial.automater()
   logger.info('Sundial is now active! ☀️')
 }
 
 export function deactivate() {
-  sundial.polos = false
+  sundial.disableExtension()
 }
 
 function check() {
@@ -48,7 +41,6 @@ function check() {
 }
 
 async function toggleTheme(time?: string) {
-  sundial.updateConfig()
-  sundial.disablePolos()
+  sundial.disableExtension()
   editor.toggleTheme(time)
 }
