@@ -44,7 +44,6 @@ export default class Sundial {
   public interval!: NodeJS.Timer
   public tides!: ITides
   public isRunning: boolean = false
-  public connected: boolean = true
 
   constructor() {
     dayjs.extend(customParseFormat)
@@ -58,16 +57,15 @@ export default class Sundial {
   }
 
   public disableExtension() {
-    this.updateConfig()
     const log = logger.getLogger('disableExtension')
     log.info('Disabling Sundial...')
-    this.enabled = false
     clearInterval(this.interval)
+    this.enabled = false
   }
 
   public enableExtension() {
-    this.updateConfig()
     const log = logger.getLogger('enableExtension')
+    this.updateConfig()
     log.info('Enabling Sundial...')
     this.enabled = true
     this.automater()
@@ -89,7 +87,6 @@ export default class Sundial {
     clearInterval(this.interval) // reset timer
     this.isRunning = true
 
-    this.connected = await checkConnection()
     this.updateConfig()
     this.checkConfig()
 
@@ -108,12 +105,11 @@ export default class Sundial {
       }
     } else {
       const now = dayjs()
-
       if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
         log.info('Sundial will use your latitude and longitude')
         this.tides = await sensors.LatLong(now)
       } else if (this.SundialConfig.autoLocale) {
-        if (!this.connected) {
+        if (!(await checkConnection())) {
           log.info('You are not connected, so we will use your last location')
         } else {
           log.info('Sundial will now detect your location')

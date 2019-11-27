@@ -1,5 +1,8 @@
 import { workspace, window, WorkspaceConfiguration } from 'vscode'
 import { SundialConfiguration } from './sundial'
+import { logger } from './logger'
+
+const log = logger.getLogger('editor')
 
 interface IConfig {
   sundial: SundialConfiguration
@@ -28,6 +31,7 @@ export function changeToNight() {
 }
 
 export async function changeThemeTo(newTheme: string) {
+  log.debug('Changing theme to:', newTheme)
   const config = getConfig()
   if (newTheme !== config.workbench.colorTheme) {
     config.workbench.update('colorTheme', newTheme, true)
@@ -35,6 +39,7 @@ export async function changeThemeTo(newTheme: string) {
 }
 
 export async function applySettings(settings: object) {
+  log.debug('Changing settings to:', settings)
   if (!settings) {
     return // no settings, nothing to do
   }
@@ -55,6 +60,7 @@ export async function applySettings(settings: object) {
 }
 
 export function toggleTheme(time?: string) {
+  log.debug('Toggle theme to:', time)
   const config = getConfig()
   switch (time) {
     case 'day':
