@@ -33,9 +33,9 @@ export interface SundialConfiguration extends WorkspaceConfiguration {
 }
 
 export default class Sundial {
-  static readonly extensionName = 'Sundial'
-  static readonly extensionAlias = 'sundial'
-  static extensionContext: ExtensionContext
+  public static readonly extensionName = 'Sundial'
+  public static readonly extensionAlias = 'sundial'
+  public static extensionContext: ExtensionContext
 
   private enabled = true
   private isRunning = false

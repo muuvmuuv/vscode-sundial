@@ -18,7 +18,6 @@ export function checkConnection(): Promise<boolean> {
       'www.cloudflare.com', // or better; 1.1.1.1
       {
         family: 4,
-        hints: dns.ADDRCONFIG | dns.V4MAPPED,
       },
       function onLookup(err) {
         if (err && err.code === 'ENOTFOUND') {
