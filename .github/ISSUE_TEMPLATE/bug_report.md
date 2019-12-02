@@ -1,7 +1,7 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: '[BUG] – Something went wrong'
+about: Report something that just broke the extension
+title: '[BUG] Something went wrong'
 labels: ''
 assignees: ''
 ---
@@ -30,7 +30,8 @@ If applicable, add screenshots to help explain your problem.
 **Desktop (please complete the following information):**
 
 - OS: [e.g. macOS 10.14.4]
-- VS Code [e.g. 1.33.1]
+- VS Code: [e.g. 1.33.1]
+- Sundial: [e.g. 1.16.0]
 
 **Additional context**
 
