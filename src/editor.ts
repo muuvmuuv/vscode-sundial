@@ -4,12 +4,12 @@ import { logger } from './logger'
 
 const log = logger.getLogger('editor')
 
-interface IConfig {
+export interface EditorConfig {
   sundial: SundialConfiguration
   workbench: WorkspaceConfiguration
 }
 
-export function getConfig(): IConfig {
+export function getConfig(): EditorConfig {
   const sundial = <SundialConfiguration>workspace.getConfiguration('sundial')
   const workbench = workspace.getConfiguration('workbench')
   return {
@@ -18,31 +18,11 @@ export function getConfig(): IConfig {
   }
 }
 
-export function changeToDay() {
-  const config = getConfig()
-  changeThemeTo(config.sundial.dayTheme)
-  applySettings(config.sundial.daySettings)
-}
-
-export function changeToNight() {
-  const config = getConfig()
-  changeThemeTo(config.sundial.nightTheme)
-  applySettings(config.sundial.nightSettings)
-}
-
-export async function changeThemeTo(newTheme: string) {
-  log.debug('Changing theme to:', newTheme)
-  const config = getConfig()
-  if (newTheme !== config.workbench.colorTheme) {
-    config.workbench.update('colorTheme', newTheme, true)
-  }
-}
-
 export async function applySettings(settings: object) {
-  log.debug('Changing settings to:', settings)
   if (!settings) {
     return // no settings, nothing to do
   }
+  log.debug('Changing settings to:', settings)
   const workspaceSettings = workspace.getConfiguration()
   Object.keys(settings).forEach((k) => {
     if (k === 'workbench.colorTheme') {
@@ -59,14 +39,39 @@ export async function applySettings(settings: object) {
   })
 }
 
-export function toggleTheme(time?: string) {
+export enum TimeNames {
+  Day = 'day',
+  Night = 'night',
+}
+
+export function changeToDay() {
+  const { sundial } = getConfig()
+  changeThemeTo(sundial.dayTheme)
+  applySettings(sundial.daySettings)
+}
+
+export function changeToNight() {
+  const { sundial } = getConfig()
+  changeThemeTo(sundial.nightTheme)
+  applySettings(sundial.nightSettings)
+}
+
+export async function changeThemeTo(newTheme: string) {
+  log.debug('Changing theme to:', newTheme)
+  const { workbench } = getConfig()
+  if (newTheme !== workbench.colorTheme) {
+    workbench.update('colorTheme', newTheme, true)
+  }
+}
+
+export function toggleTheme(time?: TimeNames) {
   log.debug('Toggle theme to:', time)
   const config = getConfig()
   switch (time) {
-    case 'day':
+    case TimeNames.Day:
       changeToDay()
       break
-    case 'night':
+    case TimeNames.Night:
       changeToNight()
       break
     default:

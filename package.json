@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial – Day/Night Theme Switcher (auto Dark mode)",
-  "version": "1.16.1",
+  "version": "1.17.0",
   "description": "Change your VS Code theme/settings based on your sunset, sunrise, system appearance or other preferences!",
   "icon": "assets/icon.jpg",
   "publisher": "muuvmuuv",
@@ -50,8 +50,9 @@
   "dependencies": {
     "dark-mode": "^3.0.0",
     "dayjs": "^1.8.17",
-    "got": "^9.6.0",
+    "got": "^10.0.1",
     "loglevel": "^1.6.6",
+    "public-ip": "^4.0.0",
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
@@ -207,9 +208,9 @@
           "description": "Set in which interval Sundial should check the time. (in minutes)"
         },
         "sundial.debug": {
-          "type": "boolean",
-          "default": false,
-          "description": "More verbose console logs."
+          "type": "number",
+          "default": 2,
+          "description": "More verbose console logs. See: https://github.com/pimterry/loglevel/blob/master/lib/loglevel.js#L181"
         },
         "sundial.windowEvents": {
           "type": "array",

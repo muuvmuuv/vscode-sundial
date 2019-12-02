@@ -1,6 +1,6 @@
 import LatLong from './latlong'
-import Sun from './sun'
+import AutoLocale from './autolocale'
 import AmbientLight from './ambient-light'
 import SystemTheme from './system-theme'
 
-export default { LatLong, Sun, AmbientLight, SystemTheme }
+export default { LatLong, AutoLocale, AmbientLight, SystemTheme }

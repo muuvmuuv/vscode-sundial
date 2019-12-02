@@ -2,34 +2,28 @@
 
 import { window, ExtensionContext, commands, workspace } from 'vscode'
 import Sundial from './sundial'
-import { logger } from './logger'
 import * as editor from './editor'
 
-const sundial = new Sundial() // hi!
+const sundial = new Sundial() // Hi!
 
-/**
- * Activate extension.
- *
- * @param context Extension utilities
- */
 export function activate(context: ExtensionContext) {
-  sundial.context = context
+  const config = editor.getConfig()
+
+  Sundial.extensionContext = context
   sundial.enableExtension()
 
-  sundial.SundialConfig.windowEvents.forEach((event) => {
+  config.sundial.windowEvents.forEach((event) => {
     context.subscriptions.push(window[event](check))
   })
 
-  sundial.SundialConfig.workspaceEvents.forEach((event) => {
+  config.sundial.workspaceEvents.forEach((event) => {
     context.subscriptions.push(workspace[event](check))
   })
 
-  commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme('night'))
-  commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme('day'))
+  commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme(editor.TimeNames.Night))
+  commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme(editor.TimeNames.Day))
   commands.registerCommand('sundial.toggleDayNightTheme', () => toggleTheme())
   commands.registerCommand('sundial.continueAutomation', () => sundial.enableExtension())
-
-  logger.info('Sundial is now active! ☀️')
 }
 
 export function deactivate() {
@@ -40,7 +34,7 @@ function check() {
   sundial.check()
 }
 
-async function toggleTheme(time?: string) {
+async function toggleTheme(time?: editor.TimeNames) {
   sundial.disableExtension()
   editor.toggleTheme(time)
 }

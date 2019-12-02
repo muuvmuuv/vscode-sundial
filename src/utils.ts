@@ -14,14 +14,21 @@ export function checkConnection(): Promise<boolean> {
   return new Promise((resolve) => {
     const log = logger.getLogger('checkConnection')
     // TODO: waiting for a better solution: https://github.com/microsoft/vscode/issues/73094
-    dns.lookup('1.1.1.1', (err) => {
-      if (err && err.code === 'ENOTFOUND') {
-        log.debug('OFFLINE')
-        resolve(false)
-      } else {
-        log.debug('ONLINE')
-        resolve(true)
+    dns.lookup(
+      'www.cloudflare.com', // or better; 1.1.1.1
+      {
+        family: 4,
+        hints: dns.ADDRCONFIG | dns.V4MAPPED,
+      },
+      function onLookup(err) {
+        if (err && err.code === 'ENOTFOUND') {
+          log.debug('OFFLINE')
+          resolve(false)
+        } else {
+          log.debug('ONLINE')
+          resolve(true)
+        }
       }
-    })
+    )
   })
 }

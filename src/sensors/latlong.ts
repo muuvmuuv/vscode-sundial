@@ -5,7 +5,8 @@ import { window } from 'vscode'
 import { getTimes } from 'suncalc'
 import { logger } from '../logger'
 
-async function LatLong(now: dayjs.Dayjs): Promise<ITides> {
+async function LatLong(): Promise<ITides> {
+  const now = dayjs()
   const log = logger.getLogger('useLatitudeLongitude')
   const config = await getConfig()
 

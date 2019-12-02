@@ -233,7 +233,7 @@ We are working with [webpack](https://webpack.js.org/) to bundle Sundial to the 
 size to increase the load time in VSCode.
 
 1.  Install packages via `npm install`
-2.  Set `sundial.debug` to `true` (not necessary but recommended)
+2.  Set `sundial.debug` to `1` (not necessary but recommended)
 3.  Run debugger => `Launch Extension`
     - View the _Extension Host_ and adjust settings to test **or**
     - Change a file and save it, let _webpack_ compile

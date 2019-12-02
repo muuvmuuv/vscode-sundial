@@ -1,9 +1,10 @@
-import { window, WorkspaceConfiguration, ExtensionContext } from 'vscode'
+import { WorkspaceConfiguration, ExtensionContext } from 'vscode'
 import dayjs from 'dayjs'
 import sensors from './sensors'
 import * as editor from './editor'
+import * as loglevel from 'loglevel'
 import { logger, setGlobalLevel } from './logger'
-import { sleep, isMacOS, checkConnection } from './utils'
+import { sleep, isMacOS } from './utils'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 export interface ITides {
@@ -26,34 +27,32 @@ export interface SundialConfiguration extends WorkspaceConfiguration {
   daySettings: WorkspaceConfiguration
   nightSettings: WorkspaceConfiguration
   interval: number
-  debug: boolean
+  debug: loglevel.LogLevel
   windowEvents: string[]
   workspaceEvents: string[]
 }
 
 export default class Sundial {
-  public readonly extensionName: string = 'Sundial'
-  public readonly extensionAlias: string = 'sundial'
+  static readonly extensionName = 'Sundial'
+  static readonly extensionAlias = 'sundial'
+  static extensionContext: ExtensionContext
 
-  public SundialConfig!: SundialConfiguration
-  public WorkbenchConfig!: WorkspaceConfiguration
-  public extensionContext!: ExtensionContext
+  private enabled = true
+  private isRunning = false
+  private interval!: NodeJS.Timer
 
-  public debug: boolean = false
-  public enabled: boolean = true // mount/dismount the enabled from the sundial
-  public interval!: NodeJS.Timer
   public tides!: ITides
-  public isRunning: boolean = false
 
   constructor() {
     dayjs.extend(customParseFormat)
-
-    this.updateConfig()
-    this.checkConfig()
   }
 
-  set context(context: ExtensionContext) {
-    this.extensionContext = context
+  public enableExtension() {
+    const log = logger.getLogger('enableExtension')
+    log.info('Enabling Sundial...')
+    this.enabled = true
+    this.automater()
+    this.check()
   }
 
   public disableExtension() {
@@ -63,37 +62,30 @@ export default class Sundial {
     this.enabled = false
   }
 
-  public enableExtension() {
-    const log = logger.getLogger('enableExtension')
-    this.updateConfig()
-    log.info('Enabling Sundial...')
-    this.enabled = true
-    this.automater()
-    this.check()
-  }
-
   public automater() {
-    if (this.SundialConfig.interval === 0) {
+    const { sundial } = editor.getConfig()
+    if (sundial.interval === 0) {
       return
     }
-    const interval = 1000 * 60 * this.SundialConfig.interval
+    const interval = 1000 * 60 * sundial.interval
     this.interval = setInterval(() => this.check(), interval)
   }
 
   public async check() {
     if (!this.enabled || this.isRunning) {
-      return // just mute it here, info would be disturbing
+      return // disabled or already running
     }
+    const { sundial, workbench } = editor.getConfig()
     clearInterval(this.interval) // reset timer
     this.isRunning = true
 
-    this.updateConfig()
-    this.checkConfig()
-
+    setGlobalLevel(sundial.debug)
     const log = logger.getLogger('check')
     log.info('Sundial check initialized...')
+    log.debug('SundialConfig:', sundial)
+    log.debug('WorkbenchConfig:', workbench)
 
-    if (this.SundialConfig.systemTheme && isMacOS) {
+    if (sundial.systemTheme && isMacOS) {
       log.info('Sundial will use your system theme')
       const darkMode = await sensors.SystemTheme()
       if (darkMode) {
@@ -104,34 +96,34 @@ export default class Sundial {
         editor.changeToDay()
       }
     } else {
-      const now = dayjs()
-      if (this.SundialConfig.latitude || this.SundialConfig.longitude) {
+      if (sundial.latitude || sundial.longitude) {
         log.info('Sundial will use your latitude and longitude')
-        this.tides = await sensors.LatLong(now)
-      } else if (this.SundialConfig.autoLocale) {
-        if (!(await checkConnection())) {
-          log.info('You are not connected, so we will use your last location')
-        } else {
-          log.info('Sundial will now detect your location')
-          this.tides = await sensors.Sun(this.extensionContext, now)
-        }
+        this.tides = await sensors.LatLong()
+      } else if (sundial.autoLocale) {
+        log.info('Sundial will now try to detect your location')
+        this.tides = await sensors.AutoLocale()
       } else {
         log.info('Sundial will use your saved time settings')
-        // use default `sundial.sunrise` and `sundial.sunset`
+        this.tides = {
+          sunrise: dayjs(sundial.sunrise, 'HH:mm'),
+          sunset: dayjs(sundial.sunset, 'HH:mm'),
+        }
       }
 
-      if (this.SundialConfig.dayVariable || this.SundialConfig.nightVariable) {
+      if (sundial.dayVariable || sundial.nightVariable) {
         this.setTimeVariables()
       }
 
-      await this.checkTides(now)
+      await this.evaluateTides()
     }
 
+    await sleep(400) // Short nap to prevent too fast calls 😴
     this.isRunning = false
     this.automater()
   }
 
-  private async checkTides(now: dayjs.Dayjs) {
+  private async evaluateTides() {
+    const now = dayjs()
     const log = logger.getLogger('checkTides')
 
     const nowIsBeforeSunrise = now.isBefore(this.tides.sunrise)
@@ -154,50 +146,13 @@ export default class Sundial {
       log.info('Sundial applied your night theme! 🌑')
       editor.changeToNight()
     }
-
-    await sleep(400) // Short nap to prevent too fast calls 😴
   }
 
   private setTimeVariables() {
-    let { sunrise, sunset } = this.tides
-    sunrise = sunrise.add(this.SundialConfig.dayVariable, 'minute')
-    sunset = sunset.add(this.SundialConfig.nightVariable, 'minute')
-    this.tides = { sunrise, sunset }
-  }
-
-  public checkConfig() {
-    if (
-      (!this.tides.sunrise.isValid() || !this.tides.sunset.isValid()) &&
-      (!this.SundialConfig.latitude ||
-        !this.SundialConfig.longitude ||
-        !this.SundialConfig.autoLocale)
-    ) {
-      window.showErrorMessage(
-        'It looks like sundial.sunrise or sundial.sunset are ' +
-          'no real dates and you have not set any other specifications ' +
-          'to determine your sunset and sunrise. Please correct this ' +
-          'by following the documentation.'
-      )
-    }
-  }
-
-  public updateConfig() {
     const { sundial, workbench } = editor.getConfig()
-    this.SundialConfig = sundial
-    this.WorkbenchConfig = workbench
-    this.tides = {
-      sunrise: dayjs(this.SundialConfig.sunrise, 'HH:mm'),
-      sunset: dayjs(this.SundialConfig.sunset, 'HH:mm'),
-    }
-    // TODO: waiting for: https://github.com/pimterry/loglevel/issues/134
-    if (this.SundialConfig.debug) {
-      setGlobalLevel(logger.levels.DEBUG)
-    } else {
-      setGlobalLevel(logger.levels.INFO)
-    }
-    const log = logger.getLogger('updateConfig')
-    log.debug('SundialConfig:', this.SundialConfig)
-    log.debug('SundialTides:', this.tides)
-    log.debug('WorkbenchConfig:', this.WorkbenchConfig)
+    let { sunrise, sunset } = this.tides
+    sunrise = sunrise.add(sundial.dayVariable, 'minute')
+    sunset = sunset.add(workbench.nightVariable, 'minute')
+    this.tides = { sunrise, sunset }
   }
 }
