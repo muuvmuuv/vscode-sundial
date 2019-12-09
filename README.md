@@ -94,6 +94,15 @@ and
 | TouchBar | _Night Theme 🌑_ | `sundial.switchToNightTheme` | Switches to your night theme. |
 | TouchBar | _Day Theme 🌕_   | `sundial.switchToDayTheme`   | Switches to your day theme.   |
 
+To hide the Touch Bar options copy the below snippet into your VS Code settings:
+
+```json
+"keyboard.touchbar.ignored": [
+  "sundial.switchToNightTheme",
+  "sundial.switchToDayTheme"
+]
+```
+
 ## Settings
 
 **Sundial** contributes the following settings:
