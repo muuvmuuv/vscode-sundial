@@ -1,7 +1,0 @@
-{
-  "recommendations": [
-    "editorconfig.editorconfig",
-    "christian-kohler.path-intellisense",
-    "esbenp.prettier-vscode",
-  ]
-}

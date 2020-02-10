@@ -20,24 +20,6 @@
       "outFiles": [
         "${workspaceFolder}/dist/*.js"
       ]
-    },
-    {
-      "name": "Extension Tests",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "stopOnEntry": false,
-      "sourceMaps": true,
-      "preLaunchTask": "npm: test",
-      "args": [
-        "--user-data-dir=${workspaceFolder}/tmp",
-        "--disable-extensions=true",
-        "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
-      ],
-      "outFiles": [
-        "${workspaceFolder}/out/test/**/*.js"
-      ]
     }
   ]
 }

@@ -1,19 +1,8 @@
 {
-  "cSpell.words": [
-    "dayjs",
-    "execa",
-    "vsix"
-  ],
-  "editor.rulers": [
-    100
-  ],
-  "files.watcherExclude": {
-    "**/dist/**": true
-  },
   "workbench.colorCustomizations": {
-    "statusBar.background": "#ffe559",
-    "statusBarItem.hoverBackground": "#ffdd26",
+    "statusBar.background": "#f9e64f",
+    "statusBarItem.hoverBackground": "#f7df1e",
     "statusBar.foreground": "#15202b"
   },
-  "peacock.color": "#ffe559"
+  "peacock.color": "#f9e64f"
 }
