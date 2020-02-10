@@ -1,14 +1,14 @@
 import dayjs from 'dayjs'
-import { ITides } from '../sundial'
+import { Tides } from '../sundial'
 import { getConfig } from '../editor'
 import { window } from 'vscode'
 import { getTimes } from 'suncalc'
-import { logger } from '../logger'
+import { getLogger } from '../logger'
 
-async function LatLong(): Promise<ITides> {
+function LatLong(): Tides {
   const now = dayjs()
-  const log = logger.getLogger('useLatitudeLongitude')
-  const config = await getConfig()
+  const log = getLogger('useLatitudeLongitude')
+  const config = getConfig()
 
   if (!config.sundial.latitude || !config.sundial.longitude) {
     throw window.showErrorMessage(
@@ -19,7 +19,7 @@ async function LatLong(): Promise<ITides> {
   log.debug('Latitude:', config.sundial.latitude)
   log.debug('Longitude:', config.sundial.longitude)
 
-  const tides = await getTimes(
+  const tides = getTimes(
     now.toDate(),
     Number(config.sundial.latitude),
     Number(config.sundial.longitude)

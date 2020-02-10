@@ -2,7 +2,7 @@
 .github/**
 .vscode/**
 .vscode-test/**
-assets/*.afphoto
+assets/*.sketch
 node_modules/**
 out/**
 scripts/**
@@ -11,6 +11,4 @@ testProject/**
 tmp/**
 .*
 tsconfig.json
-tslint.json
-*.vsix
 webpack.config.json

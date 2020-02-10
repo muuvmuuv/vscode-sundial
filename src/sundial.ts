@@ -2,34 +2,27 @@ import { WorkspaceConfiguration, ExtensionContext } from 'vscode'
 import dayjs from 'dayjs'
 import sensors from './sensors'
 import * as editor from './editor'
-import * as loglevel from 'loglevel'
-import { logger, setGlobalLevel } from './logger'
-import { sleep, isMacOS } from './utils'
+import { LogLevel, getLogger, setLogLevelAll } from './logger'
+import { sleep } from './utils'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
-export interface ITides {
+export interface Tides {
   sunrise: dayjs.Dayjs
   sunset: dayjs.Dayjs
 }
 
 export interface SundialConfiguration extends WorkspaceConfiguration {
-  dayTheme: string
-  nightTheme: string
   sunrise: string
   sunset: string
   latitude: string
   longitude: string
   autoLocale: boolean
-  systemTheme: boolean
-  ambientLight: boolean
   dayVariable: number
   nightVariable: number
   daySettings: WorkspaceConfiguration
   nightSettings: WorkspaceConfiguration
   interval: number
-  debug: loglevel.LogLevel
-  windowEvents: string[]
-  workspaceEvents: string[]
+  debug: LogLevel
 }
 
 export default class Sundial {
@@ -41,14 +34,14 @@ export default class Sundial {
   private isRunning = false
   private interval!: NodeJS.Timer
 
-  public tides!: ITides
+  public tides!: Tides
 
   constructor() {
     dayjs.extend(customParseFormat)
   }
 
   public enableExtension() {
-    const log = logger.getLogger('enableExtension')
+    const log = getLogger('enableExtension')
     log.info('Enabling Sundial...')
     this.enabled = true
     this.automater()
@@ -56,7 +49,7 @@ export default class Sundial {
   }
 
   public disableExtension() {
-    const log = logger.getLogger('disableExtension')
+    const log = getLogger('disableExtension')
     log.info('Disabling Sundial...')
     clearInterval(this.interval)
     this.enabled = false
@@ -68,72 +61,62 @@ export default class Sundial {
       return
     }
     const interval = 1000 * 60 * sundial.interval
-    this.interval = setInterval(() => this.check(), interval)
+    this.interval = setInterval(() => {
+      this.check()
+    }, interval)
   }
 
   public async check() {
     if (!this.enabled || this.isRunning) {
       return // disabled or already running
     }
+    this.isRunning = true
     const { sundial, workbench } = editor.getConfig()
     clearInterval(this.interval) // reset timer
-    this.isRunning = true
 
-    setGlobalLevel(sundial.debug)
-    const log = logger.getLogger('check')
+    setLogLevelAll(sundial.debug)
+    const log = getLogger('check')
     log.info('Sundial check initialized...')
-    log.debug('SundialConfig:', sundial)
-    log.debug('WorkbenchConfig:', workbench)
+    log.debug('SundialConfig:', JSON.stringify(sundial, null, 2))
+    log.debug('WorkbenchConfig:', JSON.stringify(workbench, null, 2))
 
-    if (sundial.systemTheme && isMacOS) {
-      log.info('Sundial will use your system theme')
-      const darkMode = await sensors.SystemTheme()
-      if (darkMode) {
-        log.info('Sundial applied your night theme! 🌑')
-        editor.changeToNight()
-      } else {
-        log.info('Sundial applied your day theme! 🌕')
-        editor.changeToDay()
-      }
+    if (sundial.latitude || sundial.longitude) {
+      log.info('Sundial will use your latitude and longitude')
+      this.tides = sensors.LatLong()
+    } else if (sundial.autoLocale) {
+      log.info('Sundial will now try to detect your location')
+      this.tides = await sensors.AutoLocale()
     } else {
-      if (sundial.latitude || sundial.longitude) {
-        log.info('Sundial will use your latitude and longitude')
-        this.tides = await sensors.LatLong()
-      } else if (sundial.autoLocale) {
-        log.info('Sundial will now try to detect your location')
-        this.tides = await sensors.AutoLocale()
-      } else {
-        log.info('Sundial will use your saved time settings')
-        this.tides = {
-          sunrise: dayjs(sundial.sunrise, 'HH:mm'),
-          sunset: dayjs(sundial.sunset, 'HH:mm'),
-        }
+      log.info('Sundial will use your saved time settings')
+      this.tides = {
+        sunrise: dayjs(sundial.sunrise, 'HH:mm'),
+        sunset: dayjs(sundial.sunset, 'HH:mm'),
       }
-
-      if (sundial.dayVariable || sundial.nightVariable) {
-        this.setTimeVariables()
-      }
-
-      await this.evaluateTides()
     }
 
-    await sleep(400) // Short nap to prevent too fast calls 😴
+    if (sundial.dayVariable || sundial.nightVariable) {
+      this.setTimeVariables()
+    }
+
+    this.evaluateTides()
+
+    await sleep(400) // Short nap 😴
     this.isRunning = false
     this.automater()
   }
 
-  private async evaluateTides() {
+  private evaluateTides() {
     const now = dayjs()
-    const log = logger.getLogger('checkTides')
+    const log = getLogger('evaluateTides')
 
     const nowIsBeforeSunrise = now.isBefore(this.tides.sunrise)
     const nowIsAfterSunrise = now.isAfter(this.tides.sunrise)
     const nowIsBeforeSunset = now.isBefore(this.tides.sunset)
     const nowIsAfterSunset = now.isAfter(this.tides.sunset)
 
-    log.debug('Now:', now)
-    log.debug('Sunrise:', this.tides.sunrise)
-    log.debug('Sunset:', this.tides.sunset)
+    log.debug('Now:', now.format())
+    log.debug('Sunrise:', this.tides.sunrise.format())
+    log.debug('Sunset:', this.tides.sunset.format())
     log.debug('nowIsBeforeSunrise:', nowIsBeforeSunrise)
     log.debug('nowIsAfterSunrise:', nowIsAfterSunrise)
     log.debug('nowIsBeforeSunset:', nowIsBeforeSunset)
@@ -149,10 +132,21 @@ export default class Sundial {
   }
 
   private setTimeVariables() {
-    const { sundial, workbench } = editor.getConfig()
+    const { sundial } = editor.getConfig()
     let { sunrise, sunset } = this.tides
-    sunrise = sunrise.add(sundial.dayVariable, 'minute')
-    sunset = sunset.add(workbench.nightVariable, 'minute')
+
+    if (sundial.dayVariable > 0) {
+      sunrise = sunrise.add(sundial.dayVariable, 'minute')
+    } else {
+      sunrise = sunrise.subtract(sundial.dayVariable * -1, 'minute')
+    }
+
+    if (sundial.nightVariable > 0) {
+      sunset = sunset.add(sundial.nightVariable, 'minute')
+    } else {
+      sunset = sunset.subtract(sundial.nightVariable * -1, 'minute')
+    }
+
     this.tides = { sunrise, sunset }
   }
 }

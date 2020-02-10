@@ -1,6 +1,4 @@
-const { platform, userInfo } = require('os')
 const { resolve } = require('path')
-const { white, green, red } = require('kleur')
 const { BannerPlugin } = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -8,7 +6,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const pkg = require('./package.json')
 
-const Banner = `${'┄'.repeat(46)}
+const banner = `${'-'.repeat(20)}
 ${pkg.displayName} (${pkg.name})
 ${pkg.description}
 
@@ -17,19 +15,12 @@ ${pkg.description}
 @author ${pkg.author.name} (${pkg.author.url})
 @readme ${pkg.homepage}
 @pkg ${pkg.repository}
-${'┄'.repeat(46)}`
+${'-'.repeat(20)}`
 
 module.exports = (_, argv) => {
-  const platformName = platform()
-  const developerName = userInfo().username
-  const mode = argv.mode ? argv.mode : 'none'
-  const isProd = mode === 'production'
-  const isDev = mode === 'development'
-
-  // Show general information
-  console.log('whoIsMe:', white(developerName))
-  console.log('whichOs:', white(platformName))
-  console.log('devMode:', isDev ? green('true') : red('false'), '\n')
+  const isDev = (argv.mode && argv.mode === 'development') || false
+  const analyze = (argv.env && argv.env.analyze) || false
+  console.log('Development:', isDev)
 
   return {
     target: 'node',
@@ -52,16 +43,21 @@ module.exports = (_, argv) => {
     optimization: {
       namedModules: true,
       namedChunks: true,
-      minimize: isProd,
-      minimizer: [new TerserPlugin()],
+      minimize: !isDev,
+      minimizer: [
+        new TerserPlugin({
+          extractComments: false,
+          cache: true,
+        }),
+      ],
     },
     plugins: [
       new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: ['dist'],
+        cleanOnceBeforeBuildPatterns: [resolve(__dirname, 'dist')],
       }),
-      new BannerPlugin(Banner),
+      new BannerPlugin(banner),
       new BundleAnalyzerPlugin({
-        analyzerMode: argv.env && argv.env.analyze ? 'server' : 'disabled',
+        analyzerMode: analyze ? 'server' : 'disabled',
       }),
     ],
     module: {
@@ -80,7 +76,6 @@ module.exports = (_, argv) => {
     stats: {
       performance: true,
       providedExports: true,
-      reasons: true,
       timings: true,
     },
   }

@@ -2,5 +2,5 @@ dist
 out
 node_modules
 tmp
-*.vsix
-.vscode-test
+.cache
+.eslintcache
