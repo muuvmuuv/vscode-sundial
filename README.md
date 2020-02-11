@@ -36,12 +36,8 @@ Whenever you have ideas for this project, things you would like to add or you fo
 feel free to create an issue or start contributing! 😇
 
 <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
-  <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy me a Gluten-free Bread" style="margin-bottom:12px;" />
+  <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy me a Gluten-free Bread" style="margin-bottom:15px;" />
 </a>
-
-> ⚠️ IMPORTANT: Since VS Code 1.42.0 automatically changing the theme based on OS
-> appearance is build in, if you want to use this plugin anyway you must disable this
-> options with `"window.autoDetectColorScheme": false`
 
 ![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
 
@@ -53,6 +49,10 @@ banner below:
 <a href="https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial">
   <img src="https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge" alt="Install VS Code extension Sundial">
 </a>
+
+> ⚠️ IMPORTANT: Since VS Code 1.42.0 automatically changing the theme based on OS
+> appearance is build in, if you want to use this plugin anyway you must disable this
+> options with `"window.autoDetectColorScheme": false`
 
 ## Keybindings
 
