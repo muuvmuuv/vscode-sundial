@@ -15,6 +15,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 2.19.0_25db45452788e415134bad7c0cac009a
   '@typescript-eslint/parser': 2.19.0_eslint@6.8.0+typescript@3.7.5
   clean-webpack-plugin: 3.0.0_webpack@4.41.5
+  env-cmd: 10.1.0
   eslint: 6.8.0
   eslint-config-prettier: 6.10.0_eslint@6.8.0
   eslint-plugin-prettier: 3.1.2_eslint@6.8.0+prettier@1.19.1
@@ -1467,6 +1468,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+  /commander/4.1.1:
+    dev: true
+    engines:
+      node: '>= 6'
+    resolution:
+      integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
   /commondir/1.0.1:
     dev: true
     resolution:
@@ -2213,6 +2220,16 @@ packages:
       node: '>=6.9.0'
     resolution:
       integrity: sha512-98p2zE+rL7/g/DzMHMTF4zZlCgeVdJ7yr6xzEpJRYwFYrGi9ANdn5DnJURg6RpBkyk60XYDnWIv51VfIhfNGuA==
+  /env-cmd/10.1.0:
+    dependencies:
+      commander: 4.1.1
+      cross-spawn: 7.0.1
+    dev: true
+    engines:
+      node: '>=8.0.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-mMdWTT9XKN7yNth/6N6g2GuKuJTsKMDHlQFUDacb/heQRRWOTIZ42t1rMHnQu4jYxU1ajdTeJM+9eEETlqToMA==
   /errno/0.1.7:
     dependencies:
       prr: 1.0.1
@@ -7043,6 +7060,7 @@ specifiers:
   '@typescript-eslint/parser': ^2.19.0
   clean-webpack-plugin: ^3.0.0
   dayjs: ^1.8.20
+  env-cmd: ^10.1.0
   eslint: ^6.8.0
   eslint-config-prettier: ^6.10.0
   eslint-plugin-prettier: ^3.1.2
