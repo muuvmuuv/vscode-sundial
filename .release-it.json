@@ -20,7 +20,6 @@
     "tokenRef": "GITHUB_ACCESS_TOKEN"
   },
   "plugins": {
-    "./scripts/bump-version.js": {},
     "@release-it/conventional-changelog": {
       "preset": "conventionalcommits",
       "infile": "CHANGELOG.md"
