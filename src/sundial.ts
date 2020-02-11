@@ -78,7 +78,6 @@ export default class Sundial {
     const log = getLogger('check')
     log.info('Sundial check initialized...')
     log.debug('SundialConfig:', JSON.stringify(sundial, null, 2))
-    log.debug('WorkbenchConfig:', JSON.stringify(workbench, null, 2))
 
     if (sundial.latitude || sundial.longitude) {
       log.info('Sundial will use your latitude and longitude')
