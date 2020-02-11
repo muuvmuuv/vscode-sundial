@@ -169,7 +169,7 @@ next coming will be ignored.
 }
 ```
 
-```json
+```jsonc
 {
   "window.autoDetectColorScheme": false, // required!
   "workbench.preferredLightColorTheme": "Default Light+",
@@ -178,7 +178,7 @@ next coming will be ignored.
 }
 ```
 
-```json
+```jsonc
 {
   "window.autoDetectColorScheme": false, // required!
   "workbench.preferredLightColorTheme": "Default Light+",
