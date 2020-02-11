@@ -1,0 +1,12 @@
+# Refer for explanation to following link:
+# https://github.com/Arkweid/lefthook/blob/master/docs/full_guide.md
+
+pre-commit:
+  commands:
+    format-staged:
+      run: pretty-quick --staged
+    lint-commit:
+      run: commitlint --from HEAD~1
+    lint-script:
+      glob: "*.{js,ts}x?"
+      run: eslint {staged_files}

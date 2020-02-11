@@ -32,7 +32,9 @@
     "prod": "webpack --mode production --progress --env.analyze",
     "watch": "webpack --mode development --watch",
     "vscode:prepublish": "webpack --mode production",
-    "lint": "eslint --cache --ext js,ts src",
+    "lint": "run-s lint:*",
+    "lint:js": "eslint --cache --ext js,ts src",
+    "lint:commit": "commitlint --from HEAD~1",
     "compile": "tsc -p ./"
   },
   "dependencies": {
@@ -42,6 +44,10 @@
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
+    "@arkweid/lefthook": "^0.7.1",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@release-it/conventional-changelog": "^1.1.0",
     "@types/got": "^9.6.9",
     "@types/node": "12.12.26",
     "@types/suncalc": "^1.8.0",
@@ -52,7 +58,10 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "release-it": "^12.4.3",
     "terser-webpack-plugin": "^2.3.4",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
