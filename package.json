@@ -27,7 +27,6 @@
   },
   "main": "dist/extension.js",
   "scripts": {
-    "start": "npm run watch",
     "dev": "webpack --mode development --progress",
     "prod": "webpack --mode production --progress --env.analyze",
     "watch": "webpack --mode development --watch",
@@ -54,8 +53,8 @@
     "@types/node": "12.12.26",
     "@types/suncalc": "^1.8.0",
     "@types/vscode": "1.42.0",
-    "@typescript-eslint/eslint-plugin": "^2.19.0",
-    "@typescript-eslint/parser": "^2.19.0",
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
     "clean-webpack-plugin": "^3.0.0",
     "env-cmd": "^10.1.0",
     "eslint": "^6.8.0",
