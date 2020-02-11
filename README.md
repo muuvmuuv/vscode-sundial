@@ -35,9 +35,11 @@ working in the night or on the day. Humans should not strain their eyes too much
 Whenever you have ideas for this project, things you would like to add or you found a bug,
 feel free to create an issue or start contributing! 😇
 
-<a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
-  <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy me a Gluten-free Bread" style="margin-bottom:15px;" />
-</a>
+<p>
+  <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
+    <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy me a Gluten-free Bread" />
+  </a>
+</p>
 
 ![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
 
@@ -46,9 +48,11 @@ feel free to create an issue or start contributing! 😇
 You can simply install any VS Code extension via the VS Code Marketplace. Just click the
 banner below:
 
-<a href="https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial">
-  <img src="https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge" alt="Install VS Code extension Sundial">
-</a>
+<p>
+  <a href="https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial">
+    <img src="https://img.shields.io/badge/install-vscode_extension-blue.svg?style=for-the-badge" alt="Install VS Code extension Sundial">
+  </a>
+</p>
 
 > ⚠️ IMPORTANT: Since VS Code 1.42.0 automatically changing the theme based on OS
 > appearance is build in, if you want to use this plugin anyway you must disable this
@@ -155,7 +159,7 @@ next coming will be ignored.
 
 ### Examples
 
-```json
+```jsonc
 {
   "window.autoDetectColorScheme": false, // required!
   "workbench.preferredLightColorTheme": "Default Light+",
