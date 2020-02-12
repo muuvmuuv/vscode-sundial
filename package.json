@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
-  "displayName": "Sundial – Day/Night Theme Switcher (auto Dark mode)",
-  "version": "2.1.0",
+  "displayName": "Sundial – Day/Night Theme Switch",
+  "version": "2.2.0",
   "description": "Change your VS Code theme/settings based on your sunset, sunrise, system appearance or other preferences!",
   "icon": "assets/icon.png",
   "publisher": "muuvmuuv",
