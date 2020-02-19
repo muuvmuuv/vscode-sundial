@@ -75,7 +75,7 @@ export function toggleTheme(time?: TimeNames) {
       changeToNight()
       break
     default:
-      if (config.sundial.nightTheme !== config.workbench.colorTheme) {
+      if (config.workbench.preferredDarkColorTheme !== config.workbench.colorTheme) {
         changeToNight()
       } else {
         changeToDay()
