@@ -71,7 +71,7 @@ export default class Sundial {
       return // disabled or already running
     }
     this.isRunning = true
-    const { sundial, workbench } = editor.getConfig()
+    const { sundial } = editor.getConfig()
     clearInterval(this.interval) // reset timer
 
     setLogLevelAll(sundial.debug)
@@ -122,10 +122,10 @@ export default class Sundial {
     log.debug('nowIsAfterSunset:', nowIsAfterSunset)
 
     if (nowIsAfterSunrise && nowIsBeforeSunset) {
-      log.info('Sundial applied your day theme! 🌕')
+      log.info('Sundial will apply your day theme! 🌕')
       editor.changeToDay()
     } else if (nowIsBeforeSunrise || nowIsAfterSunset) {
-      log.info('Sundial applied your night theme! 🌑')
+      log.info('Sundial will apply your night theme! 🌑')
       editor.changeToNight()
     }
   }
