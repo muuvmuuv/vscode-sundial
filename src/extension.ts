@@ -1,12 +1,6 @@
 'use strict'
 
-import {
-  window,
-  ExtensionContext,
-  commands,
-  workspace,
-  ConfigurationChangeEvent,
-} from 'vscode'
+import { window, ExtensionContext, commands, workspace, ConfigurationChangeEvent } from 'vscode'
 import Sundial from './sundial'
 import { outputChannel } from './logger'
 import { toggleTheme as editorToggleTheme, TimeNames } from './editor'
@@ -44,12 +38,13 @@ export function activate(context: ExtensionContext) {
 
   context.subscriptions.push(workspace.onDidChangeConfiguration(configChanged))
 
-  commands.registerCommand('sundial.switchToNightTheme', () =>
-    toggleTheme(TimeNames.Night)
-  )
+  commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme(TimeNames.Night))
   commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme(TimeNames.Day))
   commands.registerCommand('sundial.toggleDayNightTheme', () => toggleTheme())
-  commands.registerCommand('sundial.continueAutomation', () => sundial.enableExtension())
+
+  commands.registerCommand('sundial.enableExtension', () => sundial.disableExtension())
+  commands.registerCommand('sundial.disableExtension', () => sundial.disableExtension())
+  commands.registerCommand('sundial.pauseUntilNextCircle', () => sundial.pauseUntilNextCircle())
 }
 
 export function deactivate() {

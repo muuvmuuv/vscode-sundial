@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial – Day/Night Theme Switch",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Change your VS Code theme/settings based on your sunset, sunrise, system appearance or other preferences!",
   "icon": "assets/icon.png",
   "publisher": "muuvmuuv",
@@ -17,8 +17,13 @@
     "vscode"
   ],
   "homepage": "https://github.com/muuvmuuv/vscode-sundial",
-  "bugs": "https://github.com/muuvmuuv/vscode-sundial/issues",
-  "repository": "https://github.com/muuvmuuv/vscode-sundial",
+  "bugs": {
+    "url": "https://github.com/muuvmuuv/vscode-sundial/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muuvmuuv/vscode-sundial.git"
+  },
   "license": "MIT",
   "author": {
     "name": "Marvin Heilemann",
@@ -40,7 +45,8 @@
   },
   "dependencies": {
     "dayjs": "^1.8.20",
-    "got": "^10.5.5",
+    "got": "^10.5.7",
+    "phin": "^3.4.1",
     "public-ip": "^4.0.0",
     "suncalc": "^1.8.0"
   },
@@ -53,8 +59,8 @@
     "@types/node": "12.12.26",
     "@types/suncalc": "^1.8.0",
     "@types/vscode": "1.42.0",
-    "@typescript-eslint/eslint-plugin": "^2.19.2",
-    "@typescript-eslint/parser": "^2.19.2",
+    "@typescript-eslint/eslint-plugin": "^2.20.0",
+    "@typescript-eslint/parser": "^2.20.0",
     "clean-webpack-plugin": "^3.0.0",
     "env-cmd": "^10.1.0",
     "eslint": "^6.8.0",
@@ -63,8 +69,8 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
-    "release-it": "^12.4.3",
-    "terser-webpack-plugin": "^2.3.4",
+    "release-it": "^12.5.0",
+    "terser-webpack-plugin": "^2.3.5",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
     "webpack": "^4.41.5",
@@ -84,19 +90,27 @@
     "commands": [
       {
         "command": "sundial.switchToNightTheme",
-        "title": "Switch to night theme 🌑"
+        "title": "Sundial: Switch to night theme 🌑"
       },
       {
         "command": "sundial.switchToDayTheme",
-        "title": "Switch to day theme 🌕"
+        "title": "Sundial: Switch to day theme 🌕"
       },
       {
         "command": "sundial.toggleDayNightTheme",
-        "title": "Toggle Day/Night Theme"
+        "title": "Sundial: Toggle Day/Night Theme"
       },
       {
-        "command": "sundial.continueAutomation",
-        "title": "Continue switching day/night theme automatically"
+        "command": "sundial.enableExtension",
+        "title": "Sundial: Enable extension"
+      },
+      {
+        "command": "sundial.disableExtension",
+        "title": "Sundial: Disable extension"
+      },
+      {
+        "command": "sundial.pauseUntilNextCircle",
+        "title": "Sundial: Pause until next circle"
       }
     ],
     "keybindings": [
@@ -165,5 +179,7 @@
         }
       }
     }
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "vscode-sundial@2.2.0"
 }

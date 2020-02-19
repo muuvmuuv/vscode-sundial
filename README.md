@@ -16,24 +16,24 @@
 - [Keybindings](#keybindings)
 - [Commands](#commands)
 - [Settings](#settings)
-    - [Automatically set by current location](#automatically-set-by-current-location)
-    - [Automatically set by latitude and longitude](#automatically-set-by-latitude-and-longitude)
-    - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
+  - [Automatically set by current location](#automatically-set-by-current-location)
+  - [Automatically set by latitude and longitude](#automatically-set-by-latitude-and-longitude)
+  - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
   - [Execution order](#execution-order)
   - [Examples](#examples)
 - [Development](#development)
   - [Commits](#commits)
   - [Releases](#releases)
 
-Sundial changes your theme and VS Code settings (if needed) based on your day and night
-cycle or other options, you choose. It is inspired by the
+Sundial changes your theme and VS Code settings (if needed) based on your day and night cycle or
+other options, you choose. It is inspired by the
 [OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and
-[Night Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_ when
-working in the night or on the day. Humans should not strain their eyes too much, it's
-**not recommended** to have a light theme in the night and vice versa.
+[Night Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_ when working in the
+night or on the day. Humans should not strain their eyes too much, it's **not recommended** to have
+a light theme in the night and vice versa.
 
-Whenever you have ideas for this project, things you would like to add or you found a bug,
-feel free to create an issue or start contributing! 😇
+Whenever you have ideas for this project, things you would like to add or you found a bug, feel free
+to create an issue or start contributing! 😇
 
 <p>
   <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
@@ -45,8 +45,8 @@ feel free to create an issue or start contributing! 😇
 
 ## Installation
 
-You can simply install any VS Code extension via the VS Code Marketplace. Just click the
-banner below:
+You can simply install any VS Code extension via the VS Code Marketplace. Just click the banner
+below:
 
 <p>
   <a href="https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial">
@@ -54,9 +54,9 @@ banner below:
   </a>
 </p>
 
-> ⚠️ IMPORTANT: Since VS Code 1.42.0 automatically changing the theme based on OS
-> appearance is build in, if you want to use this plugin anyway you must disable this
-> options with `"window.autoDetectColorScheme": false`
+> ⚠️ IMPORTANT: Since VS Code 1.42.0 automatically changing the theme based on OS appearance is
+> build in, if you want to use this plugin anyway you must disable this options with
+> `"window.autoDetectColorScheme": false`
 
 ## Keybindings
 
@@ -67,26 +67,22 @@ banner below:
 | Windows  | <kbd>ctrl+alt+t</kbd> | Toggles between your day/night theme. |
 | Mac      | <kbd>ctrl+cmd+t</kbd> | Toggles between your day/night theme. |
 
-> Note that whenever you use one of this keybindings, Sundial will disable the automation
-> process of changing your theme on day night basis. To continue using that feature you
-> need to reactivate it with: <kbd>CMD+Shift+P</kbd> → "Continue switching day/night theme
-> automatically".
+> Note: Whenever you use one of these keybindings, Sundial will be disabled.
 
 ## Commands
 
 **Sundial** contributes the following commands:
 
-| Command                                            | Description                           |
-| -------------------------------------------------- | ------------------------------------- |
-| _Switch to night theme 🌑_                         | Switches to your night theme.         |
-| _Switch to day theme 🌕_                           | Switches to your day theme.           |
-| _Toggle Day/Night Theme_                           | Toggles between your day/night theme. |
-| _Continue switching day/night theme automatically_ | Continues automation.                 |
+| Command                           | Description                                 |
+| --------------------------------- | ------------------------------------------- |
+| Sundial: Switch to night theme 🌑 | Switches to your night theme.               |
+| Sundial: Switch to day theme 🌕   | Switches to your day theme.                 |
+| Sundial: Toggle Day/Night Theme   | Toggles between your day/night theme.       |
+| Sundial: Enable extension         | Continues automation and enables extension. |
+| Sundial: Disable extension        | Disables extension.                         |
+| Sundial: Pause until next circle  | Pause until next day/night circle.          |
 
-> Note that whenever you use one of this keybindings, Sundial will disable the automation
-> process of changing your theme on day night basis. To continue using that feature you
-> need to reactivate it with: <kbd>CMD+Shift+P</kbd> → "Continue switching day/night theme
-> automatically".
+> Note: Whenever you use one of the first three commands, Sundial will be disabled.
 
 ## Settings
 
@@ -106,17 +102,17 @@ banner below:
 
 > ⚠️ Don't forget to set `"window.autoDetectColorScheme": false`
 
-> If you set the interval to zero (0) sundial will not periodically check the time but
-> still when VS Code triggers some editor events.
+> If you set the interval to zero (0) sundial will not periodically check the time but still when VS
+> Code triggers some editor events.
 
-> On both `daySettings` and `nightSettings` they will override your Workbench VSCode
-> settings. Please make sure both have the same properties otherwise they will not change
-> since Sundial is not remembering the settings you have set before!
+> On both `daySettings` and `nightSettings` they will override your Workbench VSCode settings.
+> Please make sure both have the same properties otherwise they will not change since Sundial is not
+> remembering the settings you have set before!
 
 #### Automatically set by current location
 
-Sundial will get your geolocation from [Free IP Geolocation API](https://freegeoip.app/)
-and check your internet connection via [Cloudflares 1.1.1.1 DNS-Server](https://1.1.1.1/).
+Sundial will get your geolocation from [Free IP Geolocation API](https://freegeoip.app/) and check
+your internet connection via [Cloudflares 1.1.1.1 DNS-Server](https://1.1.1.1/).
 
 | Setting              | Default | Description                                      |
 | -------------------- | ------- | ------------------------------------------------ |
@@ -133,8 +129,7 @@ You can get your geolocation here: [Free IP Geolocation API](https://freegeoip.a
 
 #### Automatically set by OS appearance
 
-Since VS Code version 1.42.0 it is now build in so you don't need this extension for this
-options.
+Since VS Code version 1.42.0 it is now build in so you don't need this extension for this options.
 
 ```json
 {
@@ -150,8 +145,8 @@ Read more about the implementation here:
 
 ### Execution order
 
-Sundial will check your settings in the following order and if one setting is present the
-next coming will be ignored.
+Sundial will check your settings in the following order and if one setting is present the next
+coming will be ignored.
 
 1. `sundial.latitude` and `sundial.longitude`
 2. `sundial.autoLocale`
@@ -197,8 +192,8 @@ next coming will be ignored.
 
 ## Development
 
-We are working with [webpack](https://webpack.js.org/) to bundle Sundial to the smallest
-possible size to increase the load time in VSCode.
+We are working with [webpack](https://webpack.js.org/) to bundle Sundial to the smallest possible
+size to increase the load time in VSCode.
 
 1.  Install packages via (your preferred package manager) `pnpm install`
 2.  Set `sundial.debug` to `2`
@@ -214,8 +209,8 @@ Sundial follows this spec:
 
 ### Releases
 
-Run the below to create a new release. This will increase the version based on your
-changes and create a new CHANGELOG.md section.
+Run the below to create a new release. This will increase the version based on your changes and
+create a new CHANGELOG.md section.
 
 ```shell
 pnpm run release
