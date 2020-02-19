@@ -27,13 +27,13 @@ class Logger {
   }
 
   debug(...messages: AllowedTypes[]) {
-    if (this.logLevel !== LogLevel.DEBUG) return
+    if (this.logLevel < LogLevel.DEBUG) return
     const message = this.buildLogString(LogLevel.DEBUG, messages)
     outputChannel.appendLine(message)
   }
 
   info(...messages: AllowedTypes[]) {
-    if (this.logLevel !== LogLevel.INFO) return
+    if (this.logLevel < LogLevel.INFO) return
     const message = this.buildLogString(LogLevel.INFO, messages)
     outputChannel.appendLine(message)
   }
