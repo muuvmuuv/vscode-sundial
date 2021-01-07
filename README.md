@@ -58,6 +58,8 @@ below:
 > build in, if you want to use this plugin anyway you must disable this options with
 > `"window.autoDetectColorScheme": false`
 
+You must reload VS Code for the extension to take effect.
+
 ## Keybindings
 
 **Sundial** contributes the following keybindings:
