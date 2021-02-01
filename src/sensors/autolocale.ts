@@ -1,9 +1,10 @@
-import dayjs from 'dayjs'
-import Sundial, { Tides } from '../sundial'
-import got from 'got'
 import { window } from 'vscode'
 import { getTimes } from 'suncalc'
+import dayjs from 'dayjs'
+import got from 'got'
 import publicIp from 'public-ip'
+
+import Sundial, { Tides } from '../sundial'
 import { getLogger } from '../logger'
 import { checkConnection } from '../utils'
 
@@ -26,21 +27,34 @@ let end = now.add(-1, 'minute')
 
 async function AutoLocale(): Promise<Tides> {
   now = dayjs()
+
   const timeout = now.isAfter(end, 'minute')
   const log = getLogger('useAutoLocale')
   const ctx = Sundial.extensionContext
+
   let latitude = ctx.globalState.get('userLatitude') as number
   let longitude = ctx.globalState.get('userLongitude') as number
 
-  const connected = await checkConnection()
-  if (connected && timeout) {
+  log.debug(timeout)
+
+  if (await checkConnection()) {
     end = now.add(5, 'minute')
 
+    const ip = await publicIp.v4()
+    log.debug('Public ip:', ip)
+
     try {
-      const ip = await publicIp.v4()
-      const response: Response = await got(`${geoAPI}/${ip}`).json()
+      const response: Response = await got(`${geoAPI}/${ip}`, {
+        timeout: 2000,
+        retry: 0,
+        followRedirect: false,
+        methodRewriting: false,
+      }).json()
+      log.debug('Response:', JSON.stringify(response.geo, null, 2))
+
       latitude = response.geo.latitude
       longitude = response.geo.longitude
+
       ctx.globalState.update('userLatitude', latitude)
       ctx.globalState.update('userLongitude', longitude)
     } catch (error) {
@@ -51,6 +65,8 @@ async function AutoLocale(): Promise<Tides> {
           'on GitHub should this problem persist.'
       )
     }
+  } else {
+    log.info('Reuse existing geolocation')
   }
 
   if (!latitude || !longitude) {
@@ -64,7 +80,7 @@ async function AutoLocale(): Promise<Tides> {
   log.debug('Latitude:', latitude)
   log.debug('Longitude:', longitude)
 
-  const tides = getTimes(now.toDate(), latitude, longitude)
+  const tides = getTimes(new Date(), latitude, longitude)
 
   return {
     sunrise: dayjs(tides.sunrise),

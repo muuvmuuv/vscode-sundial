@@ -55,7 +55,7 @@ export default class Sundial {
   }
 
   public async pauseUntilNextCircle() {
-    const log = getLogger('disableUntilNextCirle')
+    const log = getLogger('pauseUntilNextCircle')
     const currentTime = await this.getCurrentTime()
     this.nextCircle =
       currentTime === editor.TimeNames.Day ? editor.TimeNames.Night : editor.TimeNames.Day

@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/muuvmuuv/vscode-sundial.git"
+    "url": "https://github.com/muuvmuuv/vscode-sundial.git"
   },
   "license": "MIT",
   "author": {
@@ -35,13 +35,12 @@
     "dev": "webpack --mode development --progress",
     "prod": "webpack --mode production --progress --env.analyze",
     "watch": "webpack --mode development --watch",
-    "vscode:prepublish": "webpack --mode production",
-    "lint": "run-s lint:*",
-    "lint:js": "eslint --cache --ext js,ts src",
-    "lint:commit": "commitlint --from HEAD~1",
+    "debug": "npm run dev",
     "compile": "tsc -p .",
+    "vscode:prepublish": "webpack --mode production",
+    "publish-ovsx": "env-cmd -f .env ovsx publish --pat=OPENVSX_ACCESS_TOKEN",
     "release": "env-cmd -f .env release-it",
-    "pretty": "pretty-quick"
+    "lint": "eslint --cache --ext js,ts src"
   },
   "dependencies": {
     "dayjs": "^1.8.20",

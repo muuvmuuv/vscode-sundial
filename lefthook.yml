@@ -3,10 +3,11 @@
 
 pre-commit:
   commands:
-    format-staged:
-      run: pretty-quick --staged
-    lint-commit:
-      run: commitlint --from HEAD~1
-    lint-script:
-      glob: "*.{js,ts}x?"
-      run: eslint {staged_files}
+    lint:
+      glob: "*.{js,ts}"
+      run: npx eslint --cache-location tmp {staged_files}
+
+commit-msg:
+  commands:
+    lint-commit-msg:
+      run: npx commitlint --edit
