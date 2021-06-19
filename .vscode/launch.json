@@ -6,17 +6,17 @@
       "name": "Launch Extension",
       "type": "extensionHost",
       "request": "launch",
+      "preLaunchTask": "${defaultBuildTask}",
       "args": [
-        "--disable-extensions=true",
         "--extensionDevelopmentPath=${workspaceFolder}",
-        "--user-data-dir=${workspaceFolder}/tmp",
+        "--extensions-dir=${workspaceFolder}/tmp/ext",
+        "--user-data-dir=${workspaceFolder}/tmp/data",
         "--enable-proposed-api=muuvmuuv.vscode-sundial",
         "${workspaceFolder}/testProject"
       ],
       "outFiles": [
         "${workspaceFolder}/dist/**/*.js"
-      ],
-      "preLaunchTask": "${defaultBuildTask}"
+      ]
     }
   ]
 }

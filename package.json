@@ -25,7 +25,7 @@
     "type": "git",
     "url": "git+https://github.com/muuvmuuv/vscode-sundial.git"
   },
-  "license": "MIT",
+  "license": "GPLv3",
   "author": {
     "name": "Marvin Heilemann",
     "email": "marvin.heilemann+github@googlemail.com",
@@ -33,9 +33,9 @@
   },
   "main": "dist/extension.js",
   "scripts": {
-    "compile": "webpack",
-    "watch": "webpack --watch",
-    "package": "webpack --mode production",
+    "compile": "sh compile.sh",
+    "watch": "sh compile.sh --watch -",
+    "package": "sh compile.sh --minify",
     "test-compile": "tsc -p ./",
     "pretest": "npm run test-compile",
     "lint": "eslint --cache --ext js,ts .",
