@@ -16,12 +16,13 @@
 - [Keybindings](#keybindings)
 - [Commands](#commands)
 - [Settings](#settings)
-  - [Automatically set by current location](#automatically-set-by-current-location)
-  - [Automatically set by latitude and longitude](#automatically-set-by-latitude-and-longitude)
-  - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
+    - [Automatically set by current location](#automatically-set-by-current-location)
+    - [Automatically set by latitude and longitude](#automatically-set-by-latitude-and-longitude)
+    - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
   - [Execution order](#execution-order)
   - [Examples](#examples)
 - [Development](#development)
+  - [Deploy](#deploy)
   - [Commits](#commits)
   - [Releases](#releases)
 
@@ -195,7 +196,7 @@ coming will be ignored.
 We are working with [webpack](https://webpack.js.org/) to bundle Sundial to the smallest possible
 size to increase the load time in VSCode.
 
-1.  Install packages via (your preferred package manager) `pnpm install`
+1.  Install packages via (your preferred package manager) `npm run install`
 2.  Set `sundial.debug` to `2`
 3.  Run debugger => `Launch Extension`
     - View the _Extension Host_ and adjust settings to test **or**
@@ -203,9 +204,16 @@ size to increase the load time in VSCode.
 4.  Commit your changes with a detailed explanation
 5.  Create a pull request
 
+### Deploy
+
+Sundial is deployed on VS Code Marketplace and Open VSX.
+
+- VS Code Marketplace: `vsce publish`
+- Open VSX: `npm run publish-ovsx`
+
 ### Commits
 
-Sundial follows this spec:
+Sundial follows the `config-conventional` spec.
 
 ### Releases
 
@@ -213,5 +221,5 @@ Run the below to create a new release. This will increase the version based on y
 create a new CHANGELOG.md section.
 
 ```shell
-pnpm run release
+npm run run release
 ```

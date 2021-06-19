@@ -27,23 +27,34 @@ let now = dayjs()
 let end = now.add(-1, 'minute')
 
 async function AutoLocale(): Promise<Tides> {
+  const log = getLogger('useAutoLocale')
+
   now = dayjs()
 
   const timeout = now.isAfter(end, 'minute')
-  const log = getLogger('useAutoLocale')
   const context = Sundial.extensionContext
 
   let latitude = context.globalState.get('userLatitude') as number
   let longitude = context.globalState.get('userLongitude') as number
 
+  log.debug(timeout)
+
   const connected = await checkConnection()
+
   if (connected && timeout) {
     end = now.add(5, 'minute')
 
     try {
       const ip = await publicIp.v4()
+      log.debug('Public ip:', ip)
 
-      const response: Response = await got(`${geoAPI}/${ip}`).json()
+      const response: Response = await got(`${geoAPI}/${ip}`, {
+        timeout: 2000,
+        retry: 0,
+        followRedirect: false,
+        methodRewriting: false,
+      }).json()
+      log.debug('Response:', JSON.stringify(response.geo, undefined, 2))
 
       latitude = response.geo.latitude
       longitude = response.geo.longitude
@@ -58,6 +69,8 @@ async function AutoLocale(): Promise<Tides> {
           'on GitHub should this problem persist.'
       )
     }
+  } else {
+    log.info('Not connected to internet, reusing existing geolocation')
   }
 
   if (!latitude || !longitude) {
