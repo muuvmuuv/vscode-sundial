@@ -34,7 +34,7 @@
   "main": "dist/extension.js",
   "scripts": {
     "compile": "sh compile.sh",
-    "watch": "sh compile.sh --watch -",
+    "watch": "sh compile.sh --watch",
     "package": "sh compile.sh --minify",
     "test-compile": "tsc -p ./",
     "pretest": "npm run test-compile",
