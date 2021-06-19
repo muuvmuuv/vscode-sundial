@@ -20,6 +20,9 @@
   "rules": {
     "unicorn/prefer-module": "off"
   },
+  "ignorePatterns": [
+    "dist"
+  ],
   "overrides": [
     {
       "files": [

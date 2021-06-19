@@ -35,14 +35,15 @@
   "scripts": {
     "compile": "webpack",
     "watch": "webpack --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
+    "package": "webpack --mode production",
+    "test-compile": "tsc -p ./",
+    "pretest": "npm run test-compile",
     "lint": "eslint --cache --ext js,ts .",
     "release": "env-cmd -f .env release-it",
     "vscode:prepublish": "npm run package"
   },
   "dependencies": {
     "dayjs": "^1.10.5",
-    "eslint-import-resolver-typescript": "^2.4.0",
     "got": "^11.8.2",
     "phin": "^3.6.0",
     "public-ip": "^4.0.4",
@@ -69,12 +70,10 @@
     "eslint-plugin-unicorn": "^33.0.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.1",
-    "pretty-quick": "^3.1.1",
     "release-it": "^14.9.0",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.4",
     "webpack": "^5.39.1",
-    "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.7.2"
   },
   "engines": {
@@ -180,8 +179,6 @@
       }
     }
   },
-  "readme": "ERROR: No README data found!",
-  "_id": "vscode-sundial@2.2.0",
   "volta": {
     "node": "16.3.0"
   }

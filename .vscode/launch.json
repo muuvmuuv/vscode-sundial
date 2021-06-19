@@ -7,9 +7,9 @@
       "type": "extensionHost",
       "request": "launch",
       "args": [
-        "--user-data-dir=${workspaceFolder}/tmp",
         "--disable-extensions=true",
         "--extensionDevelopmentPath=${workspaceFolder}",
+        "--user-data-dir=${workspaceFolder}/tmp",
         "--enable-proposed-api=muuvmuuv.vscode-sundial",
         "${workspaceFolder}/testProject"
       ],
