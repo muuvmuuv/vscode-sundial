@@ -33,12 +33,12 @@
   },
   "main": "dist/extension.js",
   "scripts": {
-    "dev": "webpack --mode development --progress",
-    "prod": "webpack --mode production",
-    "watch": "webpack --mode development --watch",
-    "vscode:prepublish": "webpack --mode production",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
     "lint": "eslint --cache --ext js,ts .",
-    "release": "env-cmd -f .env release-it"
+    "release": "env-cmd -f .env release-it",
+    "vscode:prepublish": "npm run package"
   },
   "dependencies": {
     "dayjs": "^1.10.5",
