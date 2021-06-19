@@ -1,6 +1,6 @@
 <h1 align="left">
   <img align="right" src="https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/main/assets/icon.png" width="150">
-  <b>☀️ Sundial ☀️</b>
+  <b>🌚 Sundial 🌝</b>
 </h1>
 
 #### Change your VS Code theme/settings based on your sunset, sunrise, system appearance or other preferences!
