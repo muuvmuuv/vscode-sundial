@@ -1,3 +1,18 @@
+## [2.5.0](https://github.com/muuvmuuv/vscode-sundial/compare/v2.4.0...v2.5.0) (2021-06-19)
+
+
+### Features
+
+* new icon ([a77d4a8](https://github.com/muuvmuuv/vscode-sundial/commit/a77d4a8d746eeace794b2331531f7bc4ca8b7513))
+* shorten logger ([32a6c82](https://github.com/muuvmuuv/vscode-sundial/commit/32a6c82263fea3aabcd8eacd442a862ea1e1f09b))
+
+
+### Bug Fixes
+
+* ovsx command ([87eaf89](https://github.com/muuvmuuv/vscode-sundial/commit/87eaf8907403b326aa5286611801e1622f2ebc99))
+* pin correct vscode engine version types ([ed834cb](https://github.com/muuvmuuv/vscode-sundial/commit/ed834cb22158d309757cd862708fa4ba01256e1c))
+* use main branch ([1c8732b](https://github.com/muuvmuuv/vscode-sundial/commit/1c8732b28e50d4609ecf40ad74f49d03816f286f))
+
 ## [2.4.0](https://github.com/muuvmuuv/vscode-sundial/compare/v2.1.0...v2.4.0) (2021-06-19)
 
 
