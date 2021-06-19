@@ -1,3 +1,31 @@
+## [2.4.0](https://github.com/muuvmuuv/vscode-sundial/compare/v2.1.0...v2.4.0) (2021-06-19)
+
+
+### Features
+
+* add funding ([54bece8](https://github.com/muuvmuuv/vscode-sundial/commit/54bece801d2378d7ee45927c7de8f015cb9c2fe1))
+* added new commands ([8876fc8](https://github.com/muuvmuuv/vscode-sundial/commit/8876fc8fb84dc530a1f60d43dff65dcd69c2e727)), closes [#44](https://github.com/muuvmuuv/vscode-sundial/issues/44)
+* change license and test esbuild ([666b6df](https://github.com/muuvmuuv/vscode-sundial/commit/666b6df2d638366c7a2e82cf4286370265edf75c))
+* cleanup ([86fb3f7](https://github.com/muuvmuuv/vscode-sundial/commit/86fb3f711cffff969cf942d5e821ce12067e90ca))
+* don't display workbench config ([4e16e4c](https://github.com/muuvmuuv/vscode-sundial/commit/4e16e4cf8251535da4ed0427797567e99c378f0d))
+* generate import meta ([334e9f7](https://github.com/muuvmuuv/vscode-sundial/commit/334e9f7f40f40204e957b0bc3f8d9624b1669f60))
+* grammar and unused stuff ([03fe4c3](https://github.com/muuvmuuv/vscode-sundial/commit/03fe4c393d0e4a28b40bb20fecfdaac530244d2f))
+* remove unused libs ([87e50a0](https://github.com/muuvmuuv/vscode-sundial/commit/87e50a05f2ed5c9e62968ccfeabd9ce7d2f5da1d))
+* simplyfied extension activation ([6b22e75](https://github.com/muuvmuuv/vscode-sundial/commit/6b22e75f68156942f41ae21511942298ee9e290b))
+
+
+### Bug Fixes
+
+* better problem matcher for esbuild ([28b745d](https://github.com/muuvmuuv/vscode-sundial/commit/28b745d50639f97736a59810e2b49f21c0232ec7))
+* enable command now executes correct function ([ed62ed9](https://github.com/muuvmuuv/vscode-sundial/commit/ed62ed92e4a924c2dd581d719acf68d3dbd69280))
+* launch task not auto starting ([666a37a](https://github.com/muuvmuuv/vscode-sundial/commit/666a37af92fe20d21726aab5447474c75ab0c4d6))
+* logging had no backward level logging ([17e12ae](https://github.com/muuvmuuv/vscode-sundial/commit/17e12ae0eb0c058326d36af73e925ed56f440d4a))
+* remove unused eslintrc ([5d5105f](https://github.com/muuvmuuv/vscode-sundial/commit/5d5105f584a386c01f9245c5cefb7b1d91dad0fa))
+* resolved eslint issues with new config ([2ca1d44](https://github.com/muuvmuuv/vscode-sundial/commit/2ca1d44cb8467e0f689075c47f05cc05ab1c829f))
+* toggling theme had old properties ([ff1b9dd](https://github.com/muuvmuuv/vscode-sundial/commit/ff1b9ddee4864cacaee4803929e0cf5ddd9e3f6e))
+* update release naming ([ef73768](https://github.com/muuvmuuv/vscode-sundial/commit/ef73768fe3cb169bda506342d96f83c17ec566ec))
+* webpack config ([ed5a34a](https://github.com/muuvmuuv/vscode-sundial/commit/ed5a34ad7b2bb7dd46ebdbdd8a07f1379fe1b0e7))
+
 ## [2.1.0](https://github.com/muuvmuuv/vscode-sundial/compare/v1.17.0...v2.1.0) (2020-02-11)
 
 
