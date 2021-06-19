@@ -8,6 +8,7 @@
     "requireCommits": false,
     "tagName": "v${version}",
     "commit": true,
+    "commitMessage": "chore: release ${version}",
     "push": true
   },
   "npm": {
@@ -15,7 +16,7 @@
   },
   "github": {
     "release": true,
-    "releaseName": "chore: release ${version}",
+    "releaseName": "Release ${version}",
     "draft": true,
     "tokenRef": "GITHUB_ACCESS_TOKEN"
   },
