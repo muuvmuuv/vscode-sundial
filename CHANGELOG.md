@@ -1,3 +1,10 @@
+## [2.6.0](https://github.com/muuvmuuv/vscode-sundial/compare/v2.5.0...v2.6.0) (2021-06-19)
+
+
+### Features
+
+* update funding link ([1c71815](https://github.com/muuvmuuv/vscode-sundial/commit/1c718152c22d58807d973a17718a1551d7657b9f))
+
 ## [2.5.0](https://github.com/muuvmuuv/vscode-sundial/compare/v2.4.0...v2.5.0) (2021-06-19)
 
 
