@@ -28,20 +28,20 @@ class Logger {
   }
 
   info(...messages: AllowedTypes[]) {
-    if (this.logLevel < LogLevel.INFO) return
-    const message = this.buildLogString(LogLevel.INFO, messages)
-    outputChannel.appendLine(message)
+    this.log(messages, LogLevel.INFO)
   }
 
   error(...messages: AllowedTypes[]) {
-    if (this.logLevel < LogLevel.ERROR) return
-    const message = this.buildLogString(LogLevel.ERROR, messages)
-    outputChannel.appendLine(message)
+    this.log(messages, LogLevel.ERROR)
   }
 
   debug(...messages: AllowedTypes[]) {
-    if (this.logLevel < LogLevel.DEBUG) return
-    const message = this.buildLogString(LogLevel.DEBUG, messages)
+    this.log(messages, LogLevel.DEBUG)
+  }
+
+  private log(messages: AllowedTypes[], level: LogLevel = LogLevel.SILENT) {
+    if (this.logLevel < level) return
+    const message = this.buildLogString(level, messages)
     outputChannel.appendLine(message)
   }
 
