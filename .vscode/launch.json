@@ -7,6 +7,7 @@
       "type": "extensionHost",
       "request": "launch",
       "preLaunchTask": "${defaultBuildTask}",
+      "internalConsoleOptions": "openOnFirstSessionStart",
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensions-dir=${workspaceFolder}/tmp/ext",
