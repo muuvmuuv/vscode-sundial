@@ -34,7 +34,7 @@
   "main": "dist/extension.js",
   "scripts": {
     "dev": "webpack --mode development --progress",
-    "prod": "webpack --mode production --progress --env.analyze",
+    "prod": "webpack --mode production",
     "watch": "webpack --mode development --watch",
     "vscode:prepublish": "webpack --mode production",
     "lint": "eslint --cache --ext js,ts .",
@@ -71,7 +71,6 @@
     "prettier": "^2.3.1",
     "pretty-quick": "^3.1.1",
     "release-it": "^14.9.0",
-    "terser-webpack-plugin": "^5.1.3",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.4",
     "webpack": "^5.39.1",

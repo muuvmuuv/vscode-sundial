@@ -9,7 +9,7 @@ export function sleep(ms: number): Promise<NodeJS.Timeout> {
 export function checkConnection(): Promise<boolean> {
   return new Promise((resolve) => {
     const log = getLogger('checkConnection')
-    // TODO: waiting for a better solution: https://github.com/microsoft/vscode/issues/73094
+    // TODO: https://github.com/microsoft/vscode/issues/73094
     dns.lookup(
       'www.cloudflare.com', // or better; 1.1.1.1
       {

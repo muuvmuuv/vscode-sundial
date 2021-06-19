@@ -28,9 +28,11 @@ let end = now.add(-1, 'minute')
 
 async function AutoLocale(): Promise<Tides> {
   now = dayjs()
+
   const timeout = now.isAfter(end, 'minute')
   const log = getLogger('useAutoLocale')
   const context = Sundial.extensionContext
+
   let latitude = context.globalState.get('userLatitude') as number
   let longitude = context.globalState.get('userLongitude') as number
 
@@ -40,9 +42,12 @@ async function AutoLocale(): Promise<Tides> {
 
     try {
       const ip = await publicIp.v4()
+
       const response: Response = await got(`${geoAPI}/${ip}`).json()
+
       latitude = response.geo.latitude
       longitude = response.geo.longitude
+
       void context.globalState.update('userLatitude', latitude)
       void context.globalState.update('userLongitude', longitude)
     } catch (error) {
