@@ -1,10 +1,12 @@
-import dayjs from 'dayjs'
-import Sundial, { Tides } from '../sundial'
-import got from 'got'
 import { window } from 'vscode'
-import { getTimes } from 'suncalc'
+
+import dayjs from 'dayjs'
+import got from 'got'
 import publicIp from 'public-ip'
+import { getTimes } from 'suncalc'
+
 import { getLogger } from '../logger'
+import Sundial, { Tides } from '../sundial'
 import { checkConnection } from '../utils'
 
 interface Response {
@@ -28,9 +30,9 @@ async function AutoLocale(): Promise<Tides> {
   now = dayjs()
   const timeout = now.isAfter(end, 'minute')
   const log = getLogger('useAutoLocale')
-  const ctx = Sundial.extensionContext
-  let latitude = ctx.globalState.get('userLatitude') as number
-  let longitude = ctx.globalState.get('userLongitude') as number
+  const context = Sundial.extensionContext
+  let latitude = context.globalState.get('userLatitude') as number
+  let longitude = context.globalState.get('userLongitude') as number
 
   const connected = await checkConnection()
   if (connected && timeout) {
@@ -41,11 +43,11 @@ async function AutoLocale(): Promise<Tides> {
       const response: Response = await got(`${geoAPI}/${ip}`).json()
       latitude = response.geo.latitude
       longitude = response.geo.longitude
-      ctx.globalState.update('userLatitude', latitude)
-      ctx.globalState.update('userLongitude', longitude)
+      void context.globalState.update('userLatitude', latitude)
+      void context.globalState.update('userLongitude', longitude)
     } catch (error) {
-      log.debug(error)
-      window.showErrorMessage(
+      log.error(error)
+      void window.showErrorMessage(
         'Oops, something went wrong collecting your geolocation! ' +
           'Maybe it is a problem with the API. Please create an issue ' +
           'on GitHub should this problem persist.'
@@ -56,7 +58,7 @@ async function AutoLocale(): Promise<Tides> {
   if (!latitude || !longitude) {
     latitude = 0
     longitude = 0
-    window.showInformationMessage(
+    void window.showInformationMessage(
       "It seems you have been offline since first start of VS Code, so we haven't had the chance to cache your location. Please go online or set your location manually."
     )
   }

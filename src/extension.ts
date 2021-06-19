@@ -1,14 +1,13 @@
-'use strict'
+import { commands, ConfigurationChangeEvent, ExtensionContext, window, workspace } from 'vscode'
 
-import { window, ExtensionContext, commands, workspace, ConfigurationChangeEvent } from 'vscode'
-import Sundial from './sundial'
-import { outputChannel } from './logger'
 import { toggleTheme as editorToggleTheme, TimeNames } from './editor'
+import { outputChannel } from './logger'
+import Sundial from './sundial'
 
 const sundial = new Sundial() // Hi!
 
 function check() {
-  sundial.check()
+  void sundial.check()
 }
 
 function toggleTheme(time?: TimeNames) {
@@ -22,24 +21,26 @@ function configChanged(event: ConfigurationChangeEvent) {
   const lightColorTheme = event.affectsConfiguration('workbench.preferredDarkColorTheme')
 
   if (sundialConfig || darkColorTheme || lightColorTheme) {
-    sundial.check()
+    void sundial.check()
   }
 }
 
-export function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext): void {
   Sundial.extensionContext = context
+
   outputChannel.clear()
 
   sundial.enableExtension()
 
-  context.subscriptions.push(window.onDidChangeWindowState(check))
-  context.subscriptions.push(window.onDidChangeActiveTextEditor(check))
-  context.subscriptions.push(window.onDidChangeTextEditorViewColumn(check))
+  context.subscriptions.push(
+    window.onDidChangeWindowState(check),
+    window.onDidChangeActiveTextEditor(check),
+    window.onDidChangeTextEditorViewColumn(check),
+    workspace.onDidChangeConfiguration(configChanged)
+  )
 
-  context.subscriptions.push(workspace.onDidChangeConfiguration(configChanged))
-
-  commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme(TimeNames.Night))
-  commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme(TimeNames.Day))
+  commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme(TimeNames.NIGHT))
+  commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme(TimeNames.DAY))
   commands.registerCommand('sundial.toggleDayNightTheme', () => toggleTheme())
 
   commands.registerCommand('sundial.enableExtension', () => sundial.disableExtension())
@@ -47,7 +48,7 @@ export function activate(context: ExtensionContext) {
   commands.registerCommand('sundial.pauseUntilNextCircle', () => sundial.pauseUntilNextCircle())
 }
 
-export function deactivate() {
+export function deactivate(): void {
   sundial.disableExtension()
   outputChannel.dispose()
 }

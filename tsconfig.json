@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
     "module": "commonjs",
     "target": "es6",
     "outDir": "out",
@@ -9,7 +10,10 @@
     "noUnusedParameters": true,
     "noImplicitAny": false,
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "lib": [
+      "ES6"
+    ]
   },
   "exclude": [
     "node_modules",

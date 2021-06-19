@@ -3,6 +3,7 @@ import { window } from 'vscode'
 export enum LogLevel {
   SILENT,
   INFO,
+  ERROR,
   DEBUG,
 }
 
@@ -11,10 +12,10 @@ type AllowedTypes = string | number | boolean
 export const loggers: Logger[] = []
 export const outputChannel = window.createOutputChannel('Sundial')
 
-export function setLogLevelAll(level: LogLevel) {
-  loggers.forEach((l) => {
+export function setLogLevelAll(level: LogLevel): void {
+  for (const l of loggers) {
     l.logLevel = level
-  })
+  }
 }
 
 class Logger {
@@ -26,31 +27,35 @@ class Logger {
     this.logLevel = logLevel
   }
 
-  debug(...messages: AllowedTypes[]) {
-    if (this.logLevel < LogLevel.DEBUG) return
-    const message = this.buildLogString(LogLevel.DEBUG, messages)
-    outputChannel.appendLine(message)
-  }
-
   info(...messages: AllowedTypes[]) {
     if (this.logLevel < LogLevel.INFO) return
     const message = this.buildLogString(LogLevel.INFO, messages)
     outputChannel.appendLine(message)
   }
 
+  error(...messages: AllowedTypes[]) {
+    if (this.logLevel < LogLevel.ERROR) return
+    const message = this.buildLogString(LogLevel.ERROR, messages)
+    outputChannel.appendLine(message)
+  }
+
+  debug(...messages: AllowedTypes[]) {
+    if (this.logLevel < LogLevel.DEBUG) return
+    const message = this.buildLogString(LogLevel.DEBUG, messages)
+    outputChannel.appendLine(message)
+  }
+
   private buildLogString(logLevel: LogLevel, messages: AllowedTypes[]): string {
     const template: string[] = []
-    template.push(`[${LogLevel[logLevel].toUpperCase()}]`)
-    template.push(`(Sundial:${this.name})`)
-    template.push(`=>`)
-    messages.forEach((msg) => {
-      template.push(msg.toString())
-    })
+    template.push(`[${LogLevel[logLevel].toUpperCase()}]`, `(Sundial:${this.name})`, `=>`)
+    for (const message of messages) {
+      template.push(message.toString())
+    }
     return template.join(' ')
   }
 }
 
-export function getLogger(name: string) {
+export function getLogger(name: string): Logger {
   const logger = loggers.find((l) => l.name === name)
   if (logger) {
     return logger

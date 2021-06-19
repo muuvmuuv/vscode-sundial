@@ -1,4 +1,5 @@
 import dns from 'dns'
+
 import { getLogger } from './logger'
 
 export function sleep(ms: number): Promise<NodeJS.Timeout> {
@@ -14,8 +15,8 @@ export function checkConnection(): Promise<boolean> {
       {
         family: 4,
       },
-      (err) => {
-        if (err && err.code === 'ENOTFOUND') {
+      (error) => {
+        if (error && error.code === 'ENOTFOUND') {
           log.debug('OFFLINE')
           resolve(false)
         } else {

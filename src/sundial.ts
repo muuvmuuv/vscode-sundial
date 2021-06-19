@@ -1,10 +1,12 @@
-import { WorkspaceConfiguration, ExtensionContext } from 'vscode'
+import { ExtensionContext, WorkspaceConfiguration } from 'vscode'
+
 import dayjs from 'dayjs'
-import sensors from './sensors'
-import * as editor from './editor'
-import { LogLevel, getLogger, setLogLevelAll } from './logger'
-import { sleep } from './utils'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+
+import * as editor from './editor'
+import { getLogger, LogLevel, setLogLevelAll } from './logger'
+import sensors from './sensors'
+import { sleep } from './utils'
 
 export interface Tides {
   sunrise: dayjs.Dayjs
@@ -32,48 +34,48 @@ export default class Sundial {
 
   private enabled = true
   private isRunning = false
-  private nextCircle: editor.TimeNames | null = null
+  private nextCircle?: editor.TimeNames
   private checkInterval!: NodeJS.Timer
 
   constructor() {
     dayjs.extend(customParseFormat)
   }
 
-  public enableExtension() {
+  public enableExtension(): void {
     const log = getLogger('enableExtension')
     log.info('Enabling Sundial...')
     this.enabled = true
     this.automater()
-    this.check()
+    void this.check()
   }
 
-  public disableExtension() {
+  public disableExtension(): void {
     const log = getLogger('disableExtension')
     log.info('Disabling Sundial...')
     clearInterval(this.checkInterval)
     this.enabled = false
   }
 
-  public async pauseUntilNextCircle() {
+  public async pauseUntilNextCircle(): Promise<void> {
     const log = getLogger('disableUntilNextCirle')
     const currentTime = await this.getCurrentTime()
     this.nextCircle =
-      currentTime === editor.TimeNames.Day ? editor.TimeNames.Night : editor.TimeNames.Day
+      currentTime === editor.TimeNames.DAY ? editor.TimeNames.NIGHT : editor.TimeNames.DAY
     log.info(`Waiting until it becomes ${this.nextCircle} again...`)
   }
 
-  public automater() {
+  public automater(): void {
     const { sundial } = editor.getConfig()
     if (sundial.interval === 0) {
       return
     }
     const interval = 1000 * 60 * sundial.interval
     this.checkInterval = setInterval(() => {
-      this.check()
+      void this.check()
     }, interval)
   }
 
-  public async check() {
+  public async check(): Promise<void> {
     if (!this.enabled || this.isRunning) {
       return // disabled or already running
     }
@@ -91,11 +93,11 @@ export default class Sundial {
       log.debug(`Waiting for next circle: ${currentTime} => ${this.nextCircle}`)
       if (currentTime === this.nextCircle) {
         log.info('Next circle reached!')
-        this.nextCircle = null
-        this.check()
+        this.nextCircle = undefined
+        await this.check()
       }
     } else {
-      if (currentTime === editor.TimeNames.Day) {
+      if (currentTime === editor.TimeNames.DAY) {
         console.info('Sundial will apply your day theme! 🌕')
         editor.changeToDay()
       } else {
@@ -113,22 +115,18 @@ export default class Sundial {
     const log = getLogger('getCurrentTime')
     const tides = await this.getTides()
 
-    const {
-      nowIsBeforeSunrise,
-      nowIsAfterSunrise,
-      nowIsBeforeSunset,
-      nowIsAfterSunset,
-    } = this.evaluateTides(tides)
+    const { nowIsBeforeSunrise, nowIsAfterSunrise, nowIsBeforeSunset, nowIsAfterSunset } =
+      this.evaluateTides(tides)
 
     if (nowIsAfterSunrise && nowIsBeforeSunset) {
-      log.debug(editor.TimeNames.Day)
-      return editor.TimeNames.Day
+      log.debug(editor.TimeNames.DAY)
+      return editor.TimeNames.DAY
     } else if (nowIsBeforeSunrise || nowIsAfterSunset) {
-      log.debug(editor.TimeNames.Night)
-      return editor.TimeNames.Night
+      log.debug(editor.TimeNames.NIGHT)
+      return editor.TimeNames.NIGHT
     }
 
-    return editor.TimeNames.Night // always return something
+    return editor.TimeNames.NIGHT // always return something
   }
 
   private async getTides() {

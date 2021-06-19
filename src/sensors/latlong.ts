@@ -1,9 +1,11 @@
-import dayjs from 'dayjs'
-import { Tides } from '../sundial'
-import { getConfig } from '../editor'
 import { window } from 'vscode'
+
+import dayjs from 'dayjs'
 import { getTimes } from 'suncalc'
+
+import { getConfig } from '../editor'
 import { getLogger } from '../logger'
+import { Tides } from '../sundial'
 
 function LatLong(): Tides {
   const now = dayjs()

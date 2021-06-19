@@ -1,6 +1,7 @@
-import { workspace, window, WorkspaceConfiguration } from 'vscode'
-import { SundialConfiguration } from './sundial'
+import { window, workspace, WorkspaceConfiguration } from 'vscode'
+
 import { getLogger } from './logger'
+import { SundialConfiguration } from './sundial'
 
 const log = getLogger('editor')
 
@@ -18,60 +19,66 @@ export function getConfig(): EditorConfig {
   }
 }
 
-export function applySettings(settings: object) {
+export function applySettings(settings: WorkspaceConfiguration): void {
   if (!settings) {
     return // no settings, nothing to do
   }
-  log.debug('Changing settings to:', JSON.stringify(settings, null, 2))
+
+  log.debug('Changing settings to:', JSON.stringify(settings, undefined, 2))
+
   const workspaceSettings = workspace.getConfiguration()
-  Object.keys(settings).forEach((k) => {
+
+  for (const k of Object.keys(settings)) {
     if (k === 'workbench.colorTheme') {
-      return // do not override `workbench.colorTheme`
+      continue // do not override `workbench.colorTheme`
     }
-    workspaceSettings.update(k, settings[k], true).then(undefined, (reason: string) => {
-      console.error(reason)
-      window.showErrorMessage(
-        `You tried to apply \`${k}: ${settings[k]}\` but this is not a valid VS Code settings
+
+    const configString = settings[k] as string
+
+    workspaceSettings.update(k, configString, true).then(undefined, (error: string) => {
+      log.error(error)
+      void window.showErrorMessage(
+        `You tried to apply \`${k}: ${configString}\` but this is not a valid VS Code settings
           key/value pair. Please make sure all settings that you give to Sundial are valid
           inside VS Code settings!`
       )
     })
-  })
-}
-
-export enum TimeNames {
-  Day = 'day',
-  Night = 'night',
-}
-
-export function changeThemeTo(newTheme: string) {
-  log.debug('Changing theme to:', newTheme)
-  const { workbench } = getConfig()
-  if (newTheme !== workbench.colorTheme) {
-    workbench.update('colorTheme', newTheme, true)
   }
 }
 
-export function changeToDay() {
+export enum TimeNames {
+  DAY = 'day',
+  NIGHT = 'night',
+}
+
+export function changeThemeTo(newTheme: string): void {
+  log.debug('Changing theme to:', newTheme)
+  const { workbench } = getConfig()
+  if (newTheme !== workbench.colorTheme) {
+    void workbench.update('colorTheme', newTheme, true)
+  }
+}
+
+export function changeToDay(): void {
   const { sundial, workbench } = getConfig()
   changeThemeTo(workbench.preferredLightColorTheme)
   applySettings(sundial.daySettings)
 }
 
-export function changeToNight() {
+export function changeToNight(): void {
   const { sundial, workbench } = getConfig()
   changeThemeTo(workbench.preferredDarkColorTheme)
   applySettings(sundial.nightSettings)
 }
 
-export function toggleTheme(time?: TimeNames) {
+export function toggleTheme(time?: TimeNames): void {
   log.debug('Toggle theme to:', time || 'toggle')
   const config = getConfig()
   switch (time) {
-    case TimeNames.Day:
+    case TimeNames.DAY:
       changeToDay()
       break
-    case TimeNames.Night:
+    case TimeNames.NIGHT:
       changeToNight()
       break
     default:
