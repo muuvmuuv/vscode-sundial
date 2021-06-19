@@ -43,7 +43,7 @@ export function activate(context: ExtensionContext): void {
   commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme(TimeNames.DAY))
   commands.registerCommand('sundial.toggleDayNightTheme', () => toggleTheme())
 
-  commands.registerCommand('sundial.enableExtension', () => sundial.disableExtension())
+  commands.registerCommand('sundial.enableExtension', () => sundial.enableExtension())
   commands.registerCommand('sundial.disableExtension', () => sundial.disableExtension())
   commands.registerCommand('sundial.pauseUntilNextCircle', () => sundial.pauseUntilNextCircle())
 }
