@@ -176,6 +176,11 @@
       }
     }
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "volta": {
     "node": "16.3.0"
   }
