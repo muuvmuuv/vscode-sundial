@@ -43,9 +43,9 @@ export function applySettings(settings: WorkspaceConfiguration): void {
     workspaceSettings.update(k, configString, true).then(undefined, (error: string) => {
       log.error(error)
       void window.showErrorMessage(
-        `You tried to apply \`${k}: ${configString}\` but this is not a valid VS Code settings
-          key/value pair. Please make sure all settings that you give to Sundial are valid
-          inside VS Code settings!`
+        `You tried to apply \`${k}: ${configString}\` but this is not a valid` +
+          ' VS Code settings key/value pair. Please make sure all settings that' +
+          ' you give to Sundial are valid inside VS Code settings!'
       )
     })
   }

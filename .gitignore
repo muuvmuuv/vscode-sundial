@@ -5,3 +5,4 @@ tmp
 .cache
 .eslintcache
 .env
+meta.json

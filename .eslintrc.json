@@ -21,7 +21,9 @@
     "unicorn/prefer-module": "off"
   },
   "ignorePatterns": [
-    "dist"
+    "dist",
+    "out",
+    "tmp"
   ],
   "overrides": [
     {
