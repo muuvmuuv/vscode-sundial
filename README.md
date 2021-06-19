@@ -1,5 +1,5 @@
 <h1 align="left">
-  <img align="right" src="https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/icon.png" width="150">
+  <img align="right" src="https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/main/assets/icon.png" width="150">
   <b>☀️ Sundial ☀️</b>
 </h1>
 
@@ -42,7 +42,7 @@ to create an issue or start contributing! 😇
   </a>
 </p>
 
-![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/master/assets/banner.jpg)
+![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/main/assets/banner.jpg)
 
 ## Installation
 
