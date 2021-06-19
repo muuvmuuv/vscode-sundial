@@ -1,9 +1,14 @@
 import { window, workspace, WorkspaceConfiguration } from 'vscode'
 
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+
 import { getLogger } from './logger'
 import { SundialConfiguration } from './sundial'
 
 const log = getLogger('editor')
+
+dayjs.extend(customParseFormat)
 
 export interface EditorConfig {
   sundial: SundialConfiguration

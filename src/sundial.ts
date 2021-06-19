@@ -1,7 +1,6 @@
 import { ExtensionContext, WorkspaceConfiguration } from 'vscode'
 
 import dayjs from 'dayjs'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 import * as editor from './editor'
 import { getLogger, LogLevel, setLogLevelAll } from './logger'
@@ -37,13 +36,10 @@ export default class Sundial {
   private nextCircle?: editor.TimeNames
   private checkInterval!: NodeJS.Timer
 
-  constructor() {
-    dayjs.extend(customParseFormat)
-  }
-
   public enableExtension(): void {
     const log = getLogger('enableExtension')
     log.info('Enabling Sundial...')
+    this.nextCircle = undefined
     this.enabled = true
     this.automater()
     void this.check()

@@ -7,10 +7,15 @@
       "type": "npm",
       "script": "watch",
       "isBackground": true,
-      "presentation": {
-        "reveal": "never"
+      "problemMatcher": {
+        "base": "$tsc-watch",
+        "applyTo": "allDocuments",
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*?Running esbuild",
+          "endsPattern": "^.*?build finished"
+        }
       },
-      "problemMatcher": "$tsc-watch",
       "group": {
         "kind": "build",
         "isDefault": true
