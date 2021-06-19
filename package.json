@@ -40,8 +40,8 @@
     "test-compile": "tsc -p ./",
     "pretest": "npm run test-compile",
     "lint": "eslint --cache --ext js,ts .",
-    "release": "env-cmd -f .env release-it",
-    "publish-ovsx": "env-cmd -f .env ovsx publish --pat=OPENVSX_ACCESS_TOKEN",
+    "release": "env-cmd release-it",
+    "publish-ovsx": "env-cmd -x ovsx publish -p OPENVSX_ACCESS_TOKEN",
     "vscode:prepublish": "npm run package"
   },
   "dependencies": {
