@@ -1,7 +1,7 @@
 // @ts-check
 
+const path = require('path')
 const { BannerPlugin } = require('webpack')
-const TerserPlugin = require('terser-webpack-plugin')
 
 const package_ = require('./package.json')
 
@@ -22,7 +22,7 @@ const config = {
   mode: 'none',
   entry: './src/extension.ts',
   output: {
-    path: './dist',
+    path: path.resolve(__dirname, 'dist'),
     filename: 'extension.js',
     libraryTarget: 'commonjs2',
   },
@@ -36,14 +36,9 @@ const config = {
     extensions: ['.ts', '.js'],
   },
   optimization: {
-    namedModules: true,
-    namedChunks: true,
-    minimize: process.env.NODE_ENV !== 'production',
-    minimizer: [
-      new TerserPlugin({
-        extractComments: false,
-      }),
-    ],
+    concatenateModules: true,
+    mangleExports: false,
+    minimize: process.env.NODE_ENV === 'production',
   },
   plugins: [new BannerPlugin(banner)],
   module: {
