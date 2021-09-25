@@ -2,7 +2,7 @@ import { window } from 'vscode'
 
 import dayjs from 'dayjs'
 import got from 'got'
-import publicIp from 'public-ip'
+import { v4 } from 'public-ip'
 import { getTimes } from 'suncalc'
 
 import { getLogger } from '../logger'
@@ -45,7 +45,7 @@ async function AutoLocale(): Promise<Tides> {
     end = now.add(5, 'minute')
 
     try {
-      const ip = await publicIp.v4()
+      const ip = await v4()
       log.debug('Public ip:', ip)
 
       const response: Response = await got(`${geoAPI}/${ip}`, {
@@ -62,7 +62,7 @@ async function AutoLocale(): Promise<Tides> {
       void context.globalState.update('userLatitude', latitude)
       void context.globalState.update('userLongitude', longitude)
     } catch (error) {
-      log.error(error)
+      log.error(error as string)
       void window.showErrorMessage(
         'Oops, something went wrong collecting your geolocation! ' +
           'Maybe it is a problem with the API. Please create an issue ' +

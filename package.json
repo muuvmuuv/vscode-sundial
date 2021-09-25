@@ -2,7 +2,7 @@
   "name": "vscode-sundial",
   "displayName": "Sundial – Day/Night Theme/Settings Switch",
   "version": "2.6.0",
-  "description": "Change your VS Code theme/settings based on your sunset, sunrise, system appearance or other preferences!",
+  "description": "Change your VS Code theme and settings based on your sunset, sunrise, system appearance or other preferences!",
   "icon": "assets/icon.png",
   "publisher": "muuvmuuv",
   "qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
@@ -35,43 +35,40 @@
   "scripts": {
     "compile": "sh compile.sh",
     "watch": "sh compile.sh --watch",
-    "package": "sh compile.sh --minify --metafile=meta.json",
-    "analyze": "",
-    "test-compile": "tsc -p ./",
-    "pretest": "npm run test-compile",
+    "package": "sh compile.sh --minify",
     "lint": "eslint --cache --ext js,ts .",
     "release": "env-cmd release-it",
     "publish-ovsx": "env-cmd -x ovsx publish -p OPENVSX_ACCESS_TOKEN",
-    "vscode:prepublish": "npm run package"
+    "vscode:prepublish": "pnpm package"
   },
   "dependencies": {
-    "dayjs": "^1.10.5",
+    "dayjs": "^1.10.7",
     "got": "^11.8.2",
     "public-ip": "^4.0.4",
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.6",
-    "@commitlint/cli": "^12.1.4",
-    "@commitlint/config-conventional": "^12.1.4",
-    "@release-it/conventional-changelog": "^3.0.1",
-    "@types/got": "^9.6.11",
-    "@types/node": "15.12.4",
-    "@types/suncalc": "^1.8.0",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "@release-it/conventional-changelog": "^3.3.0",
+    "@types/got": "^9.6.12",
+    "@types/node": "16.10.1",
+    "@types/suncalc": "^1.8.1",
     "@types/vscode": "1.42.0",
-    "@typescript-eslint/eslint-plugin": "^4.27.0",
-    "@typescript-eslint/parser": "^4.27.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "@typescript-eslint/parser": "^4.31.2",
     "env-cmd": "^10.1.0",
-    "eslint": "^7.29.0",
+    "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-tsdoc": "^0.2.14",
-    "eslint-plugin-unicorn": "^33.0.1",
+    "eslint-plugin-unicorn": "^36.0.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.3.1",
-    "release-it": "^14.9.0",
-    "typescript": "^4.3.4"
+    "prettier": "^2.4.1",
+    "release-it": "^14.11.6",
+    "typescript": "^4.4.3"
   },
   "engines": {
     "vscode": "^1.42.0"
@@ -182,6 +179,6 @@
     ]
   },
   "volta": {
-    "node": "16.3.0"
+    "node": "16.10.0"
   }
 }

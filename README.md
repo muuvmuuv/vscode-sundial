@@ -209,7 +209,7 @@ size to increase the load time in VSCode.
 Sundial is deployed on VS Code Marketplace and Open VSX.
 
 - VS Code Marketplace: `vsce publish`
-- Open VSX: `npm run publish-ovsx`
+- Open VSX: `pnpm publish-ovsx`
 
 ### Commits
 
@@ -221,5 +221,5 @@ Run the below to create a new release. This will increase the version based on y
 create a new CHANGELOG.md section.
 
 ```shell
-npm run run release
+pnpm release
 ```

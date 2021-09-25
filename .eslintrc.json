@@ -18,7 +18,8 @@
     "prettier"
   ],
   "rules": {
-    "unicorn/prefer-module": "off"
+    "unicorn/prefer-module": "off",
+    "unicorn/prefer-node-protocol": "off"
   },
   "ignorePatterns": [
     "dist",
@@ -51,7 +52,6 @@
         "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
-        "unicorn/prefer-node-protocol": "off",
         // -------------------------------------------------------------------------------
         // Typescript performance improvements
         //

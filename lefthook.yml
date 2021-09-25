@@ -2,11 +2,13 @@
 
 pre-commit:
   commands:
-    lint-script:
+    lint:
       glob: "*.{js,ts}"
       run: node_modules/.bin/eslint {staged_files}
+    compile:
+      run: sh compile.sh
 
 commit-msg:
   commands:
     lint-commit-msg:
-      run: npx commitlint --edit
+      run: node_modules/.bin/commitlint --edit
