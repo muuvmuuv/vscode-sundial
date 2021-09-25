@@ -3,19 +3,18 @@
   "displayName": "Sundial – Day/Night Theme/Settings Switch",
   "version": "2.6.0",
   "description": "Change your VS Code theme and settings based on your sunset, sunrise, system appearance or other preferences!",
-  "icon": "assets/icon.png",
+  "icon": "https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/main/assets/icon.png",
   "publisher": "muuvmuuv",
   "qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
+  "categories": [
+    "Other"
+  ],
   "keywords": [
-    "day",
-    "night",
-    "sunrise",
-    "sunset",
-    "sundial",
-    "switch",
-    "theme",
-    "settings",
-    "vscode"
+    "day night",
+    "sunrise sunset",
+    "switch theme",
+    "switch settings",
+    "auto night mode"
   ],
   "homepage": "https://github.com/muuvmuuv/vscode-sundial",
   "bugs": {
@@ -75,9 +74,6 @@
   },
   "activationEvents": [
     "*"
-  ],
-  "categories": [
-    "Other"
   ],
   "contributes": {
     "commands": [
@@ -173,6 +169,18 @@
       }
     }
   },
+  "badges": [
+    {
+      "description": "Language grade",
+      "url": "https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18",
+      "href": "https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript"
+    },
+    {
+      "description": "Maintainability",
+      "url": "https://api.codeclimate.com/v1/badges/52f93dc5f852410ef448/maintainability",
+      "href": "https://codeclimate.com/github/muuvmuuv/vscode-sundial/maintainability"
+    }
+  ],
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

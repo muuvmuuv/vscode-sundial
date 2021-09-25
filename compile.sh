@@ -25,6 +25,7 @@ echo "$BANNER"
 esbuild src/extension.ts \
   --platform=node \
   --bundle \
+  --format=cjs \
   --external:vscode \
   --outfile=dist/extension.js \
   --sourcemap=external \
