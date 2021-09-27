@@ -3,7 +3,7 @@
   "displayName": "Sundial – Day/Night Theme/Settings Switch",
   "version": "2.6.1",
   "description": "Change your VS Code theme and settings based on your sunset, sunrise, system appearance or other preferences!",
-  "icon": "https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/main/assets/icon.png",
+  "icon": "assets/icon.png",
   "publisher": "muuvmuuv",
   "qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
   "categories": [
@@ -38,7 +38,7 @@
     "lint": "eslint --cache --ext js,ts .",
     "release": "env-cmd release-it",
     "publish-ovsx": "env-cmd -x ovsx publish -p OPENVSX_ACCESS_TOKEN",
-    "vscode:prepublish": "pnpm package"
+    "vscode:prepublish": "npm run package"
   },
   "dependencies": {
     "dayjs": "^1.10.7",
@@ -58,6 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "env-cmd": "^10.1.0",
+    "esbuild": "^0.13.2",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",

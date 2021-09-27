@@ -22,7 +22,7 @@ echo "  Running esbuild..."
 echo ""
 echo "$BANNER"
 
-esbuild src/extension.ts \
+node_modules/.bin/esbuild src/extension.ts \
   --platform=node \
   --bundle \
   --format=cjs \
