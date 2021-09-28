@@ -37,7 +37,7 @@
     "package": "sh compile.sh --minify",
     "lint": "eslint --cache --ext js,ts .",
     "release": "env-cmd release-it",
-    "publish-ovsx": "env-cmd -x ovsx publish -p OPENVSX_ACCESS_TOKEN",
+    "publish-ovsx": "env-cmd -x ovsx publish -p \\$OPENVSX_ACCESS_TOKEN",
     "vscode:prepublish": "npm run package"
   },
   "dependencies": {
