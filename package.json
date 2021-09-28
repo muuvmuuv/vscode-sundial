@@ -1,8 +1,8 @@
 {
   "name": "vscode-sundial",
-  "displayName": "Sundial – Day/Night Theme/Settings Switch",
+  "displayName": "Sundial – Automatic night mode and settings switch",
   "version": "2.6.1",
-  "description": "Change your VS Code theme and settings based on your sunset, sunrise, system appearance or other preferences!",
+  "description": "Automatically change your theme and settings based on your sunset, sunrise, system appearance or other preferences!",
   "icon": "assets/icon.png",
   "publisher": "muuvmuuv",
   "qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
@@ -10,11 +10,11 @@
     "Other"
   ],
   "keywords": [
-    "day night",
-    "sunrise sunset",
-    "switch theme",
-    "switch settings",
-    "auto night mode"
+    "auto",
+    "day",
+    "night",
+    "switch",
+    "settings"
   ],
   "homepage": "https://github.com/muuvmuuv/vscode-sundial",
   "bugs": {
