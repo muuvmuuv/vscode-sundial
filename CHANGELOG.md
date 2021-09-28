@@ -1,3 +1,5 @@
+### [2.6.2](https://github.com/muuvmuuv/vscode-sundial/compare/v2.6.1...v2.6.2) (2021-09-28)
+
 ### [2.6.1](https://github.com/muuvmuuv/vscode-sundial/compare/v2.6.0...v2.6.1) (2021-09-25)
 
 ## [2.6.0](https://github.com/muuvmuuv/vscode-sundial/compare/v2.5.0...v2.6.0) (2021-06-19)
