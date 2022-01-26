@@ -117,11 +117,11 @@ your internet connection via [Cloudflares 1.1.1.1 DNS-Server](https://1.1.1.1/).
 
 | Setting              | Default | Description                                      |
 | -------------------- | ------- | ------------------------------------------------ |
-| `sundial.autoLocale` | _false_ | Updates your location based on your geolocation. |
+| `sundial.autoLocale` | _false_ | Updates your location based on your geo location. |
 
 #### Automatically set by latitude and longitude
 
-You can get your geolocation here: [Free IP Geolocation API](https://freegeoip.app/)
+You can get your geo location here: [Free IP Geo location API](https://freegeoip.app/)
 
 | Setting             | Default | Description        |
 | ------------------- | ------- | ------------------ |
