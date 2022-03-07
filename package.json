@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial – Automatic night mode and settings switch",
-  "version": "2.7.0",
+  "version": "2.6.2",
   "description": "Automatically change your theme and settings based on your sunset, sunrise, system appearance or other preferences!",
   "icon": "assets/icon.png",
   "publisher": "muuvmuuv",
@@ -31,13 +31,12 @@
   },
   "main": "dist/extension.js",
   "scripts": {
+    "dev": "sh compile.sh --watch",
     "compile": "sh compile.sh",
-    "watch": "sh compile.sh --watch",
     "package": "sh compile.sh --minify",
     "lint": "eslint --cache --ext js,ts .",
-    "release": "env-cmd release-it",
-    "publish-ovsx": "env-cmd -x ovsx publish -p \\$OPENVSX_ACCESS_TOKEN",
-    "vscode:prepublish": "npm run package"
+    "vscode:prepublish": "npm run package",
+    "release": "env-cmd release-it"
   },
   "dependencies": {
     "dayjs": "^1.10.7",
