@@ -27,7 +27,6 @@
   "license": "GPLv3",
   "author": {
     "name": "Marvin Heilemann",
-    "email": "marvin.heilemann+github@googlemail.com",
     "url": "https://marvin.digital/"
   },
   "main": "dist/extension.js",
