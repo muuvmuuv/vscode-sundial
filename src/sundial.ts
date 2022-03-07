@@ -1,6 +1,5 @@
-import { ExtensionContext, WorkspaceConfiguration } from 'vscode'
-
 import dayjs from 'dayjs'
+import { ExtensionContext, WorkspaceConfiguration } from 'vscode'
 
 import * as editor from './editor'
 import { getLogger, LogLevel, setLogLevelAll } from './logger'
@@ -27,32 +26,32 @@ export interface SundialConfiguration extends WorkspaceConfiguration {
 }
 
 export default class Sundial {
-  public static readonly extensionName = 'Sundial'
-  public static readonly extensionAlias = 'sundial'
-  public static extensionContext: ExtensionContext
+  static readonly extensionName = 'Sundial'
+  static readonly extensionAlias = 'sundial'
+  static extensionContext: ExtensionContext
 
   private enabled = true
   private isRunning = false
   private nextCircle?: editor.TimeNames
   private checkInterval!: NodeJS.Timer
 
-  public enableExtension(): void {
+  enableExtension(): void {
     const log = getLogger('enableExtension')
     log.info('Enabling Sundial...')
     this.nextCircle = undefined
     this.enabled = true
-    this.automater()
+    this.automator()
     void this.check()
   }
 
-  public disableExtension(): void {
+  disableExtension(): void {
     const log = getLogger('disableExtension')
     log.info('Disabling Sundial...')
     clearInterval(this.checkInterval)
     this.enabled = false
   }
 
-  public async pauseUntilNextCircle(): Promise<void> {
+  async pauseUntilNextCircle(): Promise<void> {
     const log = getLogger('pauseUntilNextCircle')
     const currentTime = await this.getCurrentTime()
     this.nextCircle =
@@ -60,18 +59,22 @@ export default class Sundial {
     log.info(`Waiting until it becomes ${this.nextCircle} again...`)
   }
 
-  public automater(): void {
+  automator(): void {
+    const log = getLogger('automator')
     const { sundial } = editor.getConfig()
     if (sundial.interval === 0) {
+      log.info('Automator offline')
       return
     }
+    log.info('Automator online')
     const interval = 1000 * 60 * sundial.interval
     this.checkInterval = setInterval(() => {
+      log.info('Autocheck')
       void this.check()
     }, interval)
   }
 
-  public async check(): Promise<void> {
+  async check(): Promise<void> {
     if (!this.enabled || this.isRunning) {
       return // disabled or already running
     }
@@ -104,7 +107,7 @@ export default class Sundial {
 
     await sleep(400) // Short nap 😴
     this.isRunning = false
-    this.automater()
+    this.automator()
   }
 
   private async getCurrentTime(): Promise<editor.TimeNames> {

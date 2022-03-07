@@ -1,13 +1,12 @@
+import dayjs from 'dayjs'
+import got from 'got'
+import isOnline from 'is-online'
+import { getTimes } from 'suncalc'
 import { window } from 'vscode'
 
-import dayjs from 'dayjs'
-import { getTimes } from 'suncalc'
-import isOnline from 'is-online'
-import got from 'got'
-
+import { getConfig } from '../editor'
 import { getLogger, LogLevel } from '../logger'
 import Sundial, { Tides } from '../sundial'
-import { getConfig } from '../editor'
 
 interface Response {
   lat: number
@@ -25,8 +24,8 @@ async function AutoLocale(): Promise<Tides> {
   const timeout = now.isAfter(end, 'minute')
   const context = Sundial.extensionContext
 
-  let latitude = context.globalState.get('userLatitude') as number
-  let longitude = context.globalState.get('userLongitude') as number
+  let latitude = context.globalState.get<number>('userLatitude')
+  let longitude = context.globalState.get<number>('userLongitude')
 
   log.debug('Timeout:', timeout)
 
@@ -37,14 +36,12 @@ async function AutoLocale(): Promise<Tides> {
     end = now.add(5, 'minute')
 
     try {
-      const response: Response = await got(
+      const { lat, lon }: Response = await got(
         `http://ip-api.com/json/?fields=lat,lon`,
       ).json()
 
-      log.debug('Response:', response)
-
-      latitude = response.lat
-      longitude = response.lon
+      latitude = lat
+      longitude = lon
 
       context.globalState.update('userLatitude', latitude)
       context.globalState.update('userLongitude', longitude)
@@ -64,7 +61,7 @@ async function AutoLocale(): Promise<Tides> {
     latitude = 0
     longitude = 0
     void window.showInformationMessage(
-      "It seems you have been offline since first start of VS Code, so we haven't had the chance to cache your location. Please go online or set your location manually.",
+      "It seems you have been offline since the first start of VS Code, so we haven't had the chance to cache your location. Please go online or set your location manually.",
     )
   }
 

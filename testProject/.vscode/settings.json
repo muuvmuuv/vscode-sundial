@@ -4,14 +4,14 @@
   "workbench.preferredDarkColorTheme": "Default Dark+",
   "workbench.preferredLightColorTheme": "Default Light+",
   "sundial.debug": 3,
-  "sundial.autoLocale": true,
-  //"sundial.latitude": "50.121301",
-  //"sundial.longitude": "8.5665248",
-  // "sundial.sunrise": "11:00",
-  // "sundial.sunset": "21:00",
+  // "sundial.autoLocale": true,
+  // "sundial.latitude": "25.7823907",
+  // "sundial.longitude": "-80.29967",
+  "sundial.sunrise": "07:00",
+  "sundial.sunset": "21:00",
   "sundial.dayVariable": 0,
   "sundial.nightVariable": -60,
   "sundial.daySettings": {},
   "sundial.nightSettings": {},
-  "sundial.interval": 0.1 // one minute
+  "sundial.interval": 0.01 // one minute
 }

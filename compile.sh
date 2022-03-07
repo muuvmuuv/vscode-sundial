@@ -31,6 +31,7 @@ node_modules/.bin/esbuild src/extension.ts \
   --platform=node \
   --bundle \
   --format=cjs \
+  --target=es2020 \
   --external:vscode \
   --outfile=dist/extension.js \
   --sourcemap=external \

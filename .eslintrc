@@ -1,36 +1,28 @@
 {
   "root": true,
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "plugins": ["simple-import-sort"],
+  "extends": ["eslint:recommended", "plugin:unicorn/recommended", "prettier"],
+  "ignorePatterns": ["dist", "testProject", "tmp"],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "env": {
-    "node": true
-  },
-  "extends": ["eslint:recommended", "plugin:unicorn/recommended", "prettier"],
   "rules": {
     "unicorn/prefer-module": "off",
-    "unicorn/prefer-node-protocol": "off"
+    "unicorn/prefer-node-protocol": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   },
-  "ignorePatterns": ["dist", "out", "tmp"],
   "overrides": [
     {
       "files": ["*.ts"],
-      "parserOptions": {
-        "project": "tsconfig.json"
-      },
-      "extends": ["plugin:@typescript-eslint/recommended"],
-      "rules": {
-        "sort-imports": [
-          "error",
-          {
-            "ignoreCase": true,
-            "ignoreDeclarationSort": true,
-            "ignoreMemberSort": false,
-            "allowSeparatedGroups": true
-          }
-        ]
-      }
+      "plugins": ["@typescript-eslint"],
+      "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
+      "parser": "@typescript-eslint/parser"
     }
   ]
 }

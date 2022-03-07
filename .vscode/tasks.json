@@ -12,8 +12,8 @@
         "applyTo": "allDocuments",
         "background": {
           "activeOnStart": true,
-          "beginsPattern": "^.*?Running esbuild",
-          "endsPattern": "^.*?build finished"
+          "beginsPattern": "^.*running",
+          "endsPattern": "^.*watching"
         }
       },
       "presentation": {

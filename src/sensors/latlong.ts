@@ -1,7 +1,6 @@
-import { window } from 'vscode'
-
 import dayjs from 'dayjs'
 import { getTimes } from 'suncalc'
+import { window } from 'vscode'
 
 import { getConfig } from '../editor'
 import { getLogger } from '../logger'

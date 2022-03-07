@@ -6,7 +6,7 @@ import {
   workspace,
 } from 'vscode'
 
-import { toggleTheme as editorToggleTheme, TimeNames } from './editor'
+import { TimeNames, toggleTheme as editorToggleTheme } from './editor'
 import { outputChannel } from './logger'
 import Sundial from './sundial'
 

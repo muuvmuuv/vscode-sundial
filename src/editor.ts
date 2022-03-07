@@ -1,7 +1,6 @@
-import { window, workspace, WorkspaceConfiguration } from 'vscode'
-
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
+import { window, workspace, WorkspaceConfiguration } from 'vscode'
 
 import { getLogger } from './logger'
 import { SundialConfiguration } from './sundial'
