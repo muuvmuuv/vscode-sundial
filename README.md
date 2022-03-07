@@ -25,7 +25,6 @@
 - [Development](#development)
   - [Deployment](#deployment)
   - [Commits](#commits)
-  - [Releases](#releases)
 
 Sundial changes your theme and VS Code settings (if needed) based on your day and night
 cycle or other options, you choose. It is inspired by the
@@ -210,8 +209,8 @@ next coming will be ignored.
 
 ## Development
 
-I am working with esbuild to bundle Sundial to the smallest possible size to increase the
-load time in VS Code _for you_.
+I am working with [**esbuild**](https://esbuild.github.io/) to bundle Sundial to the
+smallest possible size to increase the load time in VS Code _for you_.
 
 1.  Install packages via npm: `npm run install`
 2.  Run debugger => `Launch Extension`
@@ -230,12 +229,3 @@ Sundial is deployed on VS Code Marketplace and Open VSX.
 ### Commits
 
 Sundial follows the `config-conventional` spec.
-
-### Releases
-
-Run the below to create a new release. This will increase the version based on your
-changes and create a new CHANGELOG.md section.
-
-```shell
-npm run release
-```

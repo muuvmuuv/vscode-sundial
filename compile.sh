@@ -18,8 +18,6 @@ BANNER="/**
  * @pkg $PKG
  */"
 
-source .env
-
 mkdir -p tmp/ext
 mkdir -p tmp/data
 
