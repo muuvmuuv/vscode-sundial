@@ -1,4 +1,12 @@
-### [2.6.2](https://github.com/muuvmuuv/vscode-sundial/compare/v2.6.1...v2.6.2) (2021-09-28)
+undefined
+
+## [3.0.0](https://github.com/muuvmuuv/vscode-sundial/compare/v2.6.2...v3.0.0) (2022-03-07)
+
+
+### Features
+
+* update eslint and compiler settings ([daf37ee](https://github.com/muuvmuuv/vscode-sundial/commit/daf37ee3e850a83a466c0ab72b6abdf35e3b9d41))
+* update to vscode 1.65.0 with node 16 and migrate ip api ([29bf814](https://github.com/muuvmuuv/vscode-sundial/commit/29bf81412ce2b6875e2cae5ce5e052b591e1c8c0))### [2.6.2](https://github.com/muuvmuuv/vscode-sundial/compare/v2.6.1...v2.6.2) (2021-09-28)
 
 ### [2.6.1](https://github.com/muuvmuuv/vscode-sundial/compare/v2.6.0...v2.6.1) (2021-09-25)
 
@@ -109,4 +117,3 @@
 ### [1.0.2](https://github.com/muuvmuuv/vscode-sundial/compare/v1.0.0...v1.0.2) (2018-10-03)
 
 ## 1.0.0 (2018-09-29)
-
