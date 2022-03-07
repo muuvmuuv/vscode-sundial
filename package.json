@@ -35,8 +35,7 @@
     "compile": "sh compile.sh",
     "package": "sh compile.sh --minify",
     "lint": "eslint --cache --ext js,ts .",
-    "vscode:prepublish": "npm run package",
-    "release": "env-cmd release-it"
+    "vscode:prepublish": "npm run package"
   },
   "dependencies": {
     "dayjs": "^1.10.7",
@@ -54,7 +53,6 @@
     "@types/vscode": "1.65.0",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
-    "env-cmd": "^10.1.0",
     "esbuild": "^0.14.22",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.3.0",
