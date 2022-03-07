@@ -7,7 +7,7 @@ export enum LogLevel {
   DEBUG,
 }
 
-type AllowedTypes = string | number | boolean
+type AllowedTypes = string | number | boolean | object
 
 export const loggers: Logger[] = []
 export const outputChannel = window.createOutputChannel('Sundial')

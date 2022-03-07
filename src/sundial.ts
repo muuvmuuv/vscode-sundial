@@ -129,14 +129,14 @@ export default class Sundial {
     const log = getLogger('getTides')
     const { sundial } = editor.getConfig()
 
-    if (sundial.latitude || sundial.longitude) {
+    if (sundial.latitude && sundial.longitude) {
       log.info('Sundial will use your latitude and longitude')
       return sensors.LatLong()
     } else if (sundial.autoLocale) {
       log.info('Sundial will now try to detect your location')
       return await sensors.AutoLocale()
     } else {
-      log.info('Sundial will use your saved time settings')
+      log.info('Sundial will use your time settings')
       return {
         sunrise: dayjs(sundial.sunrise, 'HH:mm'),
         sunset: dayjs(sundial.sunset, 'HH:mm'),

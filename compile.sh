@@ -18,6 +18,11 @@ BANNER="/**
  * @pkg $PKG
  */"
 
+source .env
+
+mkdir -p tmp/ext
+mkdir -p tmp/data
+
 echo "  Running esbuild..."
 echo ""
 echo "$BANNER"

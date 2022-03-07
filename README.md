@@ -19,22 +19,23 @@
     - [Automatically set by current location](#automatically-set-by-current-location)
     - [Automatically set by latitude and longitude](#automatically-set-by-latitude-and-longitude)
     - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
+  - [VS Code Settings](#vs-code-settings)
   - [Execution order](#execution-order)
   - [Examples](#examples)
 - [Development](#development)
-  - [Deploy](#deploy)
+  - [Deployment](#deployment)
   - [Commits](#commits)
   - [Releases](#releases)
 
-Sundial changes your theme and VS Code settings (if needed) based on your day and night cycle or
-other options, you choose. It is inspired by the
+Sundial changes your theme and VS Code settings (if needed) based on your day and night
+cycle or other options, you choose. It is inspired by the
 [OSX Mojave dynamic backgrounds](https://www.apple.com/de/macos/mojave/) and
-[Night Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_ when working in the
-night or on the day. Humans should not strain their eyes too much, it's **not recommended** to have
-a light theme in the night and vice versa.
+[Night Owl for Mac](https://nightowl.kramser.xyz/). It should _reduce eye pain_ when
+working in the night or on the day. Humans should not strain their eyes too much, it's
+**not recommended** to have a light theme in the night and vice versa.
 
-Whenever you have ideas for this project, things you would like to add or you found a bug, feel free
-to create an issue or start contributing! 😇
+Whenever you have ideas for this project, things you would like to add or you found a bug,
+feel free to create an issue or start contributing! 😇
 
 <p>
   <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
@@ -46,8 +47,8 @@ to create an issue or start contributing! 😇
 
 ## Installation
 
-You can simply install any VS Code extension via the VS Code Marketplace. Just click the banner
-below:
+You can simply install any VS Code extension via the VS Code Marketplace. Just click the
+banner below:
 
 <p>
   <a href="https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial">
@@ -55,9 +56,9 @@ below:
   </a>
 </p>
 
-> ⚠️ IMPORTANT: Since VS Code 1.42.0 automatically changing the theme based on OS appearance is
-> build in, if you want to use this plugin anyway you must disable this options with
-> `"window.autoDetectColorScheme": false`
+> ⚠️ IMPORTANT: Since VS Code 1.42.0 automatically changing the theme based on OS
+> appearance is build in, if you want to use this plugin anyway you must disable this
+> options with `"window.autoDetectColorScheme": false`
 
 ## Keybindings
 
@@ -103,17 +104,16 @@ below:
 
 > ⚠️ Don't forget to set `"window.autoDetectColorScheme": false`
 
-> If you set the interval to zero (0) sundial will not periodically check the time but still when VS
-> Code triggers some editor events.
+> If you set the interval to zero (0) sundial will not periodically check the time but
+> still when VS Code triggers some editor events.
 
-> On both `daySettings` and `nightSettings` they will override your Workbench VSCode settings.
-> Please make sure both have the same properties otherwise they will not change since Sundial is not
-> remembering the settings you have set before!
+> On both `daySettings` and `nightSettings` they will override your Workbench VSCode
+> settings. Please make sure both have the same properties otherwise they will not change
+> since Sundial is not remembering the settings you have set before!
 
 #### Automatically set by current location
 
-Sundial will get your geolocation from [Free IP Geolocation API](https://freegeoip.app/) and check
-your internet connection via [Cloudflares 1.1.1.1 DNS-Server](https://1.1.1.1/).
+Sundial will fetch your geolocation from [ip-api](https://ip-api.com/).
 
 | Setting              | Default | Description                                      |
 | -------------------- | ------- | ------------------------------------------------ |
@@ -121,7 +121,7 @@ your internet connection via [Cloudflares 1.1.1.1 DNS-Server](https://1.1.1.1/).
 
 #### Automatically set by latitude and longitude
 
-You can get your geolocation here: [Free IP Geolocation API](https://freegeoip.app/)
+You can get your geolocation from [ip-api](https://ip-api.com/) or any other map service.
 
 | Setting             | Default | Description        |
 | ------------------- | ------- | ------------------ |
@@ -130,7 +130,8 @@ You can get your geolocation here: [Free IP Geolocation API](https://freegeoip.a
 
 #### Automatically set by OS appearance
 
-Since VS Code version 1.42.0 it is now build in so you don't need this extension for this options.
+Since VS Code version 1.42.0 it is now build in so you don't need this extension for this
+options.
 
 ```json
 {
@@ -144,10 +145,26 @@ Read more about the implementation here:
 - https://github.com/microsoft/vscode/pull/86600
 - https://github.com/microsoft/vscode/pull/87405
 
+### VS Code Settings
+
+You can change your VS Code settings depending on your circle, this comes pretty handy if
+you have issues ready a font size of 12 in the night.
+
+```jsonc
+{
+  "sundial.daySettings": {
+    "editor.fontSize": 12
+  },
+  "sundial.nightSettings": {
+    "editor.fontSize": 14
+  }
+}
+```
+
 ### Execution order
 
-Sundial will check your settings in the following order and if one setting is present the next
-coming will be ignored.
+Sundial will check your settings in the following order and if one setting is present the
+next coming will be ignored.
 
 1. `sundial.latitude` and `sundial.longitude`
 2. `sundial.autoLocale`
@@ -193,23 +210,22 @@ coming will be ignored.
 
 ## Development
 
-We are working with [webpack](https://webpack.js.org/) to bundle Sundial to the smallest possible
-size to increase the load time in VSCode.
+I am working with esbuild to bundle Sundial to the smallest possible size to increase the
+load time in VS Code _for you_.
 
-1.  Install packages via (your preferred package manager) `npm run install`
-2.  Set `sundial.debug` to `2`
-3.  Run debugger => `Launch Extension`
+1.  Install packages via npm: `npm run install`
+2.  Run debugger => `Launch Extension`
     - View the _Extension Host_ and adjust settings to test **or**
-    - Change a file and save it, let _webpack_ compile
-4.  Commit your changes with a detailed explanation
-5.  Create a pull request
+    - Change a file and save it, let it compile
+3.  Commit your changes with a detailed explanation
+4.  Create a pull request
 
-### Deploy
+### Deployment
 
 Sundial is deployed on VS Code Marketplace and Open VSX.
 
 - VS Code Marketplace: `vsce publish`
-- Open VSX: `pnpm publish-ovsx`
+- Open VSX: `npm run publish-ovsx`
 
 ### Commits
 
@@ -217,9 +233,9 @@ Sundial follows the `config-conventional` spec.
 
 ### Releases
 
-Run the below to create a new release. This will increase the version based on your changes and
-create a new CHANGELOG.md section.
+Run the below to create a new release. This will increase the version based on your
+changes and create a new CHANGELOG.md section.
 
 ```shell
-pnpm release
+npm run release
 ```

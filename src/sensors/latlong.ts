@@ -14,7 +14,7 @@ function LatLong(): Tides {
 
   if (!config.sundial.latitude || !config.sundial.longitude) {
     throw window.showErrorMessage(
-      'Sundial needs both, latitude and longitude, to work with this configuration!'
+      'Sundial needs both, latitude and longitude, to work with this configuration!',
     )
   }
 
@@ -24,7 +24,7 @@ function LatLong(): Tides {
   const tides = getTimes(
     now.toDate(),
     Number(config.sundial.latitude),
-    Number(config.sundial.longitude)
+    Number(config.sundial.longitude),
   )
 
   return {

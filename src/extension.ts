@@ -1,4 +1,10 @@
-import { commands, ConfigurationChangeEvent, ExtensionContext, window, workspace } from 'vscode'
+import {
+  commands,
+  ConfigurationChangeEvent,
+  ExtensionContext,
+  window,
+  workspace,
+} from 'vscode'
 
 import { toggleTheme as editorToggleTheme, TimeNames } from './editor'
 import { outputChannel } from './logger'
@@ -21,7 +27,7 @@ function configChanged(event: ConfigurationChangeEvent) {
   const lightColorTheme = event.affectsConfiguration('workbench.preferredDarkColorTheme')
 
   if (sundialConfig || darkColorTheme || lightColorTheme) {
-    void sundial.check()
+    check()
   }
 }
 
@@ -36,16 +42,20 @@ export function activate(context: ExtensionContext): void {
     window.onDidChangeWindowState(check),
     window.onDidChangeActiveTextEditor(check),
     window.onDidChangeTextEditorViewColumn(check),
-    workspace.onDidChangeConfiguration(configChanged)
+    workspace.onDidChangeConfiguration(configChanged),
   )
 
-  commands.registerCommand('sundial.switchToNightTheme', () => toggleTheme(TimeNames.NIGHT))
+  commands.registerCommand('sundial.switchToNightTheme', () =>
+    toggleTheme(TimeNames.NIGHT),
+  )
   commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme(TimeNames.DAY))
   commands.registerCommand('sundial.toggleDayNightTheme', () => toggleTheme())
 
   commands.registerCommand('sundial.enableExtension', () => sundial.enableExtension())
   commands.registerCommand('sundial.disableExtension', () => sundial.disableExtension())
-  commands.registerCommand('sundial.pauseUntilNextCircle', () => sundial.pauseUntilNextCircle())
+  commands.registerCommand('sundial.pauseUntilNextCircle', () =>
+    sundial.pauseUntilNextCircle(),
+  )
 }
 
 export function deactivate(): void {

@@ -7,17 +7,13 @@
       "type": "extensionHost",
       "request": "launch",
       "preLaunchTask": "${defaultBuildTask}",
-      "internalConsoleOptions": "openOnFirstSessionStart",
       "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensions-dir=${workspaceFolder}/tmp/ext",
         "--user-data-dir=${workspaceFolder}/tmp/data",
-        "--enable-proposed-api=muuvmuuv.vscode-sundial",
+        "--extensionDevelopmentPath=${workspaceFolder}",
         "${workspaceFolder}/testProject"
       ],
-      "outFiles": [
-        "${workspaceFolder}/dist/**/*.js"
-      ]
+      "outFiles": ["${workspaceFolder}/dist/*.js"]
     }
   ]
 }
