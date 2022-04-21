@@ -13,5 +13,5 @@
   "sundial.nightVariable": -60,
   "sundial.daySettings": {},
   "sundial.nightSettings": {},
-  "sundial.interval": 0.01 // one minute
+  "sundial.interval": 2
 }

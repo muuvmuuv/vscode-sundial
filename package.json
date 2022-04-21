@@ -159,7 +159,7 @@
         "sundial.debug": {
           "type": "number",
           "default": 1,
-          "description": "More verbose console logs. See: https://github.com/pimterry/loglevel/blob/master/lib/loglevel.js#L181"
+          "description": "Set debug level: silent = 0, info = 1, error = 2, debug = 3"
         }
       }
     }

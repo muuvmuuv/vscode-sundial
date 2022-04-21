@@ -5,7 +5,7 @@
     {
       "label": "Watch",
       "type": "npm",
-      "script": "watch",
+      "script": "dev",
       "isBackground": true,
       "problemMatcher": {
         "base": "$tsc-watch",

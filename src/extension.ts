@@ -36,7 +36,9 @@ export function activate(context: ExtensionContext): void {
 
   outputChannel.clear()
 
-  sundial.enableExtension()
+  if (sundial.enabled) {
+    sundial.enableExtension()
+  }
 
   context.subscriptions.push(
     window.onDidChangeWindowState(check),

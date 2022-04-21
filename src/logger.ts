@@ -19,7 +19,7 @@ export function setLogLevelAll(level: LogLevel): void {
 }
 
 class Logger {
-  name: string
+  readonly name: string
   logLevel: LogLevel
 
   constructor(name: string, logLevel = LogLevel.INFO) {
@@ -41,8 +41,7 @@ class Logger {
 
   private log(messages: AllowedTypes[], level: LogLevel = LogLevel.SILENT) {
     if (this.logLevel < level) return
-    const message = this.buildLogString(level, messages)
-    outputChannel.appendLine(message)
+    outputChannel.appendLine(this.buildLogString(level, messages))
   }
 
   private buildLogString(logLevel: LogLevel, messages: AllowedTypes[]): string {

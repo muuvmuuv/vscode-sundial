@@ -6,6 +6,8 @@ import { getLogger, LogLevel, setLogLevelAll } from './logger'
 import sensors from './sensors'
 import { sleep } from './utils'
 
+const STATE_ENABLED = 'sundial.enabled'
+
 export interface Tides {
   sunrise: dayjs.Dayjs
   sunset: dayjs.Dayjs
@@ -30,25 +32,28 @@ export default class Sundial {
   static readonly extensionAlias = 'sundial'
   static extensionContext: ExtensionContext
 
-  private enabled = true
   private isRunning = false
   private nextCircle?: editor.TimeNames
   private checkInterval!: NodeJS.Timer
 
+  get enabled(): boolean {
+    return Sundial.extensionContext.globalState.get(STATE_ENABLED, true)
+  }
+
   enableExtension(): void {
     const log = getLogger('enableExtension')
-    log.info('Enabling Sundial...')
+    log.info('Enabling Sundial')
+    Sundial.extensionContext.globalState.update(STATE_ENABLED, true)
     this.nextCircle = undefined
-    this.enabled = true
     this.automator()
     this.check()
   }
 
   disableExtension(): void {
     const log = getLogger('disableExtension')
-    log.info('Disabling Sundial...')
-    clearInterval(this.checkInterval)
-    this.enabled = false
+    log.info('Disabling Sundial')
+    Sundial.extensionContext.globalState.update(STATE_ENABLED, false)
+    this.killAutomator()
   }
 
   async pauseUntilNextCircle(): Promise<void> {
@@ -60,6 +65,10 @@ export default class Sundial {
   }
 
   automator(): void {
+    if (!this.enabled) {
+      this.killAutomator()
+      return
+    }
     const log = getLogger('automator')
     const { sundial } = editor.getConfig()
     if (sundial.interval === 0) {
@@ -74,22 +83,28 @@ export default class Sundial {
     }, interval)
   }
 
+  killAutomator(): void {
+    clearInterval(this.checkInterval)
+  }
+
   async check(): Promise<void> {
     if (!this.enabled || this.isRunning) {
       return // disabled or already running
     }
     const log = getLogger('check')
-    log.info('Sundial check initialized...')
+    log.info('Sundial check initialized')
+    log.debug('With circle on ' + this.nextCircle)
 
     this.isRunning = true
+    this.killAutomator()
     const { sundial } = editor.getConfig()
-    clearInterval(this.checkInterval) // reset timer
     setLogLevelAll(sundial.debug)
 
     const currentTime = await this.getCurrentTime()
+    log.debug(`Current time is ${currentTime}`)
 
     if (this.nextCircle) {
-      log.debug(`Waiting for next circle: ${currentTime} => ${this.nextCircle}`)
+      log.info(`Waiting for next circle`)
       if (currentTime === this.nextCircle) {
         log.info('Next circle reached!')
         this.nextCircle = undefined
