@@ -47,7 +47,7 @@ async function AutoLocale(): Promise<Tides> {
       context.globalState.update('userLongitude', longitude)
     } catch (error) {
       log.error(error as string)
-      void window.showErrorMessage(
+      window.showErrorMessage(
         'Oops, something went wrong collecting your geolocation! ' +
           'Maybe it is a problem with the API. Please create an issue ' +
           'on GitHub should this problem persist.',
@@ -60,7 +60,7 @@ async function AutoLocale(): Promise<Tides> {
   if (!latitude || !longitude) {
     latitude = 0
     longitude = 0
-    void window.showInformationMessage(
+    window.showInformationMessage(
       "It seems you have been offline since the first start of VS Code, so we haven't had the chance to cache your location. Please go online or set your location manually.",
     )
   }

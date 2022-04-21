@@ -13,7 +13,7 @@ import Sundial from './sundial'
 const sundial = new Sundial() // Hi!
 
 function check() {
-  void sundial.check()
+  sundial.check()
 }
 
 function toggleTheme(time?: TimeNames) {

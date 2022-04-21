@@ -41,7 +41,7 @@ export default class Sundial {
     this.nextCircle = undefined
     this.enabled = true
     this.automator()
-    void this.check()
+    this.check()
   }
 
   disableExtension(): void {
@@ -70,7 +70,7 @@ export default class Sundial {
     const interval = 1000 * 60 * sundial.interval
     this.checkInterval = setInterval(() => {
       log.info('Autocheck')
-      void this.check()
+      this.check()
     }, interval)
   }
 

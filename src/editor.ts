@@ -41,7 +41,7 @@ export function applySettings(settings: WorkspaceConfiguration): void {
 
     workspaceSettings.update(k, configString, true).then(undefined, (error: string) => {
       log.error(error)
-      void window.showErrorMessage(
+      window.showErrorMessage(
         `You tried to apply \`${k}: ${configString}\` but this is not a valid` +
           ' VS Code settings key/value pair. Please make sure all settings that' +
           ' you give to Sundial are valid inside VS Code settings!',
@@ -59,7 +59,7 @@ export function changeThemeTo(newTheme: string): void {
   log.debug('Changing theme to:', newTheme)
   const { workbench } = getConfig()
   if (newTheme !== workbench.colorTheme) {
-    void workbench.update('colorTheme', newTheme, true)
+    workbench.update('colorTheme', newTheme, true)
   }
 }
 
