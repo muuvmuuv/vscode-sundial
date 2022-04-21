@@ -1,3 +1,13 @@
+
+
+## [3.1.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.0.0...v3.1.0) (2022-04-21)
+
+
+### Features
+
+* make enable/disable persistent ([c01d9ef](https://github.com/muuvmuuv/vscode-sundial/commit/c01d9ef09f45bc8cdcb21aab5be075ff1a5eb690))
+* remove void ([16d2b2d](https://github.com/muuvmuuv/vscode-sundial/commit/16d2b2d89017d4128f8939df1a2803b9f53fd9f2))
+
 undefined
 
 ## [3.0.0](https://github.com/muuvmuuv/vscode-sundial/compare/v2.6.2...v3.0.0) (2022-03-07)
