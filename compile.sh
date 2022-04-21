@@ -32,6 +32,5 @@ node_modules/.bin/esbuild src/extension.ts \
   --target=es2020 \
   --external:vscode \
   --outfile=dist/extension.js \
-  --sourcemap=external \
   --banner:js="$BANNER" \
   "$@"
