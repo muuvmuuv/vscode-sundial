@@ -1,5 +1,12 @@
 
 
+## [3.3.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.1.0...v3.3.0) (2023-04-26)
+
+
+### Features
+
+* update deps and min requirement ([44e1142](https://github.com/muuvmuuv/vscode-sundial/commit/44e1142e589fc51d5e249673e1c623351503274c))
+
 ## [3.1.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.0.0...v3.1.0) (2022-04-21)
 
 
