@@ -1,8 +1,7 @@
-dist
-out
-node_modules
-tmp
-.cache
+dist/
+out/
+node_modules/
+tmp/
 .eslintcache
+*.vsix
 .env
-meta.json

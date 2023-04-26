@@ -8,8 +8,6 @@
       "request": "launch",
       "preLaunchTask": "${defaultBuildTask}",
       "args": [
-        "--extensions-dir=${workspaceFolder}/tmp/ext",
-        "--user-data-dir=${workspaceFolder}/tmp/data",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "${workspaceFolder}/testProject"
       ],

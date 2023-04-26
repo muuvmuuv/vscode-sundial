@@ -5,20 +5,16 @@
 
 #### Change your VS Code theme/settings based on your sunset, sunrise, system appearance or other preferences!
 
-[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
-[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/installs-short/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
-[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/rating-star/muuvmuuv.vscode-sundial.svg)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
-[![Maintainability](https://api.codeclimate.com/v1/badges/52f93dc5f852410ef448/maintainability)](https://codeclimate.com/github/muuvmuuv/vscode-sundial/maintainability)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/alerts/)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript)
+![Visual Studio Marketplace Rating (Stars)](https://img.shields.io/visual-studio-marketplace/stars/muuvmuuv.vscode-sundial?style=flat-square)
+![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/muuvmuuv.vscode-sundial?style=flat-square)
 
 - [Installation](#installation)
 - [Keybindings](#keybindings)
 - [Commands](#commands)
 - [Settings](#settings)
-    - [Automatically set by current location](#automatically-set-by-current-location)
-    - [Automatically set by latitude and longitude](#automatically-set-by-latitude-and-longitude)
-    - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
+  - [Automatically set by current location](#automatically-set-by-current-location)
+  - [Automatically set by latitude and longitude](#automatically-set-by-latitude-and-longitude)
+  - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
   - [VS Code Settings](#vs-code-settings)
   - [Execution order](#execution-order)
   - [Examples](#examples)
@@ -212,7 +208,11 @@ next coming will be ignored.
 I am working with [**esbuild**](https://esbuild.github.io/) to bundle Sundial to the
 smallest possible size to increase the load time in VS Code _for you_.
 
-1.  Install packages via npm: `npm run install`
+> Currently minimum supported VS Code Version
+> [1.74.3](https://github.com/microsoft/vscode/tree/1.74.3)
+
+1.  Install packages via npm: `npm run install` (_pnpm_ does not work due to
+    [this VSCE Issue](https://github.com/microsoft/vscode-vsce/issues/421))
 2.  Run debugger => `Launch Extension`
     - View the _Extension Host_ and adjust settings to test **or**
     - Change a file and save it, let it compile
@@ -223,8 +223,11 @@ smallest possible size to increase the load time in VS Code _for you_.
 
 Sundial is deployed on VS Code Marketplace and Open VSX.
 
-- VS Code Marketplace: `vsce publish`
-- Open VSX: `npm run publish-ovsx`
+- VS Code Marketplace:
+  - `vsce publish`
+- Open VSX:
+  - `vsce package`
+  - `./node_modules/.bin/ovsx publish *.vsix -p TOKEN`
 
 ### Commits
 

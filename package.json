@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial – Automatic night mode and settings switch",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Automatically change your theme and settings based on your sunset, sunrise, system appearance or other preferences!",
   "icon": "assets/icon.png",
   "publisher": "muuvmuuv",
@@ -27,6 +27,7 @@
   "license": "GPLv3",
   "author": {
     "name": "Marvin Heilemann",
+    "email": "bloggt.raschelt.0m@icloud.com",
     "url": "https://marvin.digital/"
   },
   "main": "dist/extension.js",
@@ -40,35 +41,36 @@
   "dependencies": {
     "dayjs": "^1.10.7",
     "got": "^12.0.1",
-    "is-online": "^9.0.1",
+    "is-online": "^10.0.0",
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
-    "@arkweid/lefthook": "^0.7.6",
-    "@commitlint/cli": "^16.2.1",
-    "@commitlint/config-conventional": "^16.2.1",
-    "@release-it/conventional-changelog": "^4.1.0",
-    "@types/node": "16.11.25",
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
+    "@release-it/conventional-changelog": "^5.1.1",
+    "@types/node": "16.x",
     "@types/suncalc": "^1.8.1",
-    "@types/vscode": "1.65.0",
+    "@types/vscode": "^1.74.3",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
-    "esbuild": "^0.14.22",
+    "esbuild": "^0.17.18",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-unicorn": "^41.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unicorn": "^46.0.0",
+    "lefthook": "^1.3.10",
     "npm-run-all": "^4.1.5",
+    "ovsx": "^0.8.0",
     "prettier": "^2.4.1",
-    "release-it": "^14.11.6",
-    "typescript": "^4.6.2"
+    "release-it": "^15.10.1",
+    "typescript": "^5.0.0"
   },
   "engines": {
-    "vscode": "^1.65.0"
+    "vscode": "^1.74.3"
   },
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ],
   "contributes": {
     "commands": [

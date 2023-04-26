@@ -79,18 +79,21 @@ export function toggleTheme(time?: TimeNames): void {
   log.debug('Toggle theme to:', time || 'toggle')
   const config = getConfig()
   switch (time) {
-    case TimeNames.DAY:
+    case TimeNames.DAY: {
       changeToDay()
       break
-    case TimeNames.NIGHT:
+    }
+    case TimeNames.NIGHT: {
       changeToNight()
       break
-    default:
-      if (config.workbench.preferredDarkColorTheme !== config.workbench.colorTheme) {
-        changeToNight()
-      } else {
+    }
+    default: {
+      if (config.workbench.preferredDarkColorTheme === config.workbench.colorTheme) {
         changeToDay()
+      } else {
+        changeToNight()
       }
       break
+    }
   }
 }
