@@ -1,5 +1,18 @@
 
 
+## [3.4.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.3.0...v3.4.0) (2023-07-07)
+
+
+### Features
+
+* add status bar icon ([0132ede](https://github.com/muuvmuuv/vscode-sundial/commit/0132ede260497659d813db4526e9a64038dc1c7c))
+
+
+### Bug Fixes
+
+* got bug ([479885a](https://github.com/muuvmuuv/vscode-sundial/commit/479885afb4813f327494c6e706b3dfe65f2311b7))
+* status bar icon hidden after first run ([2efc757](https://github.com/muuvmuuv/vscode-sundial/commit/2efc75773b603923579c71e4503d42744a068cf2))
+
 ## [3.4.0-beta.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.3.0...v3.4.0-beta.0) (2023-07-07)
 
 
