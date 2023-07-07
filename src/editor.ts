@@ -9,17 +9,10 @@ const log = getLogger('editor')
 
 dayjs.extend(customParseFormat)
 
-export interface EditorConfig {
-  sundial: SundialConfiguration
-  workbench: WorkspaceConfiguration
-}
-
-export function getConfig(): EditorConfig {
-  const sundial = workspace.getConfiguration('sundial') as SundialConfiguration
-  const workbench = workspace.getConfiguration('workbench')
+export function getConfig() {
   return {
-    sundial,
-    workbench,
+    sundial: workspace.getConfiguration('sundial') as SundialConfiguration,
+    workbench: workspace.getConfiguration('workbench'),
   }
 }
 

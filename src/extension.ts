@@ -6,7 +6,7 @@ import {
   workspace,
 } from 'vscode'
 
-import { TimeNames, toggleTheme as editorToggleTheme } from './editor'
+import { TimeNames } from './editor'
 import { outputChannel } from './logger'
 import Sundial from './sundial'
 
@@ -16,17 +16,12 @@ function check() {
   sundial.check()
 }
 
-function toggleTheme(time?: TimeNames) {
-  sundial.disableExtension()
-  editorToggleTheme(time)
-}
-
 function configChanged(event: ConfigurationChangeEvent) {
-  const sundialConfig = event.affectsConfiguration('sundial')
-  const darkColorTheme = event.affectsConfiguration('workbench.preferredDarkColorTheme')
-  const lightColorTheme = event.affectsConfiguration('workbench.preferredDarkColorTheme')
-
-  if (sundialConfig || darkColorTheme || lightColorTheme) {
+  if (
+    event.affectsConfiguration('sundial') ||
+    event.affectsConfiguration('workbench.preferredDarkColorTheme') ||
+    event.affectsConfiguration('workbench.preferredDarkColorTheme')
+  ) {
     check()
   }
 }
@@ -48,10 +43,12 @@ export function activate(context: ExtensionContext): void {
   )
 
   commands.registerCommand('sundial.switchToNightTheme', () =>
-    toggleTheme(TimeNames.NIGHT),
+    sundial.toggleTheme(TimeNames.NIGHT),
   )
-  commands.registerCommand('sundial.switchToDayTheme', () => toggleTheme(TimeNames.DAY))
-  commands.registerCommand('sundial.toggleDayNightTheme', () => toggleTheme())
+  commands.registerCommand('sundial.switchToDayTheme', () =>
+    sundial.toggleTheme(TimeNames.DAY),
+  )
+  commands.registerCommand('sundial.toggleDayNightTheme', () => sundial.toggleTheme())
 
   commands.registerCommand('sundial.enableExtension', () => sundial.enableExtension())
   commands.registerCommand('sundial.disableExtension', () => sundial.disableExtension())

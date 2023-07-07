@@ -1,5 +1,11 @@
 import dayjs from 'dayjs'
-import { ExtensionContext, WorkspaceConfiguration } from 'vscode'
+import {
+  ExtensionContext,
+  StatusBarAlignment,
+  StatusBarItem,
+  window,
+  WorkspaceConfiguration,
+} from 'vscode'
 
 import * as editor from './editor'
 import { getLogger, LogLevel, setLogLevelAll } from './logger'
@@ -23,6 +29,7 @@ export interface SundialConfiguration extends WorkspaceConfiguration {
   nightVariable: number
   daySettings: WorkspaceConfiguration
   nightSettings: WorkspaceConfiguration
+  statusBarItemPriority: number
   interval: number
   debug: LogLevel
 }
@@ -30,16 +37,21 @@ export interface SundialConfiguration extends WorkspaceConfiguration {
 export default class Sundial {
   static readonly extensionName = 'Sundial'
   static readonly extensionAlias = 'sundial'
+
   static extensionContext: ExtensionContext
 
   private isRunning = false
   private nextCircle?: editor.TimeNames
   private checkInterval!: NodeJS.Timer
+  private statusBarItem?: StatusBarItem
 
   get enabled(): boolean {
     return Sundial.extensionContext.globalState.get(STATE_ENABLED, true)
   }
 
+  /**
+   * Enable the automation and checks.
+   */
   enableExtension(): void {
     const log = getLogger('enableExtension')
     log.info('Enabling Sundial')
@@ -49,13 +61,20 @@ export default class Sundial {
     this.check()
   }
 
+  /**
+   * Disable the extension automation and checks.
+   */
   disableExtension(): void {
     const log = getLogger('disableExtension')
     log.info('Disabling Sundial')
     Sundial.extensionContext.globalState.update(STATE_ENABLED, false)
     this.killAutomator()
+    this.statusBarItem?.dispose()
   }
 
+  /**
+   * Pause automated checks until next time circle.
+   */
   async pauseUntilNextCircle(): Promise<void> {
     const log = getLogger('pauseUntilNextCircle')
     const currentTime = await this.getCurrentTime()
@@ -64,6 +83,9 @@ export default class Sundial {
     log.info(`Waiting until it becomes ${this.nextCircle} again...`)
   }
 
+  /**
+   * Create and start the automator interval.
+   */
   automator(): void {
     if (!this.enabled) {
       this.killAutomator()
@@ -83,10 +105,16 @@ export default class Sundial {
     }, interval)
   }
 
+  /**
+   * Kill the automator interval.
+   */
   killAutomator(): void {
     clearInterval(this.checkInterval)
   }
 
+  /**
+   * Main check. Will change theme if needed.
+   */
   async check(): Promise<void> {
     if (!this.enabled || this.isRunning) {
       return // disabled or already running
@@ -120,11 +148,51 @@ export default class Sundial {
       }
     }
 
+    this.setStatusIconToggle()
+
     await sleep(400) // Short nap 😴
+
     this.isRunning = false
     this.automator()
   }
 
+  /**
+   * Toggle the theme and disable the extension. So no automation
+   * will be done until you enable it again.
+   *
+   * @see editor.toggleTheme
+   */
+  toggleTheme(time?: editor.TimeNames): void {
+    this.disableExtension()
+    editor.toggleTheme(time)
+  }
+
+  /**
+   * Set the status bar icon to toggle the theme.
+   */
+  private setStatusIconToggle(): void {
+    this.statusBarItem?.dispose()
+
+    if (!this.statusBarItem) {
+      const { sundial } = editor.getConfig()
+
+      this.statusBarItem = window.createStatusBarItem(
+        StatusBarAlignment.Right,
+        sundial.statusBarItemPriority,
+      )
+      this.statusBarItem.command = 'sundial.toggleDayNightTheme'
+      this.statusBarItem.text = '$(color-mode)'
+      this.statusBarItem.tooltip = 'Toggle day/night theme'
+
+      Sundial.extensionContext.subscriptions.push(this.statusBarItem)
+    }
+
+    this.statusBarItem.show()
+  }
+
+  /**
+   * Get current time name based on sunrise and sunset.
+   */
   private async getCurrentTime(): Promise<editor.TimeNames> {
     const log = getLogger('getCurrentTime')
     const tides = await this.getTides()
@@ -143,6 +211,9 @@ export default class Sundial {
     return editor.TimeNames.NIGHT // always return something
   }
 
+  /**
+   * Get sunrise and sunset based on user settings.
+   */
   private async getTides() {
     const log = getLogger('getTides')
     const { sundial } = editor.getConfig()
@@ -162,6 +233,9 @@ export default class Sundial {
     }
   }
 
+  /**
+   * Set the time variables based on tides.
+   */
   private evaluateTides(tides: Tides) {
     const log = getLogger('evaluateTides')
     const { sundial } = editor.getConfig()
@@ -194,6 +268,9 @@ export default class Sundial {
     }
   }
 
+  /**
+   * Set the time variables based on user settings.
+   */
   private setTimeVariables(tides: Tides) {
     const log = getLogger('setTimeVariables')
     const { sundial } = editor.getConfig()
