@@ -22,7 +22,7 @@ function configChanged(event: ConfigurationChangeEvent) {
     event.affectsConfiguration('workbench.preferredDarkColorTheme') ||
     event.affectsConfiguration('workbench.preferredDarkColorTheme')
   ) {
-    check()
+    sundial.enableExtension()
   }
 }
 

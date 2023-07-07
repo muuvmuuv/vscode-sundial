@@ -59,6 +59,7 @@ export default class Sundial {
     this.nextCircle = undefined
     this.automator()
     this.check()
+    this.createStatusBarIcon()
   }
 
   /**
@@ -69,7 +70,6 @@ export default class Sundial {
     log.info('Disabling Sundial')
     Sundial.extensionContext.globalState.update(STATE_ENABLED, false)
     this.killAutomator()
-    this.statusBarItem?.dispose()
   }
 
   /**
@@ -148,8 +148,6 @@ export default class Sundial {
       }
     }
 
-    this.setStatusIconToggle()
-
     await sleep(400) // Short nap 😴
 
     this.isRunning = false
@@ -170,22 +168,26 @@ export default class Sundial {
   /**
    * Set the status bar icon to toggle the theme.
    */
-  private setStatusIconToggle(): void {
-    this.statusBarItem?.dispose()
-
-    if (!this.statusBarItem) {
-      const { sundial } = editor.getConfig()
-
-      this.statusBarItem = window.createStatusBarItem(
-        StatusBarAlignment.Right,
-        sundial.statusBarItemPriority,
-      )
-      this.statusBarItem.command = 'sundial.toggleDayNightTheme'
-      this.statusBarItem.text = '$(color-mode)'
-      this.statusBarItem.tooltip = 'Toggle day/night theme'
-
-      Sundial.extensionContext.subscriptions.push(this.statusBarItem)
+  private createStatusBarIcon(): void {
+    if (this.statusBarItem) {
+      this.statusBarItem.dispose()
     }
+
+    const { sundial } = editor.getConfig()
+
+    this.statusBarItem = window.createStatusBarItem(
+      StatusBarAlignment.Right,
+      sundial.statusBarItemPriority,
+    )
+    this.statusBarItem.accessibilityInformation = {
+      label: 'Toggle day/night theme',
+      role: 'button',
+    }
+    this.statusBarItem.command = 'sundial.toggleDayNightTheme'
+    this.statusBarItem.text = '$(color-mode)'
+    this.statusBarItem.tooltip = 'Toggle day/night theme'
+
+    Sundial.extensionContext.subscriptions.push(this.statusBarItem)
 
     this.statusBarItem.show()
   }

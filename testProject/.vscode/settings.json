@@ -13,5 +13,6 @@
   "sundial.nightVariable": -60,
   "sundial.daySettings": {},
   "sundial.nightSettings": {},
+  "sundial.statusBarItemPriority": 101,
   "sundial.interval": 2
 }

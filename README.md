@@ -17,9 +17,11 @@
   - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
   - [VS Code Settings](#vs-code-settings)
   - [Execution order](#execution-order)
+  - [Status bar icon](#status-bar-icon)
   - [Examples](#examples)
 - [Development](#development)
   - [Deployment](#deployment)
+    - [Pre-release](#pre-release)
   - [Commits](#commits)
 
 Sundial changes your theme and VS Code settings (if needed) based on your day and night
@@ -31,6 +33,9 @@ working in the night or on the day. Humans should not strain their eyes too much
 
 Whenever you have ideas for this project, things you would like to add or you found a bug,
 feel free to create an issue or start contributing! 😇
+
+> The minimum supported VS Code version is
+> [1.74.3](https://github.com/microsoft/vscode/tree/1.74.3)
 
 <p>
   <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
@@ -79,7 +84,8 @@ banner below:
 | Sundial: Disable extension        | Disables extension.                         |
 | Sundial: Pause until next circle  | Pause until next day/night circle.          |
 
-> Note: Whenever you use one of the first three commands, Sundial will be disabled.
+> Note: Whenever you use one of the first three commands, Sundial will disable its
+> automatic checks.
 
 ## Settings
 
@@ -95,12 +101,15 @@ banner below:
 | `sundial.nightVariable`              | _0_              | Set a variable to change the theme **X minutes** before or after sunset.  |
 | `sundial.daySettings`                | _{}_             | An **object** of VSCode settings applied on the day.                      |
 | `sundial.nightSettings`              | _{}_             | An **object** of VSCode settings applied on the night.                    |
+| `sundial.statusBarItemPriority`      | _100_            | Set the status bar icon position (higher mean more left).                 |
 | `sundial.interval`                   | _5_              | Set a interval in which sundial should check the time in **minutes**.     |
 
 > ⚠️ Don't forget to set `"window.autoDetectColorScheme": false`
 
 > If you set the interval to zero (0) sundial will not periodically check the time but
 > still when VS Code triggers some editor events.
+
+> Any changes to sundial or VS Code settings will re-enable Sundial.
 
 > On both `daySettings` and `nightSettings` they will override your Workbench VSCode
 > settings. Please make sure both have the same properties otherwise they will not change
@@ -165,6 +174,13 @@ next coming will be ignored.
 2. `sundial.autoLocale`
 3. `sundial.sunrise` and `sundial.sunset`
 
+### Status bar icon
+
+![Status bar icon](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/main/assets/status-bar-icon.png)
+
+Sundial will show a status bar icon that will toggle the current theme on click. This will
+also disable all sundial automated checks.
+
 ### Examples
 
 ```jsonc
@@ -208,7 +224,7 @@ next coming will be ignored.
 I am working with [**esbuild**](https://esbuild.github.io/) to bundle Sundial to the
 smallest possible size to increase the load time in VS Code _for you_.
 
-> Currently minimum supported VS Code Version
+> The minimum supported VS Code version is
 > [1.74.3](https://github.com/microsoft/vscode/tree/1.74.3)
 
 1.  Install packages via npm: `npm run install` (_pnpm_ does not work due to
@@ -221,6 +237,13 @@ smallest possible size to increase the load time in VS Code _for you_.
 
 ### Deployment
 
+We use `release-it` to create a new release. This will automatically create a tag, release
+and new changelog for us.
+
+```
+pnpm release-it --help
+```
+
 Sundial is deployed on VS Code Marketplace and Open VSX.
 
 - VS Code Marketplace:
@@ -228,6 +251,16 @@ Sundial is deployed on VS Code Marketplace and Open VSX.
 - Open VSX:
   - `vsce package`
   - `./node_modules/.bin/ovsx publish *.vsix -p TOKEN`
+
+#### Pre-release
+
+We update our version with release-it, so we must use some additional flags for `vsce`.
+The version must be without pre-release identifier, because VS Code Marketplace does not
+allow those.
+
+```
+pnpm vsce publish --pre-release --no-git-tag-version --no-update-package-json <pre_release_version>
+```
 
 ### Commits
 
