@@ -10,7 +10,11 @@
     "strict": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "paths": {
+      // BUG: https://github.com/sindresorhus/got/issues/2267
+      "got": ["./node_modules/got/dist/source"]
+    }
   },
   "exclude": ["node_modules", "tmp", "dist"]
 }
