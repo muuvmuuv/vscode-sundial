@@ -1,7 +1,7 @@
 {
   "name": "vscode-sundial",
   "displayName": "Sundial – Automatic night mode and settings switch",
-  "version": "3.3.0",
+  "version": "3.4.0-beta.0",
   "description": "Automatically change your theme and settings based on your sunset, sunrise, system appearance or other preferences!",
   "icon": "assets/icon.png",
   "publisher": "muuvmuuv",

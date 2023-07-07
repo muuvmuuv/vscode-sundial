@@ -1,5 +1,12 @@
 
 
+## [3.4.0-beta.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.3.0...v3.4.0-beta.0) (2023-07-07)
+
+
+### Features
+
+* add status bar icon ([0132ede](https://github.com/muuvmuuv/vscode-sundial/commit/0132ede260497659d813db4526e9a64038dc1c7c))
+
 ## [3.3.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.1.0...v3.3.0) (2023-04-26)
 
 
