@@ -36,34 +36,35 @@
     "compile": "sh compile.sh",
     "package": "sh compile.sh --minify",
     "lint": "eslint --cache --ext js,ts .",
+    "format": "prettier --ignore-path=.gitignore --write **/*.{js,ts,json,md}",
     "vscode:prepublish": "npm run package"
   },
   "dependencies": {
     "dayjs": "^1.10.7",
-    "got": "^12.0.1",
+    "got": "^13.0.0",
     "is-online": "^10.0.0",
     "suncalc": "^1.8.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
-    "@release-it/conventional-changelog": "^5.1.1",
+    "@release-it/conventional-changelog": "^6.0.0",
     "@types/node": "16.x",
     "@types/suncalc": "^1.8.1",
     "@types/vscode": "^1.74.3",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
-    "esbuild": "^0.17.18",
+    "esbuild": "^0.18.11",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "eslint-plugin-unicorn": "^46.0.0",
+    "eslint-plugin-unicorn": "^47.0.0",
     "lefthook": "^1.3.10",
     "npm-run-all": "^4.1.5",
     "ovsx": "^0.8.0",
-    "prettier": "^2.4.1",
-    "release-it": "^15.10.1",
+    "prettier": "^3.0.0",
+    "release-it": "^15.0.0",
     "typescript": "^5.0.0"
   },
   "engines": {
@@ -152,6 +153,11 @@
           "type": "object",
           "default": {},
           "description": "Set some VSCode settings you would like to override during the night."
+        },
+        "sundial.statusBarItemPriority": {
+          "type": "number",
+          "default": 100,
+          "description": "Set the position of the status bar item (higher mean more on the left)."
         },
         "sundial.interval": {
           "type": "number",
