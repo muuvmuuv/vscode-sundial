@@ -252,7 +252,7 @@ Sundial is deployed on VS Code Marketplace and Open VSX.
   - `vsce publish`
 - Open VSX:
   - `vsce package`
-  - `./node_modules/.bin/ovsx publish *.vsix -p TOKEN`
+  - `npx ovsx publish *.vsix -p TOKEN`
 
 #### Pre-release
 
