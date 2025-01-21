@@ -15,7 +15,7 @@ export function applySettings(settings: WorkspaceConfiguration): void {
 		return // no settings, nothing to do
 	}
 
-	// log.debug("NEW", JSON.stringify(settings, undefined, 2))
+	// log("NEW", JSON.stringify(settings, undefined, 2))
 
 	const workspaceSettings = workspace.getConfiguration()
 
@@ -26,8 +26,8 @@ export function applySettings(settings: WorkspaceConfiguration): void {
 
 		const configString = settings[k] as string
 
-		workspaceSettings.update(k, configString, true).then(undefined, (error: string) => {
-			log.error(error)
+		workspaceSettings.update(k, configString, true).then(undefined, (error) => {
+			log(error)
 			window.showErrorMessage(
 				`You tried to apply \`${k}: ${configString}\` but this is not a valid VS Code settings key/value pair. Please make sure all settings that you give to Sundial are valid inside VS Code settings!`,
 			)
@@ -41,7 +41,7 @@ export enum TimeName {
 }
 
 export function changeThemeTo(newTheme: string): void {
-	log.debug("Changing theme to", newTheme)
+	log("Changing theme to", newTheme)
 	const { workbench } = getConfig()
 	if (newTheme !== workbench.colorTheme) {
 		workbench.update("colorTheme", newTheme, true)
@@ -61,7 +61,7 @@ export function changeToNight(): void {
 }
 
 export function toggleTheme(time?: TimeName): void {
-	log.debug("Toggle theme to:", time || "toggle")
+	log("Toggle theme to", time || "toggle")
 	const config = getConfig()
 	switch (time) {
 		case TimeName.Day: {

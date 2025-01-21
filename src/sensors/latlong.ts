@@ -12,8 +12,8 @@ export function getLatLong(): Tides {
 		throw window.showErrorMessage("Sundial needs both, latitude and longitude")
 	}
 
-	log.debug("Config latitude", config.sundial.latitude)
-	log.debug("Config longitude", config.sundial.longitude)
+	log("Config latitude", config.sundial.latitude)
+	log("Config longitude", config.sundial.longitude)
 
 	const tides = getTimes(
 		new Date(),

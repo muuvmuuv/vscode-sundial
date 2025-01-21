@@ -51,7 +51,7 @@ export class Sundial {
 	 * Enable the automation and checks.
 	 */
 	enableExtension(): void {
-		log.info("Enabling Sundial")
+		log("Enabling Sundial")
 		Sundial.extensionContext.globalState.update(STATE_ENABLED, true)
 		this.automator()
 		this.check()
@@ -62,7 +62,7 @@ export class Sundial {
 	 * Disable the extension automation and checks.
 	 */
 	disableExtension(): void {
-		log.info("Disabling Sundial")
+		log("Disabling Sundial")
 		Sundial.extensionContext.globalState.update(STATE_ENABLED, false)
 		this.killAutomator()
 	}
@@ -77,13 +77,13 @@ export class Sundial {
 		}
 		const { sundial } = getConfig()
 		if (sundial.interval === 0) {
-			log.info("Automator offline")
+			log("Automator offline")
 			return
 		}
-		log.info("Automator online")
+		log("Automator online")
 		const interval = 1000 * 60 * sundial.interval
 		this.checkInterval = setInterval(() => {
-			log.info("Run autocheck")
+			log("Run autocheck")
 			this.check()
 		}, interval)
 	}
@@ -103,19 +103,19 @@ export class Sundial {
 			return // disabled or already running
 		}
 
-		log.info("Check initialized")
+		log("Check initialized")
 
 		this.isRunning = true
 		this.killAutomator()
 
 		const currentTimeName = await this.getCurrentTime()
-		log.debug(`Current time is ${currentTimeName}`)
+		log(`Current time is ${currentTimeName}`)
 
 		if (currentTimeName === TimeName.Day) {
-			log.info("Will apply your day theme! 🌕")
+			log("Will apply your day theme! 🌕")
 			changeToDay()
 		} else {
-			log.info("Will apply your night theme! 🌑")
+			log("Will apply your night theme! 🌑")
 			changeToNight()
 		}
 
@@ -171,12 +171,12 @@ export class Sundial {
 			this.evaluateTides(tides)
 
 		if (nowIsAfterSunrise && nowIsBeforeSunset) {
-			log.debug("It is", TimeName.Day)
+			log("It is", TimeName.Day)
 			return TimeName.Day
 		}
 
 		if (nowIsBeforeSunrise || nowIsAfterSunset) {
-			log.debug("It is", TimeName.Night)
+			log("It is", TimeName.Night)
 			return TimeName.Night
 		}
 
@@ -190,16 +190,17 @@ export class Sundial {
 		const { sundial } = getConfig()
 
 		if (sundial.latitude && sundial.longitude) {
-			log.info("Will use your latitude and longitude")
+			log("Will use your latitude and longitude")
 			return getLatLong()
 		}
 
 		if (sundial.autoLocale) {
-			log.info("Will now try to detect your location")
+			log("Will now try to detect your location")
 			return await getAutoLocale()
 		}
 
-		log.info("Will use your time settings")
+		log("Will use your time settings")
+
 		return {
 			sunrise: parse(sundial.sunrise, "HH:mm", new Date()),
 			sunset: parse(sundial.sunset, "HH:mm", new Date()),
@@ -215,11 +216,11 @@ export class Sundial {
 		let { sunrise, sunset } = tides
 		if (sundial.dayVariable) {
 			sunrise = addMinutes(sunrise, sundial.dayVariable)
-			log.debug(`Adjusted ${sundial.dayVariable} minutes from day`)
+			log(`Adjusted ${sundial.dayVariable} minutes from day`)
 		}
 		if (sundial.nightVariable) {
 			sunset = addMinutes(sunset, sundial.nightVariable)
-			log.debug(`Adjusted ${sundial.nightVariable} minutes from night`)
+			log(`Adjusted ${sundial.nightVariable} minutes from night`)
 		}
 
 		const now = Date.now()
@@ -229,13 +230,13 @@ export class Sundial {
 		const nowIsBeforeSunset = isBefore(now, sunset)
 		const nowIsAfterSunset = isAfter(now, sunset)
 
-		log.debug("Now:", now)
-		log.debug("Sunrise:", sunrise)
-		log.debug("Sunset:", sunset)
-		log.debug("nowIsBeforeSunrise:", nowIsBeforeSunrise)
-		log.debug("nowIsAfterSunrise:", nowIsAfterSunrise)
-		log.debug("nowIsBeforeSunset:", nowIsBeforeSunset)
-		log.debug("nowIsAfterSunset:", nowIsAfterSunset)
+		log("Now:", now)
+		log("Sunrise:", sunrise)
+		log("Sunset:", sunset)
+		log("nowIsBeforeSunrise:", nowIsBeforeSunrise)
+		log("nowIsAfterSunrise:", nowIsAfterSunrise)
+		log("nowIsBeforeSunset:", nowIsBeforeSunset)
+		log("nowIsAfterSunset:", nowIsAfterSunset)
 
 		return {
 			nowIsBeforeSunrise,

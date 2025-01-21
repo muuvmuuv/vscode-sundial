@@ -23,7 +23,7 @@ export async function getAutoLocale(): Promise<Tides> {
 	let latitude = context.globalState.get<number>("userLatitude")
 	let longitude = context.globalState.get<number>("userLongitude")
 
-	log.debug("Auto locale timeout", timeout)
+	log("Auto locale timeout", timeout)
 
 	const connected = await isOnline()
 
@@ -41,12 +41,12 @@ export async function getAutoLocale(): Promise<Tides> {
 			context.globalState.update("userLongitude", longitude)
 		} catch (error) {
 			if (error instanceof Error) {
-				log.error(error.message)
+				log(error.message)
 			}
 			window.showErrorMessage("Fetching your location went wrong, please open an issue")
 		}
 	} else {
-		log.info("Not connected, reusing existing geolocation")
+		log("Not connected, reusing existing geolocation")
 	}
 
 	if (!(latitude && longitude)) {
@@ -57,8 +57,8 @@ export async function getAutoLocale(): Promise<Tides> {
 		)
 	}
 
-	log.debug("Auto locale latitude", latitude)
-	log.debug("Auto locale longitude", longitude)
+	log("Auto locale latitude", latitude)
+	log("Auto locale longitude", longitude)
 
 	const tides = getTimes(now, latitude, longitude)
 
