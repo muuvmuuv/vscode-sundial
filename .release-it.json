@@ -1,7 +1,7 @@
 {
 	"default": "https://github.com/release-it/release-it/blob/master/conf/release-it.json",
 	"hooks": {
-		"before:init": "npm run lint && npm run package"
+		"before:init": "npm run check && npm run package"
 	},
 	"git": {
 		"requireCleanWorkingDir": false,
