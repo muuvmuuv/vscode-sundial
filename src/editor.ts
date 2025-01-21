@@ -1,13 +1,7 @@
-import dayjs from "dayjs"
-import customParseFormat from "dayjs/plugin/customParseFormat"
 import { type WorkspaceConfiguration, window, workspace } from "vscode"
 
-import { getLogger } from "./logger.js"
+import { log } from "./logger.js"
 import type { SundialConfiguration } from "./sundial.js"
-
-const log = getLogger("editor")
-
-dayjs.extend(customParseFormat)
 
 export function getConfig() {
 	return {
@@ -21,7 +15,7 @@ export function applySettings(settings: WorkspaceConfiguration): void {
 		return // no settings, nothing to do
 	}
 
-	log.debug("Changing settings to:", JSON.stringify(settings, undefined, 2))
+	// log.debug("NEW", JSON.stringify(settings, undefined, 2))
 
 	const workspaceSettings = workspace.getConfiguration()
 
@@ -47,7 +41,7 @@ export enum TimeName {
 }
 
 export function changeThemeTo(newTheme: string): void {
-	log.debug("Changing theme to:", newTheme)
+	log.debug("Changing theme to", newTheme)
 	const { workbench } = getConfig()
 	if (newTheme !== workbench.colorTheme) {
 		workbench.update("colorTheme", newTheme, true)

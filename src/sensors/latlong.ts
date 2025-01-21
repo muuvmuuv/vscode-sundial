@@ -1,33 +1,28 @@
-import dayjs from "dayjs"
 import { getTimes } from "suncalc"
 import { window } from "vscode"
 
 import { getConfig } from "../editor.js"
-import { getLogger } from "../logger.js"
+import { log } from "../logger.js"
 import type { Tides } from "../sundial.js"
 
 export function getLatLong(): Tides {
-	const now = dayjs()
-	const log = getLogger("useLatitudeLongitude")
 	const config = getConfig()
 
 	if (!(config.sundial.latitude && config.sundial.longitude)) {
-		throw window.showErrorMessage(
-			"Sundial needs both, latitude and longitude, to work with this configuration!",
-		)
+		throw window.showErrorMessage("Sundial needs both, latitude and longitude")
 	}
 
-	log.debug("Latitude:", config.sundial.latitude)
-	log.debug("Longitude:", config.sundial.longitude)
+	log.debug("Config latitude", config.sundial.latitude)
+	log.debug("Config longitude", config.sundial.longitude)
 
 	const tides = getTimes(
-		now.toDate(),
+		new Date(),
 		Number(config.sundial.latitude),
 		Number(config.sundial.longitude),
 	)
 
 	return {
-		sunrise: dayjs(tides.sunrise),
-		sunset: dayjs(tides.sunset),
+		sunrise: tides.sunrise,
+		sunset: tides.sunset,
 	}
 }

@@ -33,8 +33,6 @@
 	},
 	"dependencies": {
 		"date-fns": "^4.1.0",
-		"dayjs": "^1.11.13",
-		"got": "^14.4.5",
 		"is-online": "^11.0.0",
 		"suncalc": "^1.8.0"
 	},
@@ -77,10 +75,6 @@
 			{
 				"command": "sundial.disableExtension",
 				"title": "Sundial: Disable extension"
-			},
-			{
-				"command": "sundial.pauseUntilNextCircle",
-				"title": "Sundial: Pause until next circle"
 			}
 		],
 		"keybindings": [
@@ -146,11 +140,6 @@
 					"type": "number",
 					"default": 5,
 					"description": "Set in which interval Sundial should check the time. (in minutes)"
-				},
-				"sundial.debug": {
-					"type": "number",
-					"default": 1,
-					"description": "Set debug level: silent = 0, info = 1, error = 2, debug = 3"
 				}
 			}
 		}

@@ -5,14 +5,14 @@
 	"workbench.preferredLightColorTheme": "Default Light+",
 	"sundial.debug": 3,
 	// "sundial.autoLocale": true,
-	// "sundial.latitude": "25.7823907",
-	// "sundial.longitude": "-80.29967",
+	"sundial.latitude": "",
+	"sundial.longitude": "",
 	"sundial.sunrise": "07:00",
-	"sundial.sunset": "21:00",
+	"sundial.sunset": "17:00",
 	"sundial.dayVariable": 0,
-	"sundial.nightVariable": -60,
+	"sundial.nightVariable": 0,
 	"sundial.daySettings": {},
 	"sundial.nightSettings": {},
 	"sundial.statusBarItemPriority": 101,
-	"sundial.interval": 2
+	"sundial.interval": 10
 }

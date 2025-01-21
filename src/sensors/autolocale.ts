@@ -1,11 +1,9 @@
-import dayjs from "dayjs"
-import got from "got"
 import isOnline from "is-online"
 import { getTimes } from "suncalc"
 import { window } from "vscode"
 
-import { getConfig } from "../editor.js"
-import { LogLevel, getLogger } from "../logger.js"
+import { addMinutes, isAfter } from "date-fns"
+import { log } from "../logger.js"
 import { Sundial, type Tides } from "../sundial.js"
 
 interface Response {
@@ -13,32 +11,28 @@ interface Response {
 	lon: number
 }
 
-let now = dayjs()
-let end = now.add(-1, "minute")
+let now = new Date()
+let end = addMinutes(now, -1)
 
 export async function getAutoLocale(): Promise<Tides> {
-	const log = getLogger("useAutoLocale")
+	now = new Date()
 
-	now = dayjs()
-
-	const timeout = now.isAfter(end, "minute")
+	const timeout = isAfter(now, end)
 	const context = Sundial.extensionContext
 
 	let latitude = context.globalState.get<number>("userLatitude")
 	let longitude = context.globalState.get<number>("userLongitude")
 
-	log.debug("Timeout:", timeout)
+	log.debug("Auto locale timeout", timeout)
 
-	const config = getConfig()
 	const connected = await isOnline()
 
-	if (connected && (timeout || config.sundial.debug === LogLevel.Debug)) {
-		end = now.add(5, "minute")
+	if (connected && timeout) {
+		end = addMinutes(now, 5)
 
 		try {
-			const { lat, lon }: Response = await got(
-				"http://ip-api.com/json/?fields=lat,lon",
-			).json()
+			const response = await fetch("http://ip-api.com/json/?fields=lat,lon")
+			const { lat, lon } = (await response.json()) as Response
 
 			latitude = lat
 			longitude = lon
@@ -46,32 +40,30 @@ export async function getAutoLocale(): Promise<Tides> {
 			context.globalState.update("userLatitude", latitude)
 			context.globalState.update("userLongitude", longitude)
 		} catch (error) {
-			log.error(error as string)
-			window.showErrorMessage(
-				"Oops, something went wrong collecting your geolocation! " +
-					"Maybe it is a problem with the API. Please create an issue " +
-					"on GitHub should this problem persist.",
-			)
+			if (error instanceof Error) {
+				log.error(error.message)
+			}
+			window.showErrorMessage("Fetching your location went wrong, please open an issue")
 		}
 	} else {
-		log.info("Not connected to internet, reusing existing geolocation")
+		log.info("Not connected, reusing existing geolocation")
 	}
 
 	if (!(latitude && longitude)) {
 		latitude = 0
 		longitude = 0
 		window.showInformationMessage(
-			"It seems you have been offline since the first start of VS Code, so we haven't had the chance to cache your location. Please go online or set your location manually.",
+			"Unable to fetch or use cached location, please set manually",
 		)
 	}
 
-	log.debug("Latitude:", latitude)
-	log.debug("Longitude:", longitude)
+	log.debug("Auto locale latitude", latitude)
+	log.debug("Auto locale longitude", longitude)
 
-	const tides = getTimes(now.toDate(), latitude, longitude)
+	const tides = getTimes(now, latitude, longitude)
 
 	return {
-		sunrise: dayjs(tides.sunrise),
-		sunset: dayjs(tides.sunset),
+		sunrise: tides.sunrise,
+		sunset: tides.sunset,
 	}
 }

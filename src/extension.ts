@@ -52,9 +52,6 @@ export function activate(context: ExtensionContext): void {
 
 	commands.registerCommand("sundial.enableExtension", () => sundial.enableExtension())
 	commands.registerCommand("sundial.disableExtension", () => sundial.disableExtension())
-	commands.registerCommand("sundial.pauseUntilNextCircle", () =>
-		sundial.pauseUntilNextCircle(),
-	)
 }
 
 export function deactivate(): void {
