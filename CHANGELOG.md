@@ -1,5 +1,10 @@
 # Changelog
 
+## <small>3.5.1 (2025-01-21)</small>
+
+* build: ignore more files ([6e2cb1d](https://github.com/muuvmuuv/vscode-sundial/commit/6e2cb1d))
+* feat: remove logger complexity ([c1909aa](https://github.com/muuvmuuv/vscode-sundial/commit/c1909aa))
+
 ## 3.5.0 (2025-01-21)
 
 * build: fix release-it hooks ([3681596](https://github.com/muuvmuuv/vscode-sundial/commit/3681596))
