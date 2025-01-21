@@ -1,3 +1,12 @@
+# Changelog
+
+## 3.5.0 (2025-01-21)
+
+* build: fix release-it hooks ([3681596](https://github.com/muuvmuuv/vscode-sundial/commit/3681596))
+* build: format on release ([32a7625](https://github.com/muuvmuuv/vscode-sundial/commit/32a7625))
+* refactor: replace dajs with date-fns and remove got ([1bd6d23](https://github.com/muuvmuuv/vscode-sundial/commit/1bd6d23))
+* refactor: use biome and optimize code quality ([64e8006](https://github.com/muuvmuuv/vscode-sundial/commit/64e8006))
+
 ## [3.4.1](https://github.com/muuvmuuv/vscode-sundial/compare/v3.4.0...v3.4.1) (2023-07-07)
 
 ## [3.4.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.3.0...v3.4.0) (2023-07-07)
