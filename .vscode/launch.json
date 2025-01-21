@@ -1,17 +1,17 @@
 // https://code.visualstudio.com/docs/editor/debugging#_launch-configurations
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Launch Extension",
-      "type": "extensionHost",
-      "request": "launch",
-      "preLaunchTask": "${defaultBuildTask}",
-      "args": [
-        "--extensionDevelopmentPath=${workspaceFolder}",
-        "${workspaceFolder}/testProject"
-      ],
-      "outFiles": ["${workspaceFolder}/dist/*.js"]
-    }
-  ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Launch Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"preLaunchTask": "${defaultBuildTask}",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"${workspaceFolder}/testProject"
+			],
+			"outFiles": ["${workspaceFolder}/dist/*.js"]
+		}
+	]
 }

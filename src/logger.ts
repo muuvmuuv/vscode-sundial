@@ -1,66 +1,67 @@
-import { window } from 'vscode'
+import { window } from "vscode"
 
 export enum LogLevel {
-  SILENT,
-  INFO,
-  ERROR,
-  DEBUG,
+	Silent = 0,
+	Info = 1,
+	Error = 2,
+	Debug = 3,
 }
 
 type AllowedTypes = string | number | boolean | object
 
 export const loggers: Logger[] = []
-export const outputChannel = window.createOutputChannel('Sundial')
+export const outputChannel = window.createOutputChannel("Sundial")
 
 export function setLogLevelAll(level: LogLevel): void {
-  for (const l of loggers) {
-    l.logLevel = level
-  }
+	for (const l of loggers) {
+		l.logLevel = level
+	}
 }
 
 class Logger {
-  readonly name: string
-  logLevel: LogLevel
+	readonly name: string
+	logLevel: LogLevel
 
-  constructor(name: string, logLevel = LogLevel.INFO) {
-    this.name = name
-    this.logLevel = logLevel
-  }
+	constructor(name: string, logLevel = LogLevel.Info) {
+		this.name = name
+		this.logLevel = logLevel
+	}
 
-  info(...messages: AllowedTypes[]) {
-    this.log(messages, LogLevel.INFO)
-  }
+	info(...messages: AllowedTypes[]) {
+		this.log(messages, LogLevel.Info)
+	}
 
-  error(...messages: AllowedTypes[]) {
-    this.log(messages, LogLevel.ERROR)
-  }
+	error(...messages: AllowedTypes[]) {
+		this.log(messages, LogLevel.Error)
+	}
 
-  debug(...messages: AllowedTypes[]) {
-    this.log(messages, LogLevel.DEBUG)
-  }
+	debug(...messages: AllowedTypes[]) {
+		this.log(messages, LogLevel.Debug)
+	}
 
-  private log(messages: AllowedTypes[], level: LogLevel = LogLevel.SILENT) {
-    if (this.logLevel < level) return
-    outputChannel.appendLine(this.buildLogString(level, messages))
-  }
+	private log(messages: AllowedTypes[], level: LogLevel = LogLevel.Silent) {
+		if (this.logLevel < level) {
+			return
+		}
+		outputChannel.appendLine(this.buildLogString(level, messages))
+	}
 
-  private buildLogString(logLevel: LogLevel, messages: AllowedTypes[]): string {
-    const template: string[] = []
-    template.push(`[${LogLevel[logLevel].toUpperCase()}]`, `(Sundial:${this.name})`, `=>`)
-    for (const message of messages) {
-      template.push(message.toString())
-    }
-    return template.join(' ')
-  }
+	private buildLogString(logLevel: LogLevel, messages: AllowedTypes[]): string {
+		const template: string[] = []
+		template.push(`[${LogLevel[logLevel].toUpperCase()}]`, `(Sundial:${this.name})`, "=>")
+		for (const message of messages) {
+			template.push(message.toString())
+		}
+		return template.join(" ")
+	}
 }
 
 export function getLogger(name: string): Logger {
-  const logger = loggers.find((l) => l.name === name)
-  if (logger) {
-    return logger
-  } else {
-    const newLogger = new Logger(name)
-    loggers.push(newLogger)
-    return newLogger
-  }
+	const logger = loggers.find((l) => l.name === name)
+	if (logger) {
+		return logger
+	}
+	const newLogger = new Logger(name)
+	loggers.push(newLogger)
+	return newLogger
 }

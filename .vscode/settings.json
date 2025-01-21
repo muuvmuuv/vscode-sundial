@@ -1,1 +1,17 @@
-{}
+{
+	"biome.rename": true,
+	"[json][jsonc][json5]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascript][typescript]": {
+		"editor.defaultFormatter": "biomejs.biome",
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": "explicit",
+			"source.organizeImports.biome": "explicit"
+		}
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit",
+		"quickfix.biome": "explicit"
+	}
+}

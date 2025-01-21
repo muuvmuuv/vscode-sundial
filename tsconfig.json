@@ -1,20 +1,16 @@
 {
-  "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "tmp/out",
-    "module": "CommonJS",
-    "target": "ES2020",
-    "lib": ["ES2020"],
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedParameters": true,
-    "paths": {
-      // BUG: https://github.com/sindresorhus/got/issues/2267
-      "got": ["./node_modules/got/dist/source"]
-    }
-  },
-  "exclude": ["node_modules", "tmp", "dist"]
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "tmp/out",
+		"module": "CommonJS",
+		"target": "ES2020",
+		"lib": ["ES2020"],
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"strict": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedParameters": true
+	},
+	"exclude": ["node_modules", "tmp", "dist"]
 }

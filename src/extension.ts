@@ -1,63 +1,63 @@
 import {
-  commands,
-  ConfigurationChangeEvent,
-  ExtensionContext,
-  window,
-  workspace,
-} from 'vscode'
+	type ConfigurationChangeEvent,
+	type ExtensionContext,
+	commands,
+	window,
+	workspace,
+} from "vscode"
 
-import { TimeNames } from './editor'
-import { outputChannel } from './logger'
-import Sundial from './sundial'
+import { TimeName } from "./editor.js"
+import { outputChannel } from "./logger.js"
+import { Sundial } from "./sundial.js"
 
 const sundial = new Sundial() // Hi!
 
 function check() {
-  sundial.check()
+	sundial.check()
 }
 
 function configChanged(event: ConfigurationChangeEvent) {
-  if (
-    event.affectsConfiguration('sundial') ||
-    event.affectsConfiguration('workbench.preferredDarkColorTheme') ||
-    event.affectsConfiguration('workbench.preferredDarkColorTheme')
-  ) {
-    sundial.enableExtension()
-  }
+	if (
+		event.affectsConfiguration("sundial") ||
+		event.affectsConfiguration("workbench.preferredDarkColorTheme") ||
+		event.affectsConfiguration("workbench.preferredDarkColorTheme")
+	) {
+		sundial.enableExtension()
+	}
 }
 
 export function activate(context: ExtensionContext): void {
-  Sundial.extensionContext = context
+	Sundial.extensionContext = context
 
-  outputChannel.clear()
+	outputChannel.clear()
 
-  if (sundial.enabled) {
-    sundial.enableExtension()
-  }
+	if (sundial.enabled) {
+		sundial.enableExtension()
+	}
 
-  context.subscriptions.push(
-    window.onDidChangeWindowState(check),
-    window.onDidChangeActiveTextEditor(check),
-    window.onDidChangeTextEditorViewColumn(check),
-    workspace.onDidChangeConfiguration(configChanged),
-  )
+	context.subscriptions.push(
+		window.onDidChangeWindowState(check),
+		window.onDidChangeActiveTextEditor(check),
+		window.onDidChangeTextEditorViewColumn(check),
+		workspace.onDidChangeConfiguration(configChanged),
+	)
 
-  commands.registerCommand('sundial.switchToNightTheme', () =>
-    sundial.toggleTheme(TimeNames.NIGHT),
-  )
-  commands.registerCommand('sundial.switchToDayTheme', () =>
-    sundial.toggleTheme(TimeNames.DAY),
-  )
-  commands.registerCommand('sundial.toggleDayNightTheme', () => sundial.toggleTheme())
+	commands.registerCommand("sundial.switchToNightTheme", () =>
+		sundial.toggleTheme(TimeName.Night),
+	)
+	commands.registerCommand("sundial.switchToDayTheme", () =>
+		sundial.toggleTheme(TimeName.Day),
+	)
+	commands.registerCommand("sundial.toggleDayNightTheme", () => sundial.toggleTheme())
 
-  commands.registerCommand('sundial.enableExtension', () => sundial.enableExtension())
-  commands.registerCommand('sundial.disableExtension', () => sundial.disableExtension())
-  commands.registerCommand('sundial.pauseUntilNextCircle', () =>
-    sundial.pauseUntilNextCircle(),
-  )
+	commands.registerCommand("sundial.enableExtension", () => sundial.enableExtension())
+	commands.registerCommand("sundial.disableExtension", () => sundial.disableExtension())
+	commands.registerCommand("sundial.pauseUntilNextCircle", () =>
+		sundial.pauseUntilNextCircle(),
+	)
 }
 
 export function deactivate(): void {
-  sundial.disableExtension()
-  outputChannel.dispose()
+	sundial.disableExtension()
+	outputChannel.dispose()
 }

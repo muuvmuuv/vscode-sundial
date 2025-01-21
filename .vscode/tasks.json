@@ -1,28 +1,28 @@
 // https://code.visualstudio.com/docs/editor/tasks#vscode
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "Watch",
-      "type": "npm",
-      "script": "dev",
-      "isBackground": true,
-      "problemMatcher": {
-        "base": "$tsc-watch",
-        "applyTo": "allDocuments",
-        "background": {
-          "activeOnStart": true,
-          "beginsPattern": "^.*running",
-          "endsPattern": "^.*watching"
-        }
-      },
-      "presentation": {
-        "reveal": "never"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    }
-  ]
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Watch",
+			"type": "npm",
+			"script": "dev",
+			"isBackground": true,
+			"problemMatcher": {
+				"base": "$tsc-watch",
+				"applyTo": "allDocuments",
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": "^.*running",
+					"endsPattern": "^.*watching"
+				}
+			},
+			"presentation": {
+				"reveal": "never"
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
 }
