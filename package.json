@@ -145,14 +145,19 @@
 	},
 	"badges": [
 		{
-			"description": "Language grade",
-			"url": "https://img.shields.io/lgtm/grade/javascript/g/muuvmuuv/vscode-sundial.svg?logo=lgtm&logoWidth=18",
-			"href": "https://lgtm.com/projects/g/muuvmuuv/vscode-sundial/context:javascript"
+			"description": "Snyk monitored",
+			"url": "https://snyk.io/test/github/muuvmuuv/vscode-sundial/badge.svg",
+			"href": "https://snyk.io/test/github/muuvmuuv/vscode-sundial"
 		},
 		{
 			"description": "Maintainability",
 			"url": "https://api.codeclimate.com/v1/badges/52f93dc5f852410ef448/maintainability",
 			"href": "https://codeclimate.com/github/muuvmuuv/vscode-sundial/maintainability"
+		},
+		{
+			"description": "CI Status",
+			"url": "https://github.com/muuvmuuv/vscode-sundial/actions/workflows/main.yml/badge.svg",
+			"href": "https://github.com/muuvmuuv/vscode-sundial/actions"
 		}
 	],
 	"commitlint": {

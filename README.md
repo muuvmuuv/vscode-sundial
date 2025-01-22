@@ -9,6 +9,8 @@
 [![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/muuvmuuv.vscode-sundial)
 ](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
 ![Visual Studio Marketplace Downloads](https://api.codeclimate.com/v1/badges/52f93dc5f852410ef448/maintainability)
+[![GitHub branch check runs](https://github.com/muuvmuuv/vscode-sundial/actions/workflows/main.yml/badge.svg)](https://github.com/muuvmuuv/vscode-sundial/actions)
+[![Known Vulnerabilities](https://snyk.io/test/github/muuvmuuv/vscode-sundial/badge.svg)](https://snyk.io/test/github/muuvmuuv/vscode-sundial)
 
 - [Installation](#installation)
 - [Keybindings](#keybindings)
