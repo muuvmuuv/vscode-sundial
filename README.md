@@ -5,8 +5,10 @@
 
 #### Change your VS Code theme/settings based on your sunset, sunrise, system appearance or other preferences!
 
-![Visual Studio Marketplace Rating (Stars)](https://img.shields.io/visual-studio-marketplace/stars/muuvmuuv.vscode-sundial?style=flat-square)
-![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/muuvmuuv.vscode-sundial?style=flat-square)
+[![Visual Studio Marketplace Rating](https://img.shields.io/visual-studio-marketplace/stars/muuvmuuv.vscode-sundial)](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+[![Visual Studio Marketplace Downloads](https://img.shields.io/visual-studio-marketplace/d/muuvmuuv.vscode-sundial)
+](https://marketplace.visualstudio.com/items?itemName=muuvmuuv.vscode-sundial)
+![Visual Studio Marketplace Downloads](https://api.codeclimate.com/v1/badges/52f93dc5f852410ef448/maintainability)
 
 - [Installation](#installation)
 - [Keybindings](#keybindings)
