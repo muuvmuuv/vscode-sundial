@@ -41,7 +41,7 @@
 		"@commitlint/cli": "^19.6.1",
 		"@commitlint/config-conventional": "^19.6.0",
 		"@release-it/conventional-changelog": "^10.0.0",
-		"@types/node": "^22",
+		"@types/node": "^22.13.1",
 		"@types/suncalc": "^1.8.1",
 		"@types/vscode": "^1.74.3",
 		"esbuild": "^0.25.0",
