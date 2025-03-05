@@ -1,8 +1,8 @@
-import isOnline from "is-online"
 import { getTimes } from "suncalc"
 import { window } from "vscode"
 
 import { addMinutes, isAfter } from "date-fns"
+import { isOnline } from "../is-online.js"
 import { log } from "../logger.js"
 import { Sundial, type Tides } from "../sundial.js"
 

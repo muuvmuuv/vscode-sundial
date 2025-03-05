@@ -39,7 +39,7 @@ Whenever you have ideas for this project, things you would like to add or you fo
 feel free to create an issue or start contributing! 😇
 
 > The minimum supported VS Code version is
-> [1.74.3](https://github.com/microsoft/vscode/tree/1.74.3)
+> [1.91.1](https://github.com/microsoft/vscode/tree/1.91.1)
 
 <p>
   <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
@@ -229,7 +229,7 @@ I am working with [**esbuild**](https://esbuild.github.io/) to bundle Sundial to
 smallest possible size to increase the load time in VS Code _for you_.
 
 > The minimum supported VS Code version is
-> [1.74.3](https://github.com/microsoft/vscode/tree/1.74.3)
+> [1.91.1](https://github.com/microsoft/vscode/tree/1.91.1)
 
 1.  Install packages via npm: `npm run install` (_pnpm_ does not work due to
     [this VSCE Issue](https://github.com/microsoft/vscode-vsce/issues/421))

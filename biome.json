@@ -22,7 +22,8 @@
 		"rules": {
 			"all": true,
 			"correctness": {
-				"noUndeclaredDependencies": "off"
+				"noUndeclaredDependencies": "off",
+				"noNodejsModules": "off"
 			}
 		}
 	},

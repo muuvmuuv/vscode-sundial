@@ -4,7 +4,7 @@
 	"workbench.preferredDarkColorTheme": "Default Dark+",
 	"workbench.preferredLightColorTheme": "Default Light+",
 	"sundial.debug": 3,
-	// "sundial.autoLocale": true,
+	"sundial.autoLocale": true,
 	"sundial.latitude": "",
 	"sundial.longitude": "",
 	"sundial.sunrise": "07:00",
