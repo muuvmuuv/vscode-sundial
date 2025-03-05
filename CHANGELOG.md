@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.6.0 (2025-03-05)
+
+* feat: remove is-online and bump vs code peer ([33a9322](https://github.com/muuvmuuv/vscode-sundial/commit/33a9322))
+* build: fixed lock file ([c2b4d6f](https://github.com/muuvmuuv/vscode-sundial/commit/c2b4d6f))
+* build: use latest ovsx on release ([1473889](https://github.com/muuvmuuv/vscode-sundial/commit/1473889))
+* build(deps-dev): bump esbuild in the npm_and_yarn group (#62) ([ad626f5](https://github.com/muuvmuuv/vscode-sundial/commit/ad626f5)), closes [#62](https://github.com/muuvmuuv/vscode-sundial/issues/62)
+* docs: update badges ([7eb1194](https://github.com/muuvmuuv/vscode-sundial/commit/7eb1194))
+* ci: fix several issues and update to latest ([71adbe8](https://github.com/muuvmuuv/vscode-sundial/commit/71adbe8))
+
 ## <small>3.5.1 (2025-01-21)</small>
 
 * build: ignore more files ([6e2cb1d](https://github.com/muuvmuuv/vscode-sundial/commit/6e2cb1d))
