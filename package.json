@@ -9,12 +9,19 @@
 	"categories": ["Other"],
 	"keywords": ["auto", "day", "night", "switch", "settings"],
 	"homepage": "https://github.com/muuvmuuv/vscode-sundial",
+	"pricing": "Free",
+	"galleryBanner": {
+		"color": "#272c35"
+	},
 	"bugs": {
 		"url": "https://github.com/muuvmuuv/vscode-sundial/issues"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/muuvmuuv/vscode-sundial.git"
+	},
+	"sponsor": {
+		"url": "https://buymeacoffee.com/muuvmuuv"
 	},
 	"license": "GPLv3",
 	"author": {
