@@ -238,7 +238,7 @@ smallest possible size to increase the load time in VS Code _for you_.
 3.  Commit your changes with a detailed explanation
 4.  Create a pull request
 
-> Package size: 279.8kb
+> Package size: 42.64 KB
 
 ### Deployment
 
