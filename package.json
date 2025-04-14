@@ -1,7 +1,7 @@
 {
 	"name": "vscode-sundial",
 	"displayName": "Sundial – Automatic night mode and settings switch",
-	"version": "3.6.0",
+	"version": "3.6.1",
 	"description": "Automatically change your theme and settings based on your sunset, sunrise, system appearance or other preferences!",
 	"icon": "assets/icon.png",
 	"publisher": "muuvmuuv",
@@ -36,7 +36,8 @@
 		"package": "sh compile.sh --minify",
 		"check": "biome check .",
 		"format": "biome check . --write",
-		"vscode:prepublish": "npm run package"
+		"vscode:prepublish": "npm run package",
+		"release": "release-it"
 	},
 	"dependencies": {
 		"date-fns": "^4.1.0",

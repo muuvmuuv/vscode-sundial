@@ -1,5 +1,10 @@
 # Changelog
 
+## <small>3.6.1 (2025-04-14)</small>
+
+* build: update lock and build size ([efe4d2f](https://github.com/muuvmuuv/vscode-sundial/commit/efe4d2f))
+* docs: update readme and package values ([d78c1c2](https://github.com/muuvmuuv/vscode-sundial/commit/d78c1c2))
+
 ## 3.6.0 (2025-03-05)
 
 * feat: remove is-online and bump vs code peer ([33a9322](https://github.com/muuvmuuv/vscode-sundial/commit/33a9322))
