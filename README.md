@@ -246,7 +246,7 @@ We use `release-it` to create a new release. This will automatically create a ta
 and new changelog for us.
 
 ```
-pnpm release-it --help
+npm run release -- --help
 ```
 
 Sundial is deployed on VS Code Marketplace and Open VSX.
