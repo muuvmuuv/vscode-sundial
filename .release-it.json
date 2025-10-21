@@ -13,7 +13,8 @@
 		"push": true
 	},
 	"npm": {
-		"publish": false
+		"publish": false,
+		"skipChecks": true
 	},
 	"github": {
 		"release": true,
