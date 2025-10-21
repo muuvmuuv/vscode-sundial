@@ -6,8 +6,16 @@
 	"icon": "assets/icon.png",
 	"publisher": "muuvmuuv",
 	"qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
-	"categories": ["Other"],
-	"keywords": ["auto", "day", "night", "switch", "settings"],
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"auto",
+		"day",
+		"night",
+		"switch",
+		"settings"
+	],
 	"homepage": "https://github.com/muuvmuuv/vscode-sundial",
 	"pricing": "Free",
 	"galleryBanner": {
@@ -44,7 +52,7 @@
 		"suncalc": "^1.8.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
+		"@biomejs/biome": "^2.0.6",
 		"@commitlint/cli": "^19.6.1",
 		"@commitlint/config-conventional": "^19.6.0",
 		"@release-it/conventional-changelog": "^10.0.0",
@@ -59,7 +67,9 @@
 	"engines": {
 		"vscode": "^1.91.1"
 	},
-	"activationEvents": ["onStartupFinished"],
+	"activationEvents": [
+		"onStartupFinished"
+	],
 	"contributes": {
 		"commands": [
 			{
@@ -168,6 +178,8 @@
 		}
 	],
 	"commitlint": {
-		"extends": ["@commitlint/config-conventional"]
+		"extends": [
+			"@commitlint/config-conventional"
+		]
 	}
 }

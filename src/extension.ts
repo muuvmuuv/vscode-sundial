@@ -1,7 +1,7 @@
 import {
 	type ConfigurationChangeEvent,
-	type ExtensionContext,
 	commands,
+	type ExtensionContext,
 	window,
 	workspace,
 } from "vscode"

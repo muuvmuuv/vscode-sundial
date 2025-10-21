@@ -7,7 +7,7 @@ import {
 	window,
 } from "vscode"
 
-import { TimeName, changeToDay, changeToNight, getConfig, toggleTheme } from "./editor.js"
+import { changeToDay, changeToNight, getConfig, TimeName, toggleTheme } from "./editor.js"
 import { log } from "./logger.js"
 import { getAutoLocale } from "./sensors/autolocale.js"
 import { getLatLong } from "./sensors/latlong.js"
