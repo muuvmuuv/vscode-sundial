@@ -6,7 +6,7 @@ import {
 	workspace,
 } from "vscode"
 
-import { TimeName } from "./editor.js"
+import { invalidateConfigCache, TimeName } from "./editor.js"
 import { outputChannel } from "./logger.js"
 import { Sundial } from "./sundial.js"
 
@@ -20,8 +20,9 @@ function configChanged(event: ConfigurationChangeEvent) {
 	if (
 		event.affectsConfiguration("sundial") ||
 		event.affectsConfiguration("workbench.preferredDarkColorTheme") ||
-		event.affectsConfiguration("workbench.preferredDarkColorTheme")
+		event.affectsConfiguration("workbench.preferredLightColorTheme")
 	) {
+		invalidateConfigCache()
 		sundial.enableExtension()
 	}
 }
@@ -36,9 +37,11 @@ export function activate(context: ExtensionContext): void {
 	}
 
 	context.subscriptions.push(
-		window.onDidChangeWindowState(check),
-		window.onDidChangeActiveTextEditor(check),
-		window.onDidChangeTextEditorViewColumn(check),
+		window.onDidChangeWindowState((e) => {
+			if (e.focused) {
+				check()
+			}
+		}),
 		workspace.onDidChangeConfiguration(configChanged),
 	)
 

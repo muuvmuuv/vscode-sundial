@@ -39,9 +39,9 @@
 	},
 	"main": "dist/extension.js",
 	"scripts": {
-		"dev": "sh compile.sh --watch",
-		"compile": "sh compile.sh",
-		"package": "sh compile.sh --minify",
+		"dev": "node esbuild.js --watch",
+		"compile": "node esbuild.js",
+		"package": "node esbuild.js --production",
 		"check": "biome check .",
 		"format": "biome check . --write",
 		"vscode:prepublish": "npm run package",
@@ -58,14 +58,14 @@
 		"@release-it/conventional-changelog": "^10.0.0",
 		"@types/node": "22.x",
 		"@types/suncalc": "^1.8.1",
-		"@types/vscode": "^1.91.1",
+		"@types/vscode": "^1.105.0",
 		"esbuild": "^0.25.0",
 		"lefthook": "^2.0.0",
 		"release-it": "^19.0.5",
 		"typescript": "^6.0.0-dev.20251021"
 	},
 	"engines": {
-		"vscode": "^1.91.1"
+		"vscode": "^1.105.0"
 	},
 	"activationEvents": [
 		"onStartupFinished"

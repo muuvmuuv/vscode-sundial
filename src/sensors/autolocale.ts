@@ -1,7 +1,7 @@
 import { addMinutes, isAfter } from "date-fns"
 import { getTimes } from "suncalc"
 import { window } from "vscode"
-import { isOnline } from "../is-online.js"
+
 import { log } from "../logger.js"
 import { Sundial, type Tides } from "../sundial.js"
 
@@ -24,13 +24,11 @@ export async function getAutoLocale(): Promise<Tides> {
 
 	log("Auto locale timeout", timeout)
 
-	const connected = await isOnline()
-
-	if (connected && timeout) {
-		end = addMinutes(now, 5)
+	if (timeout) {
+		end = addMinutes(now, 360) // 6 hours
 
 		try {
-			const response = await fetch("http://ip-api.com/json/?fields=lat,lon")
+			const response = await fetch("https://ip-api.com/json/?fields=lat,lon")
 			const { lat, lon } = (await response.json()) as Response
 
 			latitude = lat

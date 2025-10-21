@@ -52,10 +52,17 @@ export class Sundial {
 	 */
 	enableExtension(): void {
 		log("Enabling Sundial")
+
 		Sundial.extensionContext.globalState.update(STATE_ENABLED, true)
+
 		this.automator()
 		this.check()
-		this.createStatusBarIcon()
+
+		if (!this.statusBarItem) {
+			this.createStatusBarIcon()
+		} else {
+			this.statusBarItem.show()
+		}
 	}
 
 	/**
@@ -75,12 +82,14 @@ export class Sundial {
 			this.killAutomator()
 			return
 		}
+
 		const { sundial } = getConfig()
 		if (sundial.interval === 0) {
 			log("Automator offline")
 			return
 		}
 		log("Automator online")
+
 		const interval = 1000 * 60 * sundial.interval
 		this.checkInterval = setInterval(() => {
 			log("Run autocheck")
@@ -112,10 +121,10 @@ export class Sundial {
 		log(`Current time is ${currentTimeName}`)
 
 		if (currentTimeName === TimeName.Day) {
-			log("Will apply your day theme! 🌕")
+			log("Will apply your day theme")
 			changeToDay()
 		} else {
-			log("Will apply your night theme! 🌑")
+			log("Will apply your night theme")
 			changeToNight()
 		}
 
@@ -138,10 +147,6 @@ export class Sundial {
 	 * Set the status bar icon to toggle the theme.
 	 */
 	private createStatusBarIcon(): void {
-		if (this.statusBarItem) {
-			this.statusBarItem.dispose()
-		}
-
 		const { sundial } = getConfig()
 
 		this.statusBarItem = window.createStatusBarItem(

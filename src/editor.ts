@@ -3,11 +3,25 @@ import { type WorkspaceConfiguration, window, workspace } from "vscode"
 import { log } from "./logger.js"
 import type { SundialConfiguration } from "./sundial.js"
 
+// Config cache - invalidated on config changes
+let configCache: {
+	sundial: SundialConfiguration
+	workbench: WorkspaceConfiguration
+} | null = null
+
 export function getConfig() {
-	return {
-		sundial: workspace.getConfiguration("sundial") as SundialConfiguration,
-		workbench: workspace.getConfiguration("workbench"),
+	if (!configCache) {
+		configCache = {
+			sundial: workspace.getConfiguration("sundial") as SundialConfiguration,
+			workbench: workspace.getConfiguration("workbench"),
+		}
 	}
+	return configCache
+}
+
+// Call this when config changes to invalidate cache
+export function invalidateConfigCache(): void {
+	configCache = null
 }
 
 export function applySettings(settings: WorkspaceConfiguration): void {
@@ -35,10 +49,12 @@ export function applySettings(settings: WorkspaceConfiguration): void {
 	}
 }
 
-export enum TimeName {
-	Day = "day",
-	Night = "night",
+export const TimeName = {
+	Day: "day",
+	Night: "night",
 }
+
+export type TimeName = (typeof TimeName)[keyof typeof TimeName]
 
 export function changeThemeTo(newTheme: string): void {
 	log("Changing theme to", newTheme)
@@ -63,22 +79,20 @@ export function changeToNight(): void {
 export function toggleTheme(time?: TimeName): void {
 	log("Toggle theme to", time || "toggle")
 	const config = getConfig()
-	switch (time) {
-		case TimeName.Day: {
-			changeToDay()
-			break
-		}
-		case TimeName.Night: {
-			changeToNight()
-			break
-		}
-		default: {
-			if (config.workbench.preferredDarkColorTheme === config.workbench.colorTheme) {
-				changeToDay()
-			} else {
-				changeToNight()
-			}
-			break
-		}
+
+	if (time === TimeName.Day) {
+		changeToDay()
+		return
+	}
+
+	if (time === TimeName.Night) {
+		changeToNight()
+		return
+	}
+
+	if (config.workbench.preferredDarkColorTheme === config.workbench.colorTheme) {
+		changeToDay()
+	} else {
+		changeToNight()
 	}
 }
