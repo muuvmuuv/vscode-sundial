@@ -1,5 +1,5 @@
 {
-	"default": "https://github.com/release-it/release-it/blob/master/conf/release-it.json",
+	"$schema": "https://unpkg.com/release-it@19/schema/release-it.json",
 	"hooks": {
 		"before:init": "npm run check && npm run package",
 		"before:git:beforeRelease": "npm run format"
