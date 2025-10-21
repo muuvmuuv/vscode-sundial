@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.7.0 (2025-10-21)
+
+* fix: add release-it schema ([49c177e](https://github.com/muuvmuuv/vscode-sundial/commit/49c177e))
+* fix: skip checks in release-it ([9b014ad](https://github.com/muuvmuuv/vscode-sundial/commit/9b014ad))
+* perf: prevent redundant theme changes by tracking applied state ([1f4a764](https://github.com/muuvmuuv/vscode-sundial/commit/1f4a764))
+* refactor: optimize performance and modernize build system ([c8ab1c1](https://github.com/muuvmuuv/vscode-sundial/commit/c8ab1c1))
+* build: update biome ([391af57](https://github.com/muuvmuuv/vscode-sundial/commit/391af57))
+* build: update deps ([66a2f7e](https://github.com/muuvmuuv/vscode-sundial/commit/66a2f7e))
+* build: update node using prototools ([09fa07c](https://github.com/muuvmuuv/vscode-sundial/commit/09fa07c))
+* docs: add CLAUDE.md for Claude Code guidance ([35b93c2](https://github.com/muuvmuuv/vscode-sundial/commit/35b93c2))
+* docs: update command desc ([a92afbb](https://github.com/muuvmuuv/vscode-sundial/commit/a92afbb))
+
 ## <small>3.6.1 (2025-04-14)</small>
 
 * build: update lock and build size ([efe4d2f](https://github.com/muuvmuuv/vscode-sundial/commit/efe4d2f))
