@@ -53,16 +53,16 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.6",
-		"@commitlint/cli": "^19.6.1",
-		"@commitlint/config-conventional": "^19.6.0",
+		"@commitlint/cli": "^20.1.0",
+		"@commitlint/config-conventional": "^20.0.0",
 		"@release-it/conventional-changelog": "^10.0.0",
-		"@types/node": "^20.17.0",
+		"@types/node": "22.x",
 		"@types/suncalc": "^1.8.1",
 		"@types/vscode": "^1.91.1",
 		"esbuild": "^0.25.0",
-		"lefthook": "^1.3.10",
-		"release-it": "^18.1.1",
-		"typescript": "^5.0.0"
+		"lefthook": "^2.0.0",
+		"release-it": "^19.0.5",
+		"typescript": "^6.0.0-dev.20251021"
 	},
 	"engines": {
 		"vscode": "^1.91.1"

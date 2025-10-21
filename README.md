@@ -15,9 +15,9 @@
 - [Keybindings](#keybindings)
 - [Commands](#commands)
 - [Settings](#settings)
-    - [Automatically set by current location](#automatically-set-by-current-location)
-    - [Automatically set by latitude and longitude](#automatically-set-by-latitude-and-longitude)
-    - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
+  - [Automatically set by current location](#automatically-set-by-current-location)
+  - [Automatically set by latitude and longitude](#automatically-set-by-latitude-and-longitude)
+  - [Automatically set by OS appearance](#automatically-set-by-os-appearance)
   - [VS Code Settings](#vs-code-settings)
   - [Execution order](#execution-order)
   - [Status bar icon](#status-bar-icon)
@@ -160,11 +160,11 @@ you have issues ready a font size of 12 in the night.
 ```jsonc
 {
   "sundial.daySettings": {
-    "editor.fontSize": 12
+    "editor.fontSize": 12,
   },
   "sundial.nightSettings": {
-    "editor.fontSize": 14
-  }
+    "editor.fontSize": 14,
+  },
 }
 ```
 
@@ -192,7 +192,7 @@ also disable all sundial automated checks.
   "workbench.preferredLightColorTheme": "Default Light+",
   "workbench.preferredDarkColorTheme": "Default Dark+",
   "sundial.interval": 20,
-  "sundial.autoLocale": true
+  "sundial.autoLocale": true,
 }
 ```
 
@@ -201,7 +201,7 @@ also disable all sundial automated checks.
   "window.autoDetectColorScheme": false, // required!
   "workbench.preferredLightColorTheme": "Default Light+",
   "workbench.preferredDarkColorTheme": "Default Dark+",
-  "sundial.sunrise": "05:12"
+  "sundial.sunrise": "05:12",
 }
 ```
 
@@ -214,11 +214,11 @@ also disable all sundial automated checks.
   "sundial.latitude": "50.110924",
   "sundial.longitude": "8.682127",
   "sundial.daySettings": {
-    "editor.fontSize": 13
+    "editor.fontSize": 13,
   },
   "sundial.nightSettings": {
-    "editor.fontSize": 15
-  }
+    "editor.fontSize": 15,
+  },
 }
 ```
 
@@ -228,7 +228,7 @@ I am working with [**esbuild**](https://esbuild.github.io/) to bundle Sundial to
 smallest possible size to increase the load time in VS Code _for you_.
 
 > The minimum supported VS Code version is
-> [1.91.1](https://github.com/microsoft/vscode/tree/1.91.1)
+> [1.105.0](https://github.com/microsoft/vscode/releases/tag/1.105.0)
 
 1.  Install packages via npm: `npm run install` (_pnpm_ does not work due to
     [this VSCE Issue](https://github.com/microsoft/vscode-vsce/issues/421))
@@ -238,7 +238,7 @@ smallest possible size to increase the load time in VS Code _for you_.
 3.  Commit your changes with a detailed explanation
 4.  Create a pull request
 
-> Package size: 42.64 KB
+> Package size: 42.6kb
 
 ### Deployment
 
