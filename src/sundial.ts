@@ -42,6 +42,7 @@ export class Sundial {
 	private isRunning = false
 	private checkInterval!: NodeJS.Timeout
 	private statusBarItem?: StatusBarItem
+	private lastAppliedTime?: TimeName
 
 	get enabled(): boolean {
 		return Sundial.extensionContext.globalState.get(STATE_ENABLED, true)
@@ -54,6 +55,7 @@ export class Sundial {
 		log("Enabling Sundial")
 
 		Sundial.extensionContext.globalState.update(STATE_ENABLED, true)
+		this.lastAppliedTime = undefined // Force fresh theme check
 
 		this.automator()
 		this.check()
@@ -120,12 +122,18 @@ export class Sundial {
 		const currentTimeName = await this.getCurrentTime()
 		log(`Current time is ${currentTimeName}`)
 
-		if (currentTimeName === TimeName.Day) {
-			log("Will apply your day theme")
-			changeToDay()
+		// Skip theme change if already applied
+		if (this.lastAppliedTime === currentTimeName) {
+			log("Already applied, skipping")
 		} else {
-			log("Will apply your night theme")
-			changeToNight()
+			if (currentTimeName === TimeName.Day) {
+				log("Applying day")
+				changeToDay()
+			} else {
+				log("Applying night")
+				changeToNight()
+			}
+			this.lastAppliedTime = currentTimeName
 		}
 
 		this.isRunning = false
