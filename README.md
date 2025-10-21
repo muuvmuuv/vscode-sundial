@@ -160,11 +160,11 @@ you have issues ready a font size of 12 in the night.
 ```jsonc
 {
   "sundial.daySettings": {
-    "editor.fontSize": 12,
+    "editor.fontSize": 12
   },
   "sundial.nightSettings": {
-    "editor.fontSize": 14,
-  },
+    "editor.fontSize": 14
+  }
 }
 ```
 
@@ -192,7 +192,7 @@ also disable all sundial automated checks.
   "workbench.preferredLightColorTheme": "Default Light+",
   "workbench.preferredDarkColorTheme": "Default Dark+",
   "sundial.interval": 20,
-  "sundial.autoLocale": true,
+  "sundial.autoLocale": true
 }
 ```
 
@@ -201,7 +201,7 @@ also disable all sundial automated checks.
   "window.autoDetectColorScheme": false, // required!
   "workbench.preferredLightColorTheme": "Default Light+",
   "workbench.preferredDarkColorTheme": "Default Dark+",
-  "sundial.sunrise": "05:12",
+  "sundial.sunrise": "05:12"
 }
 ```
 
@@ -214,11 +214,11 @@ also disable all sundial automated checks.
   "sundial.latitude": "50.110924",
   "sundial.longitude": "8.682127",
   "sundial.daySettings": {
-    "editor.fontSize": 13,
+    "editor.fontSize": 13
   },
   "sundial.nightSettings": {
-    "editor.fontSize": 15,
-  },
+    "editor.fontSize": 15
+  }
 }
 ```
 
@@ -255,7 +255,7 @@ Sundial is deployed on VS Code Marketplace and Open VSX.
   - `vsce publish`
 - Open VSX:
   - `vsce package`
-  - `npx ovsx publish *.vsix -p TOKEN`
+  - `npx ovsx publish *.vsix -p $OPENVSX_ACCESS_TOKEN`
 
 #### Pre-release
 
