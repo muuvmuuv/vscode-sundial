@@ -9,8 +9,8 @@ let configCache: {
 	workbench: WorkspaceConfiguration
 } | null = null
 
-export function getConfig() {
-	if (!configCache) {
+export function getConfig(force?: boolean) {
+	if (!configCache || force) {
 		configCache = {
 			sundial: workspace.getConfiguration("sundial") as SundialConfiguration,
 			workbench: workspace.getConfiguration("workbench"),
@@ -58,7 +58,7 @@ export type TimeName = (typeof TimeName)[keyof typeof TimeName]
 
 export function changeThemeTo(newTheme: string): void {
 	log("Changing theme to", newTheme)
-	const { workbench } = getConfig()
+	const { workbench } = getConfig(true)
 	if (newTheme !== workbench.colorTheme) {
 		workbench.update("colorTheme", newTheme, true)
 	}
@@ -78,7 +78,6 @@ export function changeToNight(): void {
 
 export function toggleTheme(time?: TimeName): void {
 	log("Toggle theme to", time || "toggle")
-	const config = getConfig()
 
 	if (time === TimeName.Day) {
 		changeToDay()
@@ -90,6 +89,7 @@ export function toggleTheme(time?: TimeName): void {
 		return
 	}
 
+	const config = getConfig(true)
 	if (config.workbench.preferredDarkColorTheme === config.workbench.colorTheme) {
 		changeToDay()
 	} else {

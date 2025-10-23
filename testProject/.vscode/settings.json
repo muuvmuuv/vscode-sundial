@@ -1,18 +1,20 @@
 {
-	"window.autoDetectColorScheme": false,
-	"workbench.settings.useSplitJSON": false,
-	"workbench.preferredDarkColorTheme": "Default Dark+",
-	"workbench.preferredLightColorTheme": "Default Light+",
-	"sundial.debug": 3,
-	"sundial.autoLocale": true,
-	"sundial.latitude": "",
-	"sundial.longitude": "",
-	"sundial.sunrise": "07:00",
-	"sundial.sunset": "17:00",
-	"sundial.dayVariable": 0,
-	"sundial.nightVariable": 0,
-	"sundial.daySettings": {},
-	"sundial.nightSettings": {},
-	"sundial.statusBarItemPriority": 101,
-	"sundial.interval": 10
+  "window.autoDetectColorScheme": false,
+  "workbench.settings.useSplitJSON": false,
+  "workbench.preferredDarkColorTheme": "Default Dark+",
+  "workbench.preferredLightColorTheme": "Default Light+",
+  "sundial.debug": 3,
+  "sundial.autoLocale": true,
+  "sundial.latitude": "",
+  "sundial.longitude": "",
+  "sundial.sunrise": "07:00",
+  "sundial.sunset": "20:00",
+  "sundial.dayVariable": 0,
+  "sundial.nightVariable": 0,
+  "sundial.daySettings": {},
+  "sundial.nightSettings": {
+    "editor.fontFamily": "Source Code Pro"
+  },
+  "sundial.statusBarItemPriority": 101,
+  "sundial.interval": 10
 }

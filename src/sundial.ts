@@ -7,7 +7,13 @@ import {
 	window,
 } from "vscode"
 
-import { changeToDay, changeToNight, getConfig, TimeName, toggleTheme } from "./editor.js"
+import {
+	changeToDay,
+	changeToNight,
+	toggleTheme as editorToggleTheme,
+	getConfig,
+	TimeName,
+} from "./editor.js"
 import { log } from "./logger.js"
 import { getAutoLocale } from "./sensors/autolocale.js"
 import { getLatLong } from "./sensors/latlong.js"
@@ -42,7 +48,6 @@ export class Sundial {
 	private isRunning = false
 	private checkInterval!: NodeJS.Timeout
 	private statusBarItem?: StatusBarItem
-	private lastAppliedTime?: TimeName
 
 	get enabled(): boolean {
 		return Sundial.extensionContext.globalState.get(STATE_ENABLED, true)
@@ -55,7 +60,6 @@ export class Sundial {
 		log("Enabling Sundial")
 
 		Sundial.extensionContext.globalState.update(STATE_ENABLED, true)
-		this.lastAppliedTime = undefined // Force fresh theme check
 
 		this.automator()
 		this.check()
@@ -122,18 +126,12 @@ export class Sundial {
 		const currentTimeName = await this.getCurrentTime()
 		log(`Current time is ${currentTimeName}`)
 
-		// Skip theme change if already applied
-		if (this.lastAppliedTime === currentTimeName) {
-			log("Already applied, skipping")
+		if (currentTimeName === TimeName.Day) {
+			log("Applying day")
+			changeToDay()
 		} else {
-			if (currentTimeName === TimeName.Day) {
-				log("Applying day")
-				changeToDay()
-			} else {
-				log("Applying night")
-				changeToNight()
-			}
-			this.lastAppliedTime = currentTimeName
+			log("Applying night")
+			changeToNight()
 		}
 
 		this.isRunning = false
@@ -144,11 +142,11 @@ export class Sundial {
 	 * Toggle the theme and disable the extension. So no automation
 	 * will be done until you enable it again.
 	 *
-	 * @see toggleTheme
+	 * @see editorToggleTheme
 	 */
 	toggleTheme(time?: TimeName): void {
 		this.disableExtension()
-		toggleTheme(time)
+		editorToggleTheme(time)
 	}
 
 	/**

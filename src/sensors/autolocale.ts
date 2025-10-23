@@ -28,7 +28,7 @@ export async function getAutoLocale(): Promise<Tides> {
 		end = addMinutes(now, 360) // 6 hours
 
 		try {
-			const response = await fetch("https://ip-api.com/json/?fields=lat,lon")
+			const response = await fetch("http://ip-api.com/json/?fields=lat,lon") // must be http
 			const { lat, lon } = (await response.json()) as Response
 
 			latitude = lat
