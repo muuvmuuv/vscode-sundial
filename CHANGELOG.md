@@ -1,5 +1,11 @@
 # Changelog
 
+## <small>3.7.1 (2025-10-23)</small>
+
+* build: update deps ([5eecd8b](https://github.com/muuvmuuv/vscode-sundial/commit/5eecd8b))
+* fix: checks been too strict result in no theme change ([00e9b1a](https://github.com/muuvmuuv/vscode-sundial/commit/00e9b1a))
+* docs: added note for my token ([ea374a9](https://github.com/muuvmuuv/vscode-sundial/commit/ea374a9))
+
 ## 3.7.0 (2025-10-21)
 
 * fix: add release-it schema ([49c177e](https://github.com/muuvmuuv/vscode-sundial/commit/49c177e))
