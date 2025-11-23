@@ -55,7 +55,7 @@
 		"@biomejs/biome": "^2.0.6",
 		"@commitlint/cli": "^20.1.0",
 		"@commitlint/config-conventional": "^20.0.0",
-		"@release-it/conventional-changelog": "^10.0.0",
+		"@release-it/conventional-changelog": "^10.0.2",
 		"@types/node": "22.x",
 		"@types/suncalc": "^1.8.1",
 		"@types/vscode": "^1.105.0",
