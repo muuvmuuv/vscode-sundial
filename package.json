@@ -61,7 +61,7 @@
 		"@types/vscode": "^1.105.0",
 		"esbuild": "^0.25.0",
 		"lefthook": "^2.0.0",
-		"release-it": "^19.0.5",
+		"release-it": "^19.2.4",
 		"typescript": "^6.0.0-dev.20251021"
 	},
 	"engines": {
