@@ -1,4 +1,5 @@
 AGENTS.md
+AGENT.md
 CLAUDE.md
 .vscode/**
 .github/**
@@ -13,6 +14,10 @@ src/**
 dist/test/**
 dist/*.map
 assets/*.sketch
+assets/*.af
+assets/banner.jpg
+assets/og-image.jpg
+assets/status-bar-icon.png
 .gitignore
 .env
 .prototools
