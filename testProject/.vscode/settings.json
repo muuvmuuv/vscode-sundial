@@ -11,5 +11,17 @@
   "sundial.nightSettings": {
     "editor.fontFamily": "Source Code Pro"
   },
-  "sundial.statusBarItemPriority": 101
+  "sundial.statusBarItemPriority": 101,
+	"github.copilot.enable": {
+		"*": false
+	},
+	"chat.agent.enabled": false,
+	"chat.commandCenter.enabled": false,
+	"workbench.enableExperiments": false,
+	"extensions.autoUpdate": false,
+	"update.mode": "none",
+	"telemetry.telemetryLevel": "off",
+	"chat.disableAIFeatures": true,
+	"git.enabled": false,
+  "git.autoRepositoryDetection": false
 }

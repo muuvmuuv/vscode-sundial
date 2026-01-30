@@ -82,8 +82,9 @@ async function main() {
 	const testCtx = !production
 		? await esbuild.context({
 				...sharedOptions,
-				entryPoints: ['src/test/*.test.ts'],
+				entryPoints: ['src/test/unit/*.test.ts', 'src/test/integration/*.test.ts'],
 				outdir: 'dist/test',
+				external: ['vscode', 'mocha'],
 			})
 		: null
 

@@ -2,8 +2,8 @@ import { addMinutes, isAfter } from 'date-fns'
 import { getTimes } from 'suncalc'
 import { window } from 'vscode'
 
-import { log } from '../logger.js'
-import { Sundial, type Tides } from '../sundial.js'
+import { log } from '../logger'
+import { Sundial, type Tides } from '../sundial'
 
 interface GeoResponse {
 	lat: number

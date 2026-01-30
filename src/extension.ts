@@ -6,9 +6,9 @@ import {
 	workspace,
 } from 'vscode'
 
-import { invalidateConfigCache, TimeName } from './editor.js'
-import { outputChannel } from './logger.js'
-import { Sundial } from './sundial.js'
+import { invalidateConfigCache, TimeName } from './editor'
+import { outputChannel } from './logger'
+import { Sundial } from './sundial'
 
 const sundial = new Sundial() // Hi!
 

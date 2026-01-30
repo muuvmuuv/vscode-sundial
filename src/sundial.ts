@@ -13,10 +13,10 @@ import {
 	toggleTheme as editorToggleTheme,
 	getConfig,
 	TimeName,
-} from './editor.js'
-import { log } from './logger.js'
-import { getAutoLocale } from './sensors/autolocale.js'
-import { getLatLong } from './sensors/latlong.js'
+} from './editor'
+import { log } from './logger'
+import { getAutoLocale } from './sensors/autolocale'
+import { getLatLong } from './sensors/latlong'
 
 const STATE_ENABLED = 'sundial.enabled'
 

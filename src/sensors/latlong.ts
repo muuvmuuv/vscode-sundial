@@ -1,9 +1,9 @@
 import { getTimes } from 'suncalc'
 import { window } from 'vscode'
 
-import { getConfig } from '../editor.js'
-import { log } from '../logger.js'
-import type { Tides } from '../sundial.js'
+import { getConfig } from '../editor'
+import { log } from '../logger'
+import type { Tides } from '../sundial'
 
 export function getLatLong(): Tides {
 	const config = getConfig()

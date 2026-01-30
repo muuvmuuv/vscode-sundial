@@ -1,5 +1,5 @@
 import * as assert from 'node:assert'
-import { isValidGeoResponse } from '../sensors/autolocale.js'
+import { isValidGeoResponse } from '../../sensors/autolocale'
 
 suite('Sensors API Test Suite', () => {
 	suite('ip-api.com Geolocation API', () => {

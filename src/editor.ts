@@ -1,7 +1,7 @@
 import { type WorkspaceConfiguration, window, workspace } from 'vscode'
 
-import { log } from './logger.js'
-import type { SundialConfiguration } from './sundial.js'
+import { log } from './logger'
+import type { SundialConfiguration } from './sundial'
 
 // Config cache - invalidated on config changes
 let configCache: {

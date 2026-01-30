@@ -6,7 +6,6 @@
 	"icon": "assets/icon.png",
 	"publisher": "muuvmuuv",
 	"qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
-	"type": "module",
 	"categories": [
 		"Themes"
 	],
@@ -49,7 +48,8 @@
 		"package": "node esbuild.js --production",
 		"check": "biome check .",
 		"format": "biome check . --write",
-		"test": "npm run compile && vscode-test",
+		"pretest": "npm run compile",
+		"test": "vscode-test",
 		"vscode:prepublish": "npm run package",
 		"release": "release-it"
 	},

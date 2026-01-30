@@ -1,17 +1,20 @@
 {
 	"compilerOptions": {
 		"rootDir": "src",
-		"outDir": "tmp/out",
-		"module": "CommonJS",
-		"target": "ES2020",
-		"lib": ["ES2020"],
+		"outDir": "out",
+		"module": "ES2022",
+		"moduleResolution": "bundler",
+		"target": "ES2022",
+		"lib": ["ES2022"],
 		"sourceMap": true,
 		"esModuleInterop": true,
 		"strict": true,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"types": ["node", "mocha"]
+		"skipLibCheck": true
 	},
-	"exclude": ["node_modules", "tmp", "dist"]
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "out", "dist"]
 }
