@@ -1,6 +1,6 @@
-import { defineConfig } from '@vscode/test-cli'
+const { defineConfig } = require('@vscode/test-cli')
 
-export default defineConfig({
+module.exports = defineConfig({
 	files: 'dist/test/**/*.test.js',
 	workspaceFolder: './testProject',
 	mocha: {

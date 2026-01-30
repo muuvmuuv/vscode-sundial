@@ -13,6 +13,13 @@ Sundial is a VS Code extension that automatically changes themes and settings ba
 
 **Important**: This project uses **npm** (not pnpm or yarn) because vsce (VS Code Extension CLI) does not natively support other package managers. See [vsce issue #421](https://github.com/microsoft/vscode-vsce/issues/421).
 
+### Node.js Version
+
+Use **proto** for Node version management. The version is pinned in `.prototools`:
+
+- `proto install` - Install the pinned Node version
+- `proto pin node <version> --to local` - Pin a new version locally
+
 ### Build & Development
 
 - `npm install` - Install dependencies
@@ -25,7 +32,13 @@ Sundial is a VS Code extension that automatically changes themes and settings ba
 - `npm run check` - Run Biome linter/formatter checks
 - `npm run format` - Auto-fix formatting and linting issues with Biome
 
-### Testing & Debugging
+### Testing
+
+- `npm test` - Run all tests (unit + integration) in VS Code Extension Host
+- Unit tests: `src/test/unit/` - Pure function tests, no VS Code API
+- Integration tests: `src/test/integration/` - Tests requiring VS Code API or network
+
+### Debugging
 
 - Use VS Code's debugger with "Launch Extension" configuration to test the extension in a new Extension Host window
 - Make changes to source files and they will auto-compile in dev mode
@@ -92,6 +105,7 @@ The `Sundial` class uses a static `extensionContext` property set during `activa
 
 Uses **esbuild** via `esbuild.js` for fast bundling, following VS Code's recommended setup:
 
+- Output directories: `out/` for tsc, `dist/` for esbuild bundled extension
 - Bundles all TypeScript into single `dist/extension.js` file
 - Targets ES2022 with CommonJS format
 - External: vscode module (provided by VS Code runtime)
@@ -108,6 +122,8 @@ Uses **esbuild** via `esbuild.js` for fast bundling, following VS Code's recomme
 - Semicolons: as needed (not required)
 - Line width: 90 characters
 - Git hooks via **lefthook** run Biome on pre-commit
+- **No `.js` extensions** in TypeScript imports (using `moduleResolution: "bundler"`)
+- **CommonJS for config files** - Do not use `"type": "module"` in package.json; config files use `.js` extension (not `.mjs`)
 
 ## Important Notes
 
