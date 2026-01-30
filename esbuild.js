@@ -56,29 +56,50 @@ async function main() {
 	console.log(banner)
 	console.log("")
 
-	const ctx = await esbuild.context({
-		entryPoints: ["src/extension.ts"],
+	/** @type {import('esbuild').BuildOptions} */
+	const sharedOptions = {
 		bundle: true,
 		format: "cjs",
 		minify: production,
 		sourcemap: !production,
 		sourcesContent: false,
 		platform: "node",
-		outfile: "dist/extension.js",
 		external: ["vscode"],
 		logLevel: "silent",
 		plugins: watch ? [esbuildProblemMatcherPlugin] : [],
+		metafile: true,
+	}
+
+	// Build main extension
+	const ctx = await esbuild.context({
+		...sharedOptions,
+		entryPoints: ["src/extension.ts"],
+		outfile: "dist/extension.js",
 		banner: {
 			js: banner,
 		},
-		metafile: true,
 	})
+
+	// Build test files (only in non-production)
+	const testCtx = !production
+		? await esbuild.context({
+				...sharedOptions,
+				entryPoints: ["src/test/*.test.ts"],
+				outdir: "dist/test",
+			})
+		: null
 
 	if (watch) {
 		await ctx.watch()
+		if (testCtx) await testCtx.watch()
 	} else {
 		const result = await ctx.rebuild()
 		await ctx.dispose()
+
+		if (testCtx) {
+			await testCtx.rebuild()
+			await testCtx.dispose()
+		}
 
 		// Print build information
 		if (result.metafile) {

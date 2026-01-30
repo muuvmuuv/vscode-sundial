@@ -5,9 +5,20 @@ import { window } from "vscode"
 import { log } from "../logger.js"
 import { Sundial, type Tides } from "../sundial.js"
 
-interface Response {
+interface GeoResponse {
 	lat: number
 	lon: number
+}
+
+export function isValidGeoResponse(data: unknown): data is GeoResponse {
+	return (
+		typeof data === "object" &&
+		data !== null &&
+		"lat" in data &&
+		"lon" in data &&
+		typeof (data as GeoResponse).lat === "number" &&
+		typeof (data as GeoResponse).lon === "number"
+	)
 }
 
 let now = new Date()
@@ -29,10 +40,19 @@ export async function getAutoLocale(): Promise<Tides> {
 
 		try {
 			const response = await fetch("http://ip-api.com/json/?fields=lat,lon") // must be http
-			const { lat, lon } = (await response.json()) as Response
 
-			latitude = lat
-			longitude = lon
+			if (!response.ok) {
+				throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+			}
+
+			const data: unknown = await response.json()
+
+			if (!isValidGeoResponse(data)) {
+				throw new Error("Invalid response format from geolocation API")
+			}
+
+			latitude = data.lat
+			longitude = data.lon
 
 			context.globalState.update("userLatitude", latitude)
 			context.globalState.update("userLongitude", longitude)

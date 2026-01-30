@@ -43,18 +43,18 @@ export function activate(context: ExtensionContext): void {
 			}
 		}),
 		workspace.onDidChangeConfiguration(configChanged),
+		commands.registerCommand("sundial.switchToNightTheme", () =>
+			sundial.toggleTheme(TimeName.Night),
+		),
+		commands.registerCommand("sundial.switchToDayTheme", () =>
+			sundial.toggleTheme(TimeName.Day),
+		),
+		commands.registerCommand("sundial.toggleDayNightTheme", () => sundial.toggleTheme()),
+		commands.registerCommand("sundial.enableExtension", () => sundial.enableExtension()),
+		commands.registerCommand("sundial.disableExtension", () =>
+			sundial.disableExtension(),
+		),
 	)
-
-	commands.registerCommand("sundial.switchToNightTheme", () =>
-		sundial.toggleTheme(TimeName.Night),
-	)
-	commands.registerCommand("sundial.switchToDayTheme", () =>
-		sundial.toggleTheme(TimeName.Day),
-	)
-	commands.registerCommand("sundial.toggleDayNightTheme", () => sundial.toggleTheme())
-
-	commands.registerCommand("sundial.enableExtension", () => sundial.enableExtension())
-	commands.registerCommand("sundial.disableExtension", () => sundial.disableExtension())
 }
 
 export function deactivate(): void {

@@ -44,6 +44,7 @@
 		"package": "node esbuild.js --production",
 		"check": "biome check .",
 		"format": "biome check . --write",
+		"test": "npm run compile && vscode-test",
 		"vscode:prepublish": "npm run package",
 		"release": "release-it"
 	},
@@ -56,11 +57,15 @@
 		"@commitlint/cli": "^20.3.1",
 		"@commitlint/config-conventional": "^20.3.1",
 		"@release-it/conventional-changelog": "^10.0.4",
+		"@types/mocha": "^10.0.10",
 		"@types/node": "22.x",
 		"@types/suncalc": "^1.9.2",
 		"@types/vscode": "^1.108.0",
+		"@vscode/test-cli": "^0.0.12",
+		"@vscode/test-electron": "^2.5.2",
 		"esbuild": "^0.27.2",
 		"lefthook": "^2.0.16",
+		"mocha": "^11.7.5",
 		"release-it": "^19.2.4",
 		"typescript": "^5.9.3"
 	},

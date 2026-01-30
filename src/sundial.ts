@@ -46,7 +46,7 @@ export class Sundial {
 	static extensionContext: ExtensionContext
 
 	private isRunning = false
-	private checkInterval!: NodeJS.Timeout
+	private checkInterval: NodeJS.Timeout | null = null
 	private statusBarItem?: StatusBarItem
 
 	get enabled(): boolean {
@@ -61,14 +61,13 @@ export class Sundial {
 
 		Sundial.extensionContext.globalState.update(STATE_ENABLED, true)
 
-		this.automator()
-		this.check()
-
 		if (!this.statusBarItem) {
 			this.createStatusBarIcon()
 		} else {
 			this.statusBarItem.show()
 		}
+
+		this.check()
 	}
 
 	/**
@@ -77,37 +76,43 @@ export class Sundial {
 	disableExtension(): void {
 		log("Disabling Sundial")
 		Sundial.extensionContext.globalState.update(STATE_ENABLED, false)
-		this.killAutomator()
+		this.stopAutomation()
 	}
 
 	/**
-	 * Create and start the automator interval.
+	 * Start the automation interval. Stops any existing interval first.
 	 */
-	automator(): void {
+	private startAutomation(): void {
+		this.stopAutomation()
+
 		if (!this.enabled) {
-			this.killAutomator()
 			return
 		}
 
 		const { sundial } = getConfig()
 		if (sundial.interval === 0) {
-			log("Automator offline")
+			log("Automation disabled (interval is 0)")
 			return
 		}
-		log("Automator online")
 
 		const interval = 1000 * 60 * sundial.interval
 		this.checkInterval = setInterval(() => {
 			log("Run autocheck")
 			this.check()
 		}, interval)
+
+		log("Automation started")
 	}
 
 	/**
-	 * Kill the automator interval.
+	 * Stop the automation interval.
 	 */
-	killAutomator(): void {
-		clearInterval(this.checkInterval)
+	private stopAutomation(): void {
+		if (this.checkInterval) {
+			clearInterval(this.checkInterval)
+			this.checkInterval = null
+			log("Automation stopped")
+		}
 	}
 
 	/**
@@ -121,7 +126,7 @@ export class Sundial {
 		log("Check initialized")
 
 		this.isRunning = true
-		this.killAutomator()
+		this.stopAutomation()
 
 		const currentTimeName = await this.getCurrentTime()
 		log(`Current time is ${currentTimeName}`)
@@ -135,7 +140,7 @@ export class Sundial {
 		}
 
 		this.isRunning = false
-		this.automator()
+		this.startAutomation()
 	}
 
 	/**
