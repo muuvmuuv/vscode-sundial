@@ -1,11 +1,31 @@
-                    GNU GENERAL PUBLIC LICENSE
-                       Version 3, 29 June 2007
+Sundial - Automatic night mode and settings switch for VS Code
+Copyright (C) 2019-present Marvin Heilemann
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+SPDX-License-Identifier: GPL-3.0-only
+
+---
+
+# GNU GENERAL PUBLIC LICENSE
+
+> Version 3, 29 June 2007
 
 Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/> Everyone is permitted
 to copy and distribute verbatim copies of this license document, but changing it is not
 allowed.
 
-                            Preamble
+## Preamble
 
 The GNU General Public License is a free, copyleft license for software and other kinds of
 works.
@@ -59,9 +79,9 @@ patents cannot be used to render the program non-free.
 
 The precise terms and conditions for copying, distribution and modification follow.
 
-                       TERMS AND CONDITIONS
+## TERMS AND CONDITIONS
 
-0. Definitions.
+1. Definitions.
 
 "This License" refers to version 3 of the GNU General Public License.
 
@@ -537,9 +557,9 @@ most closely approximates an absolute waiver of all civil liability in connectio
 Program, unless a warranty or assumption of liability accompanies a copy of the Program in
 return for a fee.
 
-                     END OF TERMS AND CONDITIONS
+## END OF TERMS AND CONDITIONS
 
-            How to Apply These Terms to Your New Programs
+#### How to Apply These Terms to Your New Programs
 
 If you develop a new program, and you want it to be of the greatest possible use to the
 public, the best way to achieve this is to make it free software which everyone can

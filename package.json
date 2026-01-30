@@ -7,14 +7,18 @@
 	"publisher": "muuvmuuv",
 	"qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
 	"categories": [
-		"Other"
+		"Themes"
 	],
 	"keywords": [
-		"auto",
-		"day",
-		"night",
-		"switch",
-		"settings"
+		"theme",
+		"dark mode",
+		"light mode",
+		"night mode",
+		"sunrise",
+		"sunset",
+		"automatic",
+		"schedule",
+		"eye strain"
 	],
 	"homepage": "https://github.com/muuvmuuv/vscode-sundial",
 	"pricing": "Free",
@@ -31,7 +35,7 @@
 	"sponsor": {
 		"url": "https://buymeacoffee.com/muuvmuuv"
 	},
-	"license": "GPLv3",
+	"license": "GPL-3.0-only",
 	"author": {
 		"name": "Marvin Heilemann",
 		"email": "bloggt.raschelt.0m@icloud.com",
@@ -125,7 +129,7 @@
 				},
 				"sundial.longitude": {
 					"type": "string",
-					"description": "Latitude of your location to get sunset and sunrise."
+					"description": "Longitude of your location to get sunset and sunrise."
 				},
 				"sundial.autoLocale": {
 					"type": "boolean",

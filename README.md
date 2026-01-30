@@ -38,7 +38,7 @@ Whenever you have ideas for this project, things you would like to add or you fo
 feel free to create an issue or start contributing! 😇
 
 > The minimum supported VS Code version is
-> [1.91.1](https://github.com/microsoft/vscode/tree/1.91.1)
+> [1.108.0](https://github.com/microsoft/vscode/releases/tag/1.108.0)
 
 <p>
   <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
@@ -85,9 +85,8 @@ banner below:
 | Sundial: Toggle Day/Night Theme   | Toggles between your day/night theme.       |
 | Sundial: Enable extension         | Continues automation and enables extension. |
 | Sundial: Disable extension        | Disables extension.                         |
-| Sundial: Pause until next circle  | Pause until next day/night circle.          |
 
-> Note: Whenever you use one of the first three commands, Sundial will disable its
+> Note: Whenever you use one of the theme switching commands, Sundial will disable its
 > automatic checks.
 
 ## Settings
@@ -228,7 +227,7 @@ I am working with [**esbuild**](https://esbuild.github.io/) to bundle Sundial to
 smallest possible size to increase the load time in VS Code _for you_.
 
 > The minimum supported VS Code version is
-> [1.105.0](https://github.com/microsoft/vscode/releases/tag/1.105.0)
+> [1.108.0](https://github.com/microsoft/vscode/releases/tag/1.108.0)
 
 1.  Install packages via npm: `npm run install` (_pnpm_ does not work due to
     [this VSCE Issue](https://github.com/microsoft/vscode-vsce/issues/421))
@@ -238,7 +237,7 @@ smallest possible size to increase the load time in VS Code _for you_.
 3.  Commit your changes with a detailed explanation
 4.  Create a pull request
 
-> Package size: 40.4kb
+> Package size: ~40kb
 
 ### Deployment
 
