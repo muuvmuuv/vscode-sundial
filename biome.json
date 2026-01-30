@@ -1,47 +1,43 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.3.13/schema.json",
+	"files": {
+		"includes": ["**/*.ts", "**/*.js", "**/*.mjs", "**/*.json", "**/*.md", "!**/testProject"],
+		"ignoreUnknown": true
+	},
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
 		"useIgnoreFile": true
 	},
-	"files": {
-		"includes": ["src/**", "*.json"]
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
 	},
 	"formatter": {
 		"enabled": true,
-		"useEditorconfig": true,
 		"formatWithErrors": false,
 		"indentStyle": "tab",
 		"indentWidth": 2,
 		"lineEnding": "lf",
-		"lineWidth": 90
+		"lineWidth": 100
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"correctness": {
-				"noUndeclaredDependencies": "off",
-				"noNodejsModules": "off"
-			},
-			"style": {
-				"noParameterAssign": "error",
-				"useAsConstAssertion": "error",
-				"useDefaultParameterLast": "error",
-				"useEnumInitializers": "error",
-				"useSelfClosingElements": "error",
-				"useSingleVarDeclarator": "error",
-				"noUnusedTemplateLiteral": "error",
-				"useNumberNamespace": "error",
-				"noInferrableTypes": "error",
-				"noUselessElse": "error"
-			}
+			"recommended": true
 		}
 	},
-	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"javascript": {
 		"formatter": {
-			"semicolons": "asNeeded"
+			"quoteProperties": "asNeeded",
+			"semicolons": "asNeeded",
+			"arrowParentheses": "always",
+			"bracketSpacing": true,
+			"bracketSameLine": false,
+			"quoteStyle": "single"
 		}
 	},
 	"json": {

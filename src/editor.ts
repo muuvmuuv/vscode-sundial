@@ -1,7 +1,7 @@
-import { type WorkspaceConfiguration, window, workspace } from "vscode"
+import { type WorkspaceConfiguration, window, workspace } from 'vscode'
 
-import { log } from "./logger.js"
-import type { SundialConfiguration } from "./sundial.js"
+import { log } from './logger.js'
+import type { SundialConfiguration } from './sundial.js'
 
 // Config cache - invalidated on config changes
 let configCache: {
@@ -12,8 +12,8 @@ let configCache: {
 export function getConfig(force?: boolean) {
 	if (!configCache || force) {
 		configCache = {
-			sundial: workspace.getConfiguration("sundial") as SundialConfiguration,
-			workbench: workspace.getConfiguration("workbench"),
+			sundial: workspace.getConfiguration('sundial') as SundialConfiguration,
+			workbench: workspace.getConfiguration('workbench'),
 		}
 	}
 	return configCache
@@ -34,7 +34,7 @@ export function applySettings(settings: WorkspaceConfiguration): void {
 	const workspaceSettings = workspace.getConfiguration()
 
 	for (const k of Object.keys(settings)) {
-		if (k === "workbench.colorTheme") {
+		if (k === 'workbench.colorTheme') {
 			continue // do not override `workbench.colorTheme`
 		}
 
@@ -50,17 +50,17 @@ export function applySettings(settings: WorkspaceConfiguration): void {
 }
 
 export const TimeName = {
-	Day: "day",
-	Night: "night",
+	Day: 'day',
+	Night: 'night',
 }
 
 export type TimeName = (typeof TimeName)[keyof typeof TimeName]
 
 export function changeThemeTo(newTheme: string): void {
-	log("Changing theme to", newTheme)
+	log('Changing theme to', newTheme)
 	const { workbench } = getConfig(true)
 	if (newTheme !== workbench.colorTheme) {
-		workbench.update("colorTheme", newTheme, true)
+		workbench.update('colorTheme', newTheme, true)
 	}
 }
 
@@ -77,7 +77,7 @@ export function changeToNight(): void {
 }
 
 export function toggleTheme(time?: TimeName): void {
-	log("Toggle theme to", time || "toggle")
+	log('Toggle theme to', time || 'toggle')
 
 	if (time === TimeName.Day) {
 		changeToDay()

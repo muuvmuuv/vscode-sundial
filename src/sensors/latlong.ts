@@ -1,19 +1,19 @@
-import { getTimes } from "suncalc"
-import { window } from "vscode"
+import { getTimes } from 'suncalc'
+import { window } from 'vscode'
 
-import { getConfig } from "../editor.js"
-import { log } from "../logger.js"
-import type { Tides } from "../sundial.js"
+import { getConfig } from '../editor.js'
+import { log } from '../logger.js'
+import type { Tides } from '../sundial.js'
 
 export function getLatLong(): Tides {
 	const config = getConfig()
 
 	if (!(config.sundial.latitude && config.sundial.longitude)) {
-		throw window.showErrorMessage("Sundial needs both, latitude and longitude")
+		throw window.showErrorMessage('Sundial needs both, latitude and longitude')
 	}
 
-	log("Config latitude", config.sundial.latitude)
-	log("Config longitude", config.sundial.longitude)
+	log('Config latitude', config.sundial.latitude)
+	log('Config longitude', config.sundial.longitude)
 
 	const tides = getTimes(
 		new Date(),

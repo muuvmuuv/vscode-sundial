@@ -4,11 +4,11 @@ import {
 	type ExtensionContext,
 	window,
 	workspace,
-} from "vscode"
+} from 'vscode'
 
-import { invalidateConfigCache, TimeName } from "./editor.js"
-import { outputChannel } from "./logger.js"
-import { Sundial } from "./sundial.js"
+import { invalidateConfigCache, TimeName } from './editor.js'
+import { outputChannel } from './logger.js'
+import { Sundial } from './sundial.js'
 
 const sundial = new Sundial() // Hi!
 
@@ -18,9 +18,9 @@ function check() {
 
 function configChanged(event: ConfigurationChangeEvent) {
 	if (
-		event.affectsConfiguration("sundial") ||
-		event.affectsConfiguration("workbench.preferredDarkColorTheme") ||
-		event.affectsConfiguration("workbench.preferredLightColorTheme")
+		event.affectsConfiguration('sundial') ||
+		event.affectsConfiguration('workbench.preferredDarkColorTheme') ||
+		event.affectsConfiguration('workbench.preferredLightColorTheme')
 	) {
 		invalidateConfigCache()
 		sundial.enableExtension()
@@ -43,17 +43,13 @@ export function activate(context: ExtensionContext): void {
 			}
 		}),
 		workspace.onDidChangeConfiguration(configChanged),
-		commands.registerCommand("sundial.switchToNightTheme", () =>
+		commands.registerCommand('sundial.switchToNightTheme', () =>
 			sundial.toggleTheme(TimeName.Night),
 		),
-		commands.registerCommand("sundial.switchToDayTheme", () =>
-			sundial.toggleTheme(TimeName.Day),
-		),
-		commands.registerCommand("sundial.toggleDayNightTheme", () => sundial.toggleTheme()),
-		commands.registerCommand("sundial.enableExtension", () => sundial.enableExtension()),
-		commands.registerCommand("sundial.disableExtension", () =>
-			sundial.disableExtension(),
-		),
+		commands.registerCommand('sundial.switchToDayTheme', () => sundial.toggleTheme(TimeName.Day)),
+		commands.registerCommand('sundial.toggleDayNightTheme', () => sundial.toggleTheme()),
+		commands.registerCommand('sundial.enableExtension', () => sundial.enableExtension()),
+		commands.registerCommand('sundial.disableExtension', () => sundial.disableExtension()),
 	)
 }
 

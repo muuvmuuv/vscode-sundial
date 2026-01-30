@@ -6,6 +6,7 @@
 	"icon": "assets/icon.png",
 	"publisher": "muuvmuuv",
 	"qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
+	"type": "module",
 	"categories": [
 		"Themes"
 	],

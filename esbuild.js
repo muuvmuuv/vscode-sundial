@@ -1,9 +1,9 @@
-const esbuild = require("esbuild")
-const fs = require("node:fs")
-const path = require("node:path")
+const esbuild = require('esbuild')
+const fs = require('node:fs')
+const path = require('node:path')
 
 // Read package.json for metadata
-const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, "package.json"), "utf8"))
+const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'))
 
 // Create banner with metadata
 const banner = `/**
@@ -18,8 +18,8 @@ const banner = `/**
  */`
 
 // Parse CLI arguments
-const production = process.argv.includes("--production")
-const watch = process.argv.includes("--watch")
+const production = process.argv.includes('--production')
+const watch = process.argv.includes('--watch')
 
 /**
  * esbuild problem matcher plugin for watch mode.
@@ -28,44 +28,42 @@ const watch = process.argv.includes("--watch")
  * @type {import('esbuild').Plugin}
  */
 const esbuildProblemMatcherPlugin = {
-	name: "esbuild-problem-matcher",
+	name: 'esbuild-problem-matcher',
 
 	setup(build) {
 		build.onStart(() => {
-			console.log("[watch] build started")
+			console.log('[watch] build started')
 		})
 		build.onEnd((result) => {
 			if (result.errors.length > 0) {
 				result.errors.forEach(({ text, location }) => {
 					console.error(`✘ [ERROR] ${text}`)
 					if (location) {
-						console.error(
-							`    ${location.file}:${location.line}:${location.column}:`,
-						)
+						console.error(`    ${location.file}:${location.line}:${location.column}:`)
 					}
 				})
 			}
-			console.log("[watch] build finished")
+			console.log('[watch] build finished')
 		})
 	},
 }
 
 async function main() {
-	console.log("  Running esbuild...")
-	console.log("")
+	console.log('  Running esbuild...')
+	console.log('')
 	console.log(banner)
-	console.log("")
+	console.log('')
 
 	/** @type {import('esbuild').BuildOptions} */
 	const sharedOptions = {
 		bundle: true,
-		format: "cjs",
+		format: 'cjs',
 		minify: production,
 		sourcemap: !production,
 		sourcesContent: false,
-		platform: "node",
-		external: ["vscode"],
-		logLevel: "silent",
+		platform: 'node',
+		external: ['vscode'],
+		logLevel: 'silent',
 		plugins: watch ? [esbuildProblemMatcherPlugin] : [],
 		metafile: true,
 	}
@@ -73,8 +71,8 @@ async function main() {
 	// Build main extension
 	const ctx = await esbuild.context({
 		...sharedOptions,
-		entryPoints: ["src/extension.ts"],
-		outfile: "dist/extension.js",
+		entryPoints: ['src/extension.ts'],
+		outfile: 'dist/extension.js',
 		banner: {
 			js: banner,
 		},
@@ -84,8 +82,8 @@ async function main() {
 	const testCtx = !production
 		? await esbuild.context({
 				...sharedOptions,
-				entryPoints: ["src/test/*.test.ts"],
-				outdir: "dist/test",
+				entryPoints: ['src/test/*.test.ts'],
+				outdir: 'dist/test',
 			})
 		: null
 
@@ -110,7 +108,7 @@ async function main() {
 			}
 		}
 
-		console.log("")
+		console.log('')
 		console.log(`⚡ Done`)
 	}
 }

@@ -2,6 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Critical Rules
+
+- **NEVER commit without explicit user approval** - Always wait for the user to confirm before running `git commit`
+- **NEVER push without explicit user approval** - Always wait for the user to confirm before running `git push`
+
 ## Project Overview
 
 Sundial is a VS Code extension that automatically changes themes and settings based on sunrise/sunset times, system appearance, or manual time preferences. It helps reduce eye strain by switching between light and dark themes at appropriate times.
@@ -108,7 +113,7 @@ Uses **esbuild** via `esbuild.js` for fast bundling, following VS Code's recomme
 
 ## Important Notes
 
-- Minimum VS Code version: 1.91.1
+- Minimum VS Code version: 1.108.0
 - Users must set `"window.autoDetectColorScheme": false` to avoid conflicts with VS Code's built-in theme switching
 - Extension activates on `onStartupFinished` event
 - Package size: ~40KB (minified production build)

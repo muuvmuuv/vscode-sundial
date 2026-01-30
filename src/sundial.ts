@@ -1,11 +1,11 @@
-import { addMinutes, isAfter, isBefore, parse } from "date-fns"
+import { addMinutes, isAfter, isBefore, parse } from 'date-fns'
 import {
 	type ExtensionContext,
 	StatusBarAlignment,
 	type StatusBarItem,
 	type WorkspaceConfiguration,
 	window,
-} from "vscode"
+} from 'vscode'
 
 import {
 	changeToDay,
@@ -13,12 +13,12 @@ import {
 	toggleTheme as editorToggleTheme,
 	getConfig,
 	TimeName,
-} from "./editor.js"
-import { log } from "./logger.js"
-import { getAutoLocale } from "./sensors/autolocale.js"
-import { getLatLong } from "./sensors/latlong.js"
+} from './editor.js'
+import { log } from './logger.js'
+import { getAutoLocale } from './sensors/autolocale.js'
+import { getLatLong } from './sensors/latlong.js'
 
-const STATE_ENABLED = "sundial.enabled"
+const STATE_ENABLED = 'sundial.enabled'
 
 export interface Tides {
 	sunrise: Date
@@ -40,8 +40,8 @@ export interface SundialConfiguration extends WorkspaceConfiguration {
 }
 
 export class Sundial {
-	static readonly extensionName = "Sundial"
-	static readonly extensionAlias = "sundial"
+	static readonly extensionName = 'Sundial'
+	static readonly extensionAlias = 'sundial'
 
 	static extensionContext: ExtensionContext
 
@@ -57,7 +57,7 @@ export class Sundial {
 	 * Enable the automation and checks.
 	 */
 	enableExtension(): void {
-		log("Enabling Sundial")
+		log('Enabling Sundial')
 
 		Sundial.extensionContext.globalState.update(STATE_ENABLED, true)
 
@@ -74,7 +74,7 @@ export class Sundial {
 	 * Disable the extension automation and checks.
 	 */
 	disableExtension(): void {
-		log("Disabling Sundial")
+		log('Disabling Sundial')
 		Sundial.extensionContext.globalState.update(STATE_ENABLED, false)
 		this.stopAutomation()
 	}
@@ -91,17 +91,17 @@ export class Sundial {
 
 		const { sundial } = getConfig()
 		if (sundial.interval === 0) {
-			log("Automation disabled (interval is 0)")
+			log('Automation disabled (interval is 0)')
 			return
 		}
 
 		const interval = 1000 * 60 * sundial.interval
 		this.checkInterval = setInterval(() => {
-			log("Run autocheck")
+			log('Run autocheck')
 			this.check()
 		}, interval)
 
-		log("Automation started")
+		log('Automation started')
 	}
 
 	/**
@@ -111,7 +111,7 @@ export class Sundial {
 		if (this.checkInterval) {
 			clearInterval(this.checkInterval)
 			this.checkInterval = null
-			log("Automation stopped")
+			log('Automation stopped')
 		}
 	}
 
@@ -123,7 +123,7 @@ export class Sundial {
 			return // disabled or already running
 		}
 
-		log("Check initialized")
+		log('Check initialized')
 
 		this.isRunning = true
 		this.stopAutomation()
@@ -132,10 +132,10 @@ export class Sundial {
 		log(`Current time is ${currentTimeName}`)
 
 		if (currentTimeName === TimeName.Day) {
-			log("Applying day")
+			log('Applying day')
 			changeToDay()
 		} else {
-			log("Applying night")
+			log('Applying night')
 			changeToNight()
 		}
 
@@ -165,12 +165,12 @@ export class Sundial {
 			sundial.statusBarItemPriority,
 		)
 		this.statusBarItem.accessibilityInformation = {
-			label: "Toggle day/night theme",
-			role: "button",
+			label: 'Toggle day/night theme',
+			role: 'button',
 		}
-		this.statusBarItem.command = "sundial.toggleDayNightTheme"
-		this.statusBarItem.text = "$(color-mode)"
-		this.statusBarItem.tooltip = "Toggle day/night theme"
+		this.statusBarItem.command = 'sundial.toggleDayNightTheme'
+		this.statusBarItem.text = '$(color-mode)'
+		this.statusBarItem.tooltip = 'Toggle day/night theme'
 
 		Sundial.extensionContext.subscriptions.push(this.statusBarItem)
 
@@ -187,12 +187,12 @@ export class Sundial {
 			this.evaluateTides(tides)
 
 		if (nowIsAfterSunrise && nowIsBeforeSunset) {
-			log("It is", TimeName.Day)
+			log('It is', TimeName.Day)
 			return TimeName.Day
 		}
 
 		if (nowIsBeforeSunrise || nowIsAfterSunset) {
-			log("It is", TimeName.Night)
+			log('It is', TimeName.Night)
 			return TimeName.Night
 		}
 
@@ -206,20 +206,20 @@ export class Sundial {
 		const { sundial } = getConfig()
 
 		if (sundial.latitude && sundial.longitude) {
-			log("Will use your latitude and longitude")
+			log('Will use your latitude and longitude')
 			return getLatLong()
 		}
 
 		if (sundial.autoLocale) {
-			log("Will now try to detect your location")
+			log('Will now try to detect your location')
 			return await getAutoLocale()
 		}
 
-		log("Will use your time settings")
+		log('Will use your time settings')
 
 		return {
-			sunrise: parse(sundial.sunrise, "HH:mm", new Date()),
-			sunset: parse(sundial.sunset, "HH:mm", new Date()),
+			sunrise: parse(sundial.sunrise, 'HH:mm', new Date()),
+			sunset: parse(sundial.sunset, 'HH:mm', new Date()),
 		}
 	}
 
@@ -246,13 +246,13 @@ export class Sundial {
 		const nowIsBeforeSunset = isBefore(now, sunset)
 		const nowIsAfterSunset = isAfter(now, sunset)
 
-		log("Now:", now)
-		log("Sunrise:", sunrise)
-		log("Sunset:", sunset)
-		log("nowIsBeforeSunrise:", nowIsBeforeSunrise)
-		log("nowIsAfterSunrise:", nowIsAfterSunrise)
-		log("nowIsBeforeSunset:", nowIsBeforeSunset)
-		log("nowIsAfterSunset:", nowIsAfterSunset)
+		log('Now:', now)
+		log('Sunrise:', sunrise)
+		log('Sunset:', sunset)
+		log('nowIsBeforeSunrise:', nowIsBeforeSunrise)
+		log('nowIsAfterSunrise:', nowIsAfterSunrise)
+		log('nowIsBeforeSunset:', nowIsBeforeSunset)
+		log('nowIsAfterSunset:', nowIsAfterSunset)
 
 		return {
 			nowIsBeforeSunrise,

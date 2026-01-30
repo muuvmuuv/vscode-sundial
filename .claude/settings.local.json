@@ -1,9 +1,7 @@
 {
-  "permissions": {
-    "allow": [
-      "WebFetch(domain:code.visualstudio.com)"
-    ],
-    "deny": [],
-    "ask": []
-  }
+	"permissions": {
+		"allow": ["WebFetch(domain:code.visualstudio.com)"],
+		"deny": [],
+		"ask": []
+	}
 }
