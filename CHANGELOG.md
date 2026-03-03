@@ -1,5 +1,7 @@
 # Changelog
 
+## [3.10.1](https://github.com/muuvmuuv/vscode-sundial/compare/v3.10.0...v3.10.1) (2026-03-03)
+
 ## <small>3.7.1 (2025-10-23)</small>
 
 * build: update deps ([5eecd8b](https://github.com/muuvmuuv/vscode-sundial/commit/5eecd8b))
