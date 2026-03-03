@@ -40,12 +40,6 @@ feel free to create an issue or start contributing! 😇
 > The minimum supported VS Code version is
 > [1.108.0](https://github.com/microsoft/vscode/releases/tag/1.108.0)
 
-<p>
-  <a href="https://www.buymeacoffee.com/devmuuv" target="_blank">
-    <img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy me a Gluten-free Bread" />
-  </a>
-</p>
-
 ![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/main/assets/banner.jpg)
 
 ## Installation
@@ -159,11 +153,11 @@ you have issues ready a font size of 12 in the night.
 ```jsonc
 {
   "sundial.daySettings": {
-    "editor.fontSize": 12
+    "editor.fontSize": 12,
   },
   "sundial.nightSettings": {
-    "editor.fontSize": 14
-  }
+    "editor.fontSize": 14,
+  },
 }
 ```
 
@@ -191,7 +185,7 @@ also disable all sundial automated checks.
   "workbench.preferredLightColorTheme": "Default Light+",
   "workbench.preferredDarkColorTheme": "Default Dark+",
   "sundial.interval": 20,
-  "sundial.autoLocale": true
+  "sundial.autoLocale": true,
 }
 ```
 
@@ -200,7 +194,7 @@ also disable all sundial automated checks.
   "window.autoDetectColorScheme": false, // required!
   "workbench.preferredLightColorTheme": "Default Light+",
   "workbench.preferredDarkColorTheme": "Default Dark+",
-  "sundial.sunrise": "05:12"
+  "sundial.sunrise": "05:12",
 }
 ```
 
@@ -213,11 +207,11 @@ also disable all sundial automated checks.
   "sundial.latitude": "50.110924",
   "sundial.longitude": "8.682127",
   "sundial.daySettings": {
-    "editor.fontSize": 13
+    "editor.fontSize": 13,
   },
   "sundial.nightSettings": {
-    "editor.fontSize": 15
-  }
+    "editor.fontSize": 15,
+  },
 }
 ```
 

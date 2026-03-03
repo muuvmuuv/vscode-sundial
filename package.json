@@ -32,9 +32,6 @@
 		"type": "git",
 		"url": "git+https://github.com/muuvmuuv/vscode-sundial.git"
 	},
-	"sponsor": {
-		"url": "https://buymeacoffee.com/muuvmuuv"
-	},
 	"license": "GPL-3.0-only",
 	"author": {
 		"name": "Marvin Heilemann",
@@ -187,6 +184,11 @@
 			"href": "https://github.com/muuvmuuv/vscode-sundial/actions"
 		}
 	],
+	"overrides": {
+		"serialize-javascript": "^7.0.4",
+		"diff": "^8.0.3",
+		"glob": "^13.0.0"
+	},
 	"commitlint": {
 		"extends": [
 			"@commitlint/config-conventional"
