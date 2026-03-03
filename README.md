@@ -245,10 +245,12 @@ npm run release -- --help
 Sundial is deployed on VS Code Marketplace and Open VSX.
 
 - VS Code Marketplace:
-  - `vsce publish`
+  - `  npx @vscode/vsce publish -p $VSCE_PAT`
 - Open VSX:
-  - `vsce package`
-  - `npx ovsx publish *.vsix -p $OPENVSX_ACCESS_TOKEN`
+  - `npx @vscode/vsce package`
+  - `  npx ovsx publish *.vsix -p $OPENVSX_ACCESS_TOKEN`
+
+> Get token from here: https://dev.azure.com/muuvmuuv/_usersSettings/tokens
 
 #### Pre-release
 
