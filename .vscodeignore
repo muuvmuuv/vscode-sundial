@@ -23,7 +23,8 @@ assets/status-bar-icon.png
 .env
 .prototools
 esbuild.js
-biome.json
+.oxlintrc.json
+.oxfmtrc.json
 tsconfig.json
 lefthook.yml
 **/*cache

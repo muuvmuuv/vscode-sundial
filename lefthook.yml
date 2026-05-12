@@ -2,11 +2,12 @@
 
 pre-commit:
   commands:
-    check:
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run:
-        node_modules/.bin/biome check --no-errors-on-unmatched --files-ignore-unknown=true
-        {staged_files}
+    lint:
+      glob: '*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx}'
+      run: node_modules/.bin/oxlint {staged_files}
+    format:
+      glob: '*.{js,ts,cjs,mjs,jsx,tsx,json,jsonc}'
+      run: node_modules/.bin/oxfmt --check {staged_files}
 
 commit-msg:
   commands:

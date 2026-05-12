@@ -3,34 +3,23 @@
 	"displayName": "Sundial – Automatic night mode and settings switch",
 	"version": "3.10.2",
 	"description": "Automatically change your theme and settings based on your sunset, sunrise, system appearance or other preferences!",
-	"icon": "assets/icon.png",
-	"publisher": "muuvmuuv",
-	"qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
 	"categories": [
 		"Themes"
 	],
 	"keywords": [
-		"theme",
+		"automatic",
 		"dark mode",
+		"eye strain",
 		"light mode",
 		"night mode",
+		"schedule",
 		"sunrise",
 		"sunset",
-		"automatic",
-		"schedule",
-		"eye strain"
+		"theme"
 	],
 	"homepage": "https://github.com/muuvmuuv/vscode-sundial",
-	"pricing": "Free",
-	"galleryBanner": {
-		"color": "#272c35"
-	},
 	"bugs": {
 		"url": "https://github.com/muuvmuuv/vscode-sundial/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/muuvmuuv/vscode-sundial.git"
 	},
 	"license": "GPL-3.0-only",
 	"author": {
@@ -38,13 +27,19 @@
 		"email": "bloggt.raschelt.0m@icloud.com",
 		"url": "https://marvin.digital/"
 	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/muuvmuuv/vscode-sundial.git"
+	},
+	"qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
+	"publisher": "muuvmuuv",
 	"main": "dist/extension.js",
 	"scripts": {
 		"dev": "node esbuild.js --watch",
 		"compile": "node esbuild.js",
 		"package": "node esbuild.js --production",
-		"check": "biome check .",
-		"format": "biome check . --write",
+		"check": "oxlint && oxfmt --check",
+		"format": "oxlint --fix && oxfmt",
 		"pretest": "npm run compile",
 		"test": "vscode-test",
 		"vscode:prepublish": "npm run package",
@@ -55,7 +50,6 @@
 		"suncalc": "^1.9.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.3.13",
 		"@commitlint/cli": "^20.3.1",
 		"@commitlint/config-conventional": "^20.3.1",
 		"@release-it/conventional-changelog": "^11.0.0",
@@ -68,15 +62,21 @@
 		"esbuild": "^0.28.0",
 		"lefthook": "^2.0.16",
 		"mocha": "^11.7.5",
+		"oxfmt": "^0.49.0",
+		"oxlint": "^1.64.0",
 		"release-it": "^20.0.1",
 		"typescript": "^5.9.3"
 	},
-	"engines": {
-		"vscode": "^1.108.0"
+	"overrides": {
+		"diff": "^8.0.3",
+		"glob": "^13.0.0",
+		"serialize-javascript": "^7.0.4"
 	},
-	"activationEvents": [
-		"onStartupFinished"
-	],
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
 	"contributes": {
 		"commands": [
 			{
@@ -167,6 +167,10 @@
 			}
 		}
 	},
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"icon": "assets/icon.png",
 	"badges": [
 		{
 			"description": "Snyk monitored",
@@ -184,14 +188,11 @@
 			"href": "https://github.com/muuvmuuv/vscode-sundial/actions"
 		}
 	],
-	"overrides": {
-		"serialize-javascript": "^7.0.4",
-		"diff": "^8.0.3",
-		"glob": "^13.0.0"
+	"galleryBanner": {
+		"color": "#272c35"
 	},
-	"commitlint": {
-		"extends": [
-			"@commitlint/config-conventional"
-		]
-	}
+	"engines": {
+		"vscode": "^1.108.0"
+	},
+	"pricing": "Free"
 }

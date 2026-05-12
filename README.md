@@ -135,7 +135,7 @@ options.
 
 ```json
 {
-  "window.autoDetectColorScheme": true
+	"window.autoDetectColorScheme": true
 }
 ```
 
@@ -152,12 +152,12 @@ you have issues ready a font size of 12 in the night.
 
 ```jsonc
 {
-  "sundial.daySettings": {
-    "editor.fontSize": 12,
-  },
-  "sundial.nightSettings": {
-    "editor.fontSize": 14,
-  },
+	"sundial.daySettings": {
+		"editor.fontSize": 12,
+	},
+	"sundial.nightSettings": {
+		"editor.fontSize": 14,
+	},
 }
 ```
 
@@ -181,37 +181,37 @@ also disable all sundial automated checks.
 
 ```jsonc
 {
-  "window.autoDetectColorScheme": false, // required!
-  "workbench.preferredLightColorTheme": "Default Light+",
-  "workbench.preferredDarkColorTheme": "Default Dark+",
-  "sundial.interval": 20,
-  "sundial.autoLocale": true,
+	"window.autoDetectColorScheme": false, // required!
+	"workbench.preferredLightColorTheme": "Default Light+",
+	"workbench.preferredDarkColorTheme": "Default Dark+",
+	"sundial.interval": 20,
+	"sundial.autoLocale": true,
 }
 ```
 
 ```jsonc
 {
-  "window.autoDetectColorScheme": false, // required!
-  "workbench.preferredLightColorTheme": "Default Light+",
-  "workbench.preferredDarkColorTheme": "Default Dark+",
-  "sundial.sunrise": "05:12",
+	"window.autoDetectColorScheme": false, // required!
+	"workbench.preferredLightColorTheme": "Default Light+",
+	"workbench.preferredDarkColorTheme": "Default Dark+",
+	"sundial.sunrise": "05:12",
 }
 ```
 
 ```jsonc
 {
-  "window.autoDetectColorScheme": false, // required!
-  "workbench.preferredLightColorTheme": "Default Light+",
-  "workbench.preferredDarkColorTheme": "Default Dark+",
-  "sundial.dayVariable": 43,
-  "sundial.latitude": "50.110924",
-  "sundial.longitude": "8.682127",
-  "sundial.daySettings": {
-    "editor.fontSize": 13,
-  },
-  "sundial.nightSettings": {
-    "editor.fontSize": 15,
-  },
+	"window.autoDetectColorScheme": false, // required!
+	"workbench.preferredLightColorTheme": "Default Light+",
+	"workbench.preferredDarkColorTheme": "Default Dark+",
+	"sundial.dayVariable": 43,
+	"sundial.latitude": "50.110924",
+	"sundial.longitude": "8.682127",
+	"sundial.daySettings": {
+		"editor.fontSize": 13,
+	},
+	"sundial.nightSettings": {
+		"editor.fontSize": 15,
+	},
 }
 ```
 

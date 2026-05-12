@@ -1,17 +1,17 @@
 {
-  "window.autoDetectColorScheme": false,
-  "workbench.settings.useSplitJSON": false,
-  "workbench.preferredDarkColorTheme": "Default Dark+",
-  "workbench.preferredLightColorTheme": "Default Light+",
-  "sundial.debug": 3,
-  "sundial.autoLocale": true,
-  "sundial.latitude": "",
-  "sundial.longitude": "",
-  "sundial.daySettings": {},
-  "sundial.nightSettings": {
-    "editor.fontFamily": "Source Code Pro"
-  },
-  "sundial.statusBarItemPriority": 101,
+	"window.autoDetectColorScheme": false,
+	"workbench.settings.useSplitJSON": false,
+	"workbench.preferredDarkColorTheme": "Default Dark+",
+	"workbench.preferredLightColorTheme": "Default Light+",
+	"sundial.debug": 3,
+	"sundial.autoLocale": true,
+	"sundial.latitude": "",
+	"sundial.longitude": "",
+	"sundial.daySettings": {},
+	"sundial.nightSettings": {
+		"editor.fontFamily": "Source Code Pro"
+	},
+	"sundial.statusBarItemPriority": 101,
 	"github.copilot.enable": {
 		"*": false
 	},
@@ -23,5 +23,5 @@
 	"telemetry.telemetryLevel": "off",
 	"chat.disableAIFeatures": true,
 	"git.enabled": false,
-  "git.autoRepositoryDetection": false
+	"git.autoRepositoryDetection": false
 }

@@ -29,8 +29,8 @@ Use **proto** for Node version management. The version is pinned in `.prototools
 
 ### Code Quality
 
-- `npm run check` - Run Biome linter/formatter checks
-- `npm run format` - Auto-fix formatting and linting issues with Biome
+- `npm run check` - Run oxlint and oxfmt checks
+- `npm run format` - Auto-fix lint issues with oxlint and format with oxfmt
 
 ### Testing
 
@@ -117,11 +117,8 @@ Uses **esbuild** via `esbuild.js` for fast bundling, following VS Code's recomme
 
 ## Code Style
 
-- Uses **Biome** for formatting and linting (configured in `biome.json`)
-- Tab indentation (width: 2)
-- Semicolons: as needed (not required)
-- Line width: 90 characters
-- Git hooks via **lefthook** run Biome on pre-commit
+- Uses **oxlint** for linting (configured in `.oxlintrc.json`) and **oxfmt** for formatting (defaults; respects `.editorconfig`)
+- Git hooks via **lefthook** run oxlint + oxfmt on pre-commit
 - **No `.js` extensions** in TypeScript imports (using `moduleResolution: "bundler"`)
 - **CommonJS for config files** - Do not use `"type": "module"` in package.json; config files use `.js` extension (not `.mjs`)
 
