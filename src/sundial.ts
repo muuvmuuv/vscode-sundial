@@ -46,7 +46,7 @@ export class Sundial {
 	static extensionContext: ExtensionContext
 
 	private isRunning = false
-	private checkInterval: NodeJS.Timeout | null = null
+	private checkInterval: ReturnType<typeof setInterval> | null = null
 	private statusBarItem?: StatusBarItem
 
 	get enabled(): boolean {
@@ -67,7 +67,7 @@ export class Sundial {
 			this.statusBarItem.show()
 		}
 
-		this.check()
+		void this.check()
 	}
 
 	/**
@@ -98,7 +98,7 @@ export class Sundial {
 		const interval = 1000 * 60 * sundial.interval
 		this.checkInterval = setInterval(() => {
 			log('Run autocheck')
-			this.check()
+			void this.check()
 		}, interval)
 
 		log('Automation started')

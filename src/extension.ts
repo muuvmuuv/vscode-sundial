@@ -13,7 +13,7 @@ import { Sundial } from './sundial'
 const sundial = new Sundial() // Hi!
 
 function check() {
-	sundial.check()
+	void sundial.check()
 }
 
 function configChanged(event: ConfigurationChangeEvent) {

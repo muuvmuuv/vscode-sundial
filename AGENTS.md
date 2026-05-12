@@ -122,9 +122,20 @@ Uses **esbuild** via `esbuild.js` for fast bundling, following VS Code's recomme
 - **No `.js` extensions** in TypeScript imports (using `moduleResolution: "bundler"`)
 - **CommonJS for config files** - Do not use `"type": "module"` in package.json; config files use `.js` extension (not `.mjs`)
 
+## Bumping the minimum supported VS Code version
+
+When `engines.vscode` is raised, the following versions must be re-aligned with what the target VS Code release ships with — otherwise we lose runtime/type accuracy:
+
+- Node version in `.prototools` (VS Code bundles a specific Node)
+- `@types/node` major (match the bundled Node)
+- `@types/vscode` minimum (match `engines.vscode`)
+- TypeScript target/lib in `tsconfig.json` (match the TS version VS Code bundles)
+
+Cross-check via the VS Code release notes for the target version.
+
 ## Important Notes
 
-- Minimum VS Code version: 1.108.0
+- Minimum VS Code version: 1.118.0
 - Users must set `"window.autoDetectColorScheme": false` to avoid conflicts with VS Code's built-in theme switching
 - Extension activates on `onStartupFinished` event
 - Package size: ~40KB (minified production build)

@@ -38,7 +38,7 @@ Whenever you have ideas for this project, things you would like to add or you fo
 feel free to create an issue or start contributing! 😇
 
 > The minimum supported VS Code version is
-> [1.108.0](https://github.com/microsoft/vscode/releases/tag/1.108.0)
+> [1.118.0](https://github.com/microsoft/vscode/releases/tag/1.118.0)
 
 ![VSCode Sundial](https://raw.githubusercontent.com/muuvmuuv/vscode-sundial/main/assets/banner.jpg)
 
@@ -221,9 +221,9 @@ I am working with [**esbuild**](https://esbuild.github.io/) to bundle Sundial to
 smallest possible size to increase the load time in VS Code _for you_.
 
 > The minimum supported VS Code version is
-> [1.108.0](https://github.com/microsoft/vscode/releases/tag/1.108.0)
+> [1.118.0](https://github.com/microsoft/vscode/releases/tag/1.118.0)
 
-1.  Install packages via npm: `npm run install` (_pnpm_ does not work due to
+1.  Install packages via npm: `npm install` (_pnpm_ does not work due to
     [this VSCE Issue](https://github.com/microsoft/vscode-vsce/issues/421))
 2.  Run debugger => `Launch Extension`
     - View the _Extension Host_ and adjust settings to test **or**
@@ -259,7 +259,7 @@ The version must be without pre-release identifier, because VS Code Marketplace 
 allow those.
 
 ```
-pnpm vsce publish --pre-release --no-git-tag-version --no-update-package-json <pre_release_version>
+npx @vscode/vsce publish --pre-release --no-git-tag-version --no-update-package-json <pre_release_version>
 ```
 
 ### Commits

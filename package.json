@@ -50,13 +50,13 @@
 		"suncalc": "^1.9.0"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^20.3.1",
-		"@commitlint/config-conventional": "^20.3.1",
+		"@commitlint/cli": "^21.0.0",
+		"@commitlint/config-conventional": "^21.0.0",
 		"@release-it/conventional-changelog": "^11.0.0",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "24.x",
+		"@types/node": "22.x",
 		"@types/suncalc": "^1.9.2",
-		"@types/vscode": "^1.108.0",
+		"@types/vscode": "^1.118.0",
 		"@vscode/test-cli": "^0.0.12",
 		"@vscode/test-electron": "^2.5.2",
 		"esbuild": "^0.28.0",
@@ -64,8 +64,8 @@
 		"mocha": "^11.7.5",
 		"oxfmt": "^0.49.0",
 		"oxlint": "^1.64.0",
-		"release-it": "^20.0.1",
-		"typescript": "^5.9.3"
+		"oxlint-tsgolint": "^0.22.1",
+		"release-it": "^20.0.1"
 	},
 	"overrides": {
 		"diff": "^8.0.3",
@@ -192,7 +192,7 @@
 		"color": "#272c35"
 	},
 	"engines": {
-		"vscode": "^1.108.0"
+		"vscode": "^1.118.0"
 	},
 	"pricing": "Free"
 }
