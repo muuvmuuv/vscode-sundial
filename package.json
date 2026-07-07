@@ -33,6 +33,7 @@
 	},
 	"qna": "https://github.com/muuvmuuv/vscode-sundial/issues/new/choose",
 	"publisher": "muuvmuuv",
+	"type": "module",
 	"main": "dist/extension.js",
 	"scripts": {
 		"dev": "node esbuild.js --watch",
@@ -40,14 +41,14 @@
 		"package": "node esbuild.js --production",
 		"check": "oxlint && oxfmt --check",
 		"format": "oxlint --fix && oxfmt",
-		"pretest": "npm run compile",
+		"pretest": "pnpm run compile",
 		"test": "vscode-test",
-		"vscode:prepublish": "npm run package",
+		"vscode:prepublish": "pnpm run package",
 		"release": "release-it"
 	},
 	"dependencies": {
 		"date-fns": "^4.1.0",
-		"suncalc": "^1.9.0"
+		"suncalc": "^2.0.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^21.0.0",
@@ -55,16 +56,15 @@
 		"@release-it/conventional-changelog": "^11.0.0",
 		"@types/mocha": "^10.0.10",
 		"@types/node": "22.x",
-		"@types/suncalc": "^1.9.2",
 		"@types/vscode": "^1.118.0",
-		"@vscode/test-cli": "^0.0.12",
-		"@vscode/test-electron": "^2.5.2",
+		"@vscode/test-cli": "^0.0.15",
+		"@vscode/test-electron": "^3.0.0",
 		"esbuild": "^0.28.0",
 		"lefthook": "^2.0.16",
 		"mocha": "^11.7.5",
-		"oxfmt": "^0.49.0",
+		"oxfmt": "^0.57.0",
 		"oxlint": "^1.64.0",
-		"oxlint-tsgolint": "^0.22.1",
+		"oxlint-tsgolint": "^0.24.0",
 		"release-it": "^20.0.1"
 	},
 	"overrides": {
@@ -194,5 +194,6 @@
 	"engines": {
 		"vscode": "^1.118.0"
 	},
+	"packageManager": "pnpm@11.10.0",
 	"pricing": "Free"
 }

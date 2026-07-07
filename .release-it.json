@@ -1,8 +1,8 @@
 {
 	"$schema": "https://unpkg.com/release-it@19/schema/release-it.json",
 	"hooks": {
-		"before:init": "npm run check && npm run package",
-		"before:git:beforeRelease": "npm run format"
+		"before:init": "pnpm run check && pnpm run package",
+		"before:git:beforeRelease": "pnpm run format"
 	},
 	"git": {
 		"requireCleanWorkingDir": false,

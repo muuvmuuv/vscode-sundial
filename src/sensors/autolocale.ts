@@ -77,8 +77,10 @@ export async function getAutoLocale(): Promise<Tides> {
 
 	const tides = getTimes(now, latitude, longitude)
 
+	// suncalc v2 returns null at polar latitudes where the sun never crosses the
+	// horizon; fall back to an invalid date so evaluateTides resolves to night.
 	return {
-		sunrise: tides.sunrise,
-		sunset: tides.sunset,
+		sunrise: tides.sunrise ?? new Date(Number.NaN),
+		sunset: tides.sunset ?? new Date(Number.NaN),
 	}
 }

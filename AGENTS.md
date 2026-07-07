@@ -11,7 +11,7 @@ Sundial is a VS Code extension that automatically changes themes and settings ba
 
 ## Development Commands
 
-**Important**: This project uses **npm** (not pnpm or yarn) because vsce (VS Code Extension CLI) does not natively support other package managers. See [vsce issue #421](https://github.com/microsoft/vscode-vsce/issues/421).
+**Important**: This project uses **pnpm**. vsce (the VS Code Extension CLI) does not natively support pnpm ([issue #421](https://github.com/microsoft/vscode-vsce/issues/421)), but that only affects dependency collection. Because Sundial is bundled with esbuild (deps inlined into `dist/extension.js`, `node_modules` excluded via `.vscodeignore`), every `vsce package`/`publish` call must pass `--no-dependencies`, which sidesteps the issue entirely.
 
 ### Node.js Version
 
@@ -22,19 +22,19 @@ Use **proto** for Node version management. The version is pinned in `.prototools
 
 ### Build & Development
 
-- `npm install` - Install dependencies
-- `npm run dev` - Watch mode compilation using esbuild (runs `esbuild.js --watch`, includes source maps)
-- `npm run compile` - One-time compilation (development build with source maps)
-- `npm run package` - Minified production build (runs `esbuild.js --production`, no source maps)
+- `pnpm install` - Install dependencies
+- `pnpm run dev` - Watch mode compilation using esbuild (runs `esbuild.js --watch`, includes source maps)
+- `pnpm run compile` - One-time compilation (development build with source maps)
+- `pnpm run package` - Minified production build (runs `esbuild.js --production`, no source maps)
 
 ### Code Quality
 
-- `npm run check` - Run oxlint and oxfmt checks
-- `npm run format` - Auto-fix lint issues with oxlint and format with oxfmt
+- `pnpm run check` - Run oxlint and oxfmt checks
+- `pnpm run format` - Auto-fix lint issues with oxlint and format with oxfmt
 
 ### Testing
 
-- `npm test` - Run all tests (unit + integration) in VS Code Extension Host
+- `pnpm test` - Run all tests (unit + integration) in VS Code Extension Host
 - Unit tests: `src/test/unit/` - Pure function tests, no VS Code API
 - Integration tests: `src/test/integration/` - Tests requiring VS Code API or network
 
@@ -45,7 +45,7 @@ Use **proto** for Node version management. The version is pinned in `.prototools
 
 ### Releasing
 
-- `npm run release` - Uses release-it to create tags, releases, and changelog
+- `pnpm run release` - Uses release-it to create tags, releases, and changelog
 - Extension is published to both VS Code Marketplace (`vsce publish`) and Open VSX
 - Follows conventional commits specification (validated via commitlint)
 
@@ -107,7 +107,7 @@ Uses **esbuild** via `esbuild.js` for fast bundling, following VS Code's recomme
 
 - Output directories: `out/` for tsc, `dist/` for esbuild bundled extension
 - Bundles all TypeScript into single `dist/extension.js` file
-- Targets ES2022 with CommonJS format
+- Targets ES2022 with ESM format (`package.json` has `"type": "module"`; output is ESM, loaded by the extension host via `import()` on VS Code ≥1.100)
 - External: vscode module (provided by VS Code runtime)
 - Banner with extension metadata injected from package.json
 - Development builds include source maps (`sourcemap: !production`)
@@ -120,7 +120,7 @@ Uses **esbuild** via `esbuild.js` for fast bundling, following VS Code's recomme
 - Uses **oxlint** for linting (configured in `.oxlintrc.json`) and **oxfmt** for formatting (defaults; respects `.editorconfig`)
 - Git hooks via **lefthook** run oxlint + oxfmt on pre-commit
 - **No `.js` extensions** in TypeScript imports (using `moduleResolution: "bundler"`)
-- **CommonJS for config files** - Do not use `"type": "module"` in package.json; config files use `.js` extension (not `.mjs`)
+- **ESM throughout** - `package.json` sets `"type": "module"`; the extension bundles to ESM (`dist/extension.js`) and the config files (`esbuild.js`, `.vscode-test.js`) are ESM using `import`/`export` and `import.meta.dirname`
 
 ## Bumping the minimum supported VS Code version
 

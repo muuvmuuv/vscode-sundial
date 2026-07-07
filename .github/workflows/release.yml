@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+# Publishing uses external marketplace tokens only; no write access to the repo.
+permissions:
+  contents: read
+
+# Never run two publishes at once, and never cancel one mid-flight.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    # Optional deploy gate: add required reviewers to the "release" environment
+    # in repo settings to require manual approval before publishing.
+    environment: release
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run check
+      # Bundled extension: build a single VSIX with --no-dependencies (vsce
+      # cannot walk pnpm's node_modules, and esbuild already inlines every
+      # dependency), then publish that same artifact to both registries.
+      - name: Package extension
+        run: pnpx @vscode/vsce package --no-dependencies --out sundial.vsix
+      - name: Publish to Open VSX Registry
+        uses: HaaLeo/publish-vscode-extension@ca5561daa085dee804bf9f37fe0165785a9b14db # v2
+        with:
+          pat: ${{ secrets.OPEN_VSX_TOKEN }}
+          extensionFile: sundial.vsix
+      - name: Publish to Visual Studio Marketplace
+        uses: HaaLeo/publish-vscode-extension@ca5561daa085dee804bf9f37fe0165785a9b14db # v2
+        with:
+          pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
+          registryUrl: https://marketplace.visualstudio.com
+          extensionFile: sundial.vsix

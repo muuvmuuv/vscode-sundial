@@ -223,8 +223,7 @@ smallest possible size to increase the load time in VS Code _for you_.
 > The minimum supported VS Code version is
 > [1.118.0](https://github.com/microsoft/vscode/releases/tag/1.118.0)
 
-1.  Install packages via npm: `npm install` (_pnpm_ does not work due to
-    [this VSCE Issue](https://github.com/microsoft/vscode-vsce/issues/421))
+1.  Install packages via pnpm: `pnpm install`
 2.  Run debugger => `Launch Extension`
     - View the _Extension Host_ and adjust settings to test **or**
     - Change a file and save it, let it compile
@@ -239,16 +238,20 @@ We use `release-it` to create a new release. This will automatically create a ta
 and new changelog for us.
 
 ```
-npm run release -- --help
+pnpm run release -- --help
 ```
 
 Sundial is deployed on VS Code Marketplace and Open VSX.
 
 - VS Code Marketplace:
-  - `  npx @vscode/vsce publish -p $VSCE_PAT`
+  - `  pnpx @vscode/vsce publish --no-dependencies -p $VSCE_PAT`
 - Open VSX:
-  - `npx @vscode/vsce package`
-  - `  npx ovsx publish *.vsix -p $OPENVSX_ACCESS_TOKEN`
+  - `pnpx @vscode/vsce package --no-dependencies`
+  - `  pnpx ovsx publish *.vsix -p $OPENVSX_ACCESS_TOKEN`
+
+> `--no-dependencies` is required: Sundial is bundled with esbuild, so vsce must not
+> collect `node_modules`. This also lets us use pnpm despite
+> [vsce#421](https://github.com/microsoft/vscode-vsce/issues/421).
 
 > Get token from here: https://dev.azure.com/muuvmuuv/_usersSettings/tokens
 
@@ -259,7 +262,7 @@ The version must be without pre-release identifier, because VS Code Marketplace 
 allow those.
 
 ```
-npx @vscode/vsce publish --pre-release --no-git-tag-version --no-update-package-json <pre_release_version>
+pnpx @vscode/vsce publish --no-dependencies --pre-release --no-git-tag-version --no-update-package-json <pre_release_version>
 ```
 
 ### Commits

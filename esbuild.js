@@ -1,9 +1,6 @@
-const esbuild = require('esbuild')
-const fs = require('node:fs')
-const path = require('node:path')
+import esbuild from 'esbuild'
 
-// Read package.json for metadata
-const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'))
+import pkg from './package.json' with { type: 'json' }
 
 // Create banner with metadata
 const banner = `/**
@@ -57,7 +54,7 @@ async function main() {
 	/** @type {import('esbuild').BuildOptions} */
 	const sharedOptions = {
 		bundle: true,
-		format: 'cjs',
+		format: 'esm',
 		minify: production,
 		sourcemap: !production,
 		sourcesContent: false,

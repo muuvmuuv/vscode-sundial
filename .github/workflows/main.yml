@@ -8,55 +8,17 @@ on:
     branches: ['*']
   pull_request:
     branches: [main]
-  release:
-    types:
-      - published
 
 jobs:
   verify-code:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run package
-      - run: npm run check
-
-  # publish-open-vsx:
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - verify-code
-  #   if: github.event_name == 'release'
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 22
-  #         cache: "npm"
-  #     - run: npm ci
-  #     - run: npm package
-  #     - name: Publish to Open VSX Registry
-  #       uses: HaaLeo/publish-vscode-extension@28e2d3f
-  #       with:
-  #         pat: ${{ secrets.OPEN_VSX_TOKEN }}
-
-  # publish-vs-marketplace:
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - verify-code
-  #   if: github.event_name == 'release'
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 22
-  #         cache: "npm"
-  #     - run: npm ci
-  #     - name: Publish to Visual Studio Marketplace
-  #       uses: HaaLeo/publish-vscode-extension@28e2d3f
-  #       with:
-  #         pat: ${{ secrets.VS_MARKETPLACE_TOKEN }}
-  #         registryUrl: https://marketplace.visualstudio.com
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run package
+      - run: pnpm run check

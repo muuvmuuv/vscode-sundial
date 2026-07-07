@@ -86,6 +86,8 @@ suite('Sensors API Test Suite', () => {
 
 			const tides = getTimes(date, latitude, longitude)
 
+			assert.ok(tides.sunrise instanceof Date, 'sunrise should be a Date')
+			assert.ok(tides.sunset instanceof Date, 'sunset should be a Date')
 			assert.ok(tides.sunrise.getTime() < tides.sunset.getTime(), 'Sunrise should be before sunset')
 		})
 
@@ -136,6 +138,9 @@ suite('Sensors API Test Suite', () => {
 
 			const tides1 = getTimes(date, latitude, longitude)
 			const tides2 = getTimes(date, latitude, longitude)
+
+			assert.ok(tides1.sunrise instanceof Date && tides2.sunrise instanceof Date)
+			assert.ok(tides1.sunset instanceof Date && tides2.sunset instanceof Date)
 
 			assert.strictEqual(
 				tides1.sunrise.getTime(),
