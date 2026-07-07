@@ -1,5 +1,7 @@
 # Changelog
 
+## [4.0.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.11.0...v4.0.0) (2026-07-07)
+
 ## [3.11.0](https://github.com/muuvmuuv/vscode-sundial/compare/v3.10.2...v3.11.0) (2026-05-12)
 
 ## [3.10.2](https://github.com/muuvmuuv/vscode-sundial/compare/v3.10.1...v3.10.2) (2026-04-28)
